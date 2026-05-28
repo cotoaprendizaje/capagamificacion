@@ -1,0 +1,2449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gamificación en e-learning · COTO CICSA</title>
+<meta name="description" content="Programa de formación interna de 2 semanas para el equipo de e-learning de COTO CICSA: diseñar y producir experiencias gamificadas que mejoran la retención.">
+<meta name="author" content="COTO CICSA — Dirección de Recursos Humanos">
+<meta name="theme-color" content="#162036">
+<meta property="og:title" content="Gamificación en e-learning — COTO CICSA">
+<meta property="og:description" content="Programa interno de gamificación para el equipo de Aprendizaje · Edición 2026">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23162036%22/%3E%3Ctext y=%2223%22 x=%2216%22 text-anchor=%22middle%22 font-size=%2218%22 font-family=%22Arial%22 font-weight=%22bold%22 fill=%22white%22%3EG%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>
+  /* Tema antes del primer pintado, para evitar parpadeo */
+  (function(){
+    try{
+      var stored = localStorage.getItem('coto-gam:theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', stored || (prefersDark ? 'dark' : 'light'));
+    }catch(e){ document.documentElement.setAttribute('data-theme','light'); }
+  })();
+</script>
+<style>
+  :root{
+    --navy:#1f2d46;  --navy-dark:#162036;
+    --blue:#086fa1;  --blue-dark:#00466f;  --blue-light:#097bb3;
+    --cream:#edf0fa; --gray-light:#d8dff0; --gray:#97a5be;
+    --bg:#f0f3fb;    --surface:#ffffff;    --surface-2:#f7f9fe;
+    --green:#00C88C; --green-ink:#00795a;  --green-soft:#dff5ee;
+    --pink:#F02850;  --purple:#8228C8;
+    --page-max:1180px; --read-max:820px; --page-pad:2rem; --nav-h:66px;
+    --radius:16px; --radius-sm:14px;
+    --shadow:0 4px 22px rgba(31,45,70,.10);
+    --shadow-card:0 2px 14px rgba(31,45,70,.06);
+    --grad-prog:linear-gradient(to right,var(--blue-light),#F02850);
+  }
+  [data-theme="dark"]{
+    --navy:#e2e8f5;  --navy-dark:#0d1520;
+    --blue:#4db8e8;  --blue-dark:#7dd3f7;  --blue-light:#5bc4f0;
+    --cream:#1a2540; --gray-light:#2a3a56; --gray:#6b7fa0;
+    --bg:#111c2e;    --surface:#162036;    --surface-2:#15243b;
+    --green:#2bd6a0; --green-ink:#7ce6c5;  --green-soft:#13314a;
+    --shadow:0 4px 22px rgba(0,0,0,.35);
+    --shadow-card:0 2px 14px rgba(0,0,0,.28);
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'DM Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    background:var(--bg); color:var(--navy);
+    font-size:15px; line-height:1.6; overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    transition:background .3s,color .3s;
+  }
+  ::selection{background:var(--blue-light);color:#fff}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%}
+  .page-wrap{max-width:var(--page-max);margin:0 auto;padding:0 var(--page-pad)}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+
+  /* ---------- Scroll progress ---------- */
+  #scroll-progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--grad-prog);z-index:9999;transition:width .1s linear;pointer-events:none}
+
+  /* ---------- Navbar ---------- */
+  .topnav{position:sticky;top:0;z-index:200;background:var(--navy-dark);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 2px 20px rgba(0,0,0,.3)}
+  .topnav-inner{max-width:var(--page-max);margin:0 auto;padding:0 var(--page-pad);height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+  .topnav-left{display:flex;align-items:center;gap:1.3rem;flex-shrink:0}
+  .logo-coto img{height:38px;width:auto;display:block;object-fit:contain}
+  .logo-rrhh img{height:44px;width:auto;display:block;object-fit:contain}
+  .logo-coto,.logo-rrhh{display:flex;align-items:center;transition:opacity .2s}
+  .logo-coto:hover,.logo-rrhh:hover{opacity:.85}
+  .topnav-divider{width:1px;height:30px;background:rgba(255,255,255,.15);flex-shrink:0}
+  .topnav-menu{display:flex;align-items:center;gap:.25rem;flex:1;justify-content:center}
+  .topnav-menu a{font-size:13px;font-weight:500;color:rgba(255,255,255,.55);padding:6px 14px;border-radius:8px;transition:background .15s,color .15s;white-space:nowrap}
+  .topnav-menu a:hover{background:rgba(255,255,255,.08);color:#fff}
+  .topnav-right{display:flex;align-items:center;gap:1rem;flex-shrink:0}
+  .tb-name{font-size:12.5px;color:rgba(255,255,255,.6);font-weight:500;white-space:nowrap;max-width:140px;overflow:hidden;text-overflow:ellipsis}
+  .tb-prog{display:flex;align-items:center;gap:.55rem}
+  .tb-count{font-size:12px;font-weight:600;color:rgba(255,255,255,.7);font-variant-numeric:tabular-nums}
+  .rail{height:6px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
+  .rail.rail-sm{width:96px}
+  .fill{height:100%;background:var(--grad-prog);border-radius:99px;transition:width .6s cubic-bezier(.2,.7,.3,1)}
+
+  /* ---------- FABs ---------- */
+  .fab-stack{position:fixed;bottom:1.5rem;right:1.5rem;display:flex;flex-direction:column;gap:10px;z-index:500;align-items:flex-end}
+  .fab{width:44px;height:44px;background:var(--navy-dark);border:1px solid rgba(255,255,255,.14);border-radius:11px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.85);cursor:pointer;font-size:18px;line-height:1;box-shadow:0 4px 14px rgba(0,0,0,.22);transition:transform .2s,background .2s}
+  .fab:hover{background:var(--blue-dark);transform:translateY(-2px)}
+  .back-top{opacity:0;pointer-events:none;transition:opacity .3s,transform .2s,background .2s}
+  .back-top.visible{opacity:1;pointer-events:auto}
+  .back-top svg{color:rgba(255,255,255,.85)}
+
+  /* ---------- View animation ---------- */
+  .view{animation:fadeUp .4s cubic-bezier(.2,.7,.3,1) both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;color:var(--blue-light)}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--navy-dark);padding:1rem 0 1.2rem}
+  .hero-bg{position:absolute;inset:0;pointer-events:none}
+  .hero-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 82% 50%,rgba(8,111,161,.20) 0%,transparent 60%),radial-gradient(ellipse 42% 60% at 8% 82%,rgba(240,40,80,.10) 0%,transparent 52%)}
+  .hero-bg::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:linear-gradient(to right,transparent,rgba(0,0,0,.5) 30%,rgba(0,0,0,.5) 70%,transparent);mask-image:linear-gradient(to right,transparent,rgba(0,0,0,.5) 30%,rgba(0,0,0,.5) 70%,transparent)}
+  .hero-inner{position:relative;z-index:2;max-width:var(--page-max);margin:0 auto;padding:0 var(--page-pad);display:grid;grid-template-columns:1fr;align-items:center;gap:0}
+  .hero-tag{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue-light);background:rgba(8,111,161,.15);border:1px solid rgba(8,111,161,.35);padding:3px 11px;border-radius:20px;margin-bottom:.55rem}
+  .hero-tag::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--blue-light);animation:pulse 2s ease-in-out infinite}
+  .hero-h1{display:flex;flex-direction:column;margin-bottom:.6rem}
+  .hero-h1-light{display:none}
+  .hero-h1-bold{font-size:clamp(1.55rem,3.1vw,2.35rem);font-weight:700;line-height:1.05;padding-bottom:.06em;letter-spacing:-1.2px;background:linear-gradient(135deg,#fff 0%,#fff 42%,#F02850 72%,#097bb3 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero-sub{display:none}
+  .hero-ctas{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+  .hero-cta{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:rgba(255,255,255,.65);transition:color .2s}
+  .hero-cta:hover{color:rgba(255,255,255,.95)}
+  .hero-cta .arr{transition:transform .2s;display:inline-block}
+  .hero-cta:hover .arr{transform:translateY(3px)}
+  .hero-cta-solid{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);padding:8px 18px;border-radius:9px;color:rgba(255,255,255,.85)}
+  .hero-cta-solid:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4);color:#fff}
+  .hero-cta-solid .arr{transform:none}
+  .hero-cta-solid:hover .arr{transform:translateX(3px)}
+
+  .hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  .stat-card{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);border-radius:11px;padding:.6rem .8rem;position:relative;overflow:hidden;transition:background .2s,border-color .2s}
+  .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent,rgba(255,255,255,.15));border-radius:2px 2px 0 0}
+  .stat-card:hover{background:rgba(255,255,255,.085);border-color:rgba(255,255,255,.14)}
+  .stat-card strong{display:block;font-size:clamp(1.15rem,2vw,1.65rem);font-weight:700;color:#fff;line-height:1;letter-spacing:-.7px;margin-bottom:1px;font-variant-numeric:tabular-nums}
+  .stat-card span{font-size:9px;color:rgba(255,255,255,.42);text-transform:uppercase;letter-spacing:1px;font-weight:500}
+  .stat-card p{font-size:10px;color:rgba(255,255,255,.28);margin-top:2px;line-height:1.35}
+
+  /* ---------- Stats strip ---------- */
+  .stats-strip{border-bottom:1px solid var(--gray-light);background:var(--surface)}
+  .stats-strip-inner{max-width:var(--page-max);margin:0 auto;padding:.7rem var(--page-pad);display:flex;align-items:center;gap:1.8rem;justify-content:center;flex-wrap:wrap}
+  .stat-mini{display:inline-flex;align-items:baseline;gap:.55rem;font-size:.74rem;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.7px}
+  .stat-mini strong{font-size:1.18rem;font-weight:700;color:var(--navy);letter-spacing:-.4px;font-variant-numeric:tabular-nums;text-transform:none;letter-spacing:-.4px}
+  .stat-mini-dot{width:9px;height:9px;border-radius:50%;background:var(--accent,var(--blue-light));display:inline-block;align-self:center;flex:none}
+
+  /* ---------- Progress panel ---------- */
+  .home-body{padding:1.8rem 0 3.5rem}
+  .panel{background:var(--surface);border:1px solid var(--gray-light);border-radius:var(--radius);padding:1.5rem 1.7rem;box-shadow:var(--shadow-card);margin-bottom:2.6rem}
+  .panel-head{display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:space-between;align-items:flex-end;margin-bottom:1.1rem}
+  .panel-count{font-size:1.05rem;margin-top:.15rem;font-weight:500;color:var(--gray)}
+  .panel-count strong{font-size:1.7rem;font-weight:700;color:var(--navy);margin-right:.15rem;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+  .name-field{display:flex;flex-direction:column;gap:.32rem}
+  .name-field label{font-size:10.5px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--gray)}
+  .name-field input{font:inherit;font-size:.92rem;padding:.5rem .85rem;min-width:210px;background:var(--surface-2);border:1.5px solid var(--gray-light);border-radius:10px;color:var(--navy);transition:border-color .2s,box-shadow .2s}
+  .name-field input::placeholder{color:var(--gray)}
+  .name-field input:focus{outline:none;border-color:var(--blue-light);box-shadow:0 0 0 3px rgba(8,111,161,.15)}
+  .rail.rail-lg{height:10px;background:var(--gray-light)}
+
+  .panel-done{display:flex;gap:1rem;align-items:center;border-color:var(--green);background:var(--green-soft)}
+  .panel-done .check{width:44px;height:44px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:1.4rem;flex:none;font-weight:700}
+  .panel-done h3{font-size:1.15rem;font-weight:700;color:var(--navy)}
+  .panel-done p{font-size:.9rem;color:var(--gray)}
+
+  /* ---------- Weeks & day cards ---------- */
+  .week{margin-bottom:2.4rem}
+  .week-head{display:flex;align-items:center;gap:1rem;margin-bottom:1.4rem}
+  .week-head h2{font-size:1.5rem;font-weight:700;color:var(--navy);letter-spacing:-.5px;white-space:nowrap;display:flex;align-items:baseline;gap:.6rem}
+  .week-num{font-size:.95rem;font-weight:600;color:var(--accent)}
+  .week-line{flex:1;height:2px;background:linear-gradient(to right,var(--gray-light),transparent);border-radius:2px}
+  .week-meta{font-size:12px;font-weight:600;color:var(--gray);white-space:nowrap;letter-spacing:.3px}
+
+  .day-card{display:flex;align-items:stretch;gap:0;margin-bottom:.8rem;background:var(--surface);border:1px solid var(--gray-light);border-radius:var(--radius-sm);overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s;position:relative}
+  .day-accent{width:5px;flex:none;background:var(--accent,var(--blue-light))}
+  .day-inner{display:flex;align-items:flex-start;gap:1.1rem;padding:1.1rem 1.3rem;flex:1;min-width:0}
+  a.day-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:transparent}
+  a.day-card:hover .day-arrow{transform:translateX(3px);color:var(--accent)}
+  .day-index{font-size:1.5rem;font-weight:700;line-height:1;color:var(--accent,var(--blue-light));min-width:2.1rem;padding-top:.05rem;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+  .day-main{flex:1;min-width:0}
+  .day-cardhead{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+  .day-card h3{font-size:1.02rem;font-weight:700;color:var(--navy);letter-spacing:-.2px;line-height:1.3}
+  .day-summary{font-size:.88rem;color:var(--gray);margin:.3rem 0 .55rem;line-height:1.5}
+  .day-deliv{font-size:.8rem;color:var(--gray);display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap}
+  .day-arrow{align-self:center;font-size:1.15rem;color:var(--gray-light);transition:transform .2s,color .2s;padding-right:.3rem}
+  .day-card.is-done .day-index{color:var(--green-ink)}
+  .day-card.is-done .day-accent{background:var(--green)}
+  .day-card.is-locked{opacity:.62;cursor:not-allowed;background:var(--surface-2)}
+  .day-card.is-locked .day-accent{background:var(--gray-light)}
+  .day-card.is-locked .day-index{color:var(--gray)}
+
+  .chip{font-size:9.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--gray);background:var(--surface-2);border:1px solid var(--gray-light);padding:.15em .5em;border-radius:5px;flex:none}
+  .badge{font-size:10.5px;font-weight:600;letter-spacing:.2px;padding:.28em .72em;border-radius:99px;white-space:nowrap}
+  .badge-done{background:var(--green-soft);color:var(--green-ink)}
+  .badge-open{background:rgba(8,111,161,.12);color:var(--blue)}
+  .badge-lock{background:var(--gray-light);color:var(--gray)}
+
+  /* ---------- Day view ---------- */
+  .day-wrap{max-width:var(--read-max);margin:0 auto;padding:2.6rem var(--page-pad) 4rem}
+  .back{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;font-weight:500;color:var(--gray);margin-bottom:1.8rem;transition:color .2s,gap .2s}
+  .back:hover{color:var(--blue);gap:.6rem}
+  .day-header{margin-bottom:2.1rem;padding-bottom:1.5rem;border-bottom:1px solid var(--gray-light)}
+  .day-title{font-size:clamp(1.9rem,4.4vw,2.9rem);font-weight:700;color:var(--navy);line-height:1.08;letter-spacing:-1.2px;margin:.55rem 0 .85rem}
+  .day-meta{display:flex;flex-wrap:wrap;gap:.55rem .9rem;font-size:.84rem;color:var(--gray);font-weight:500}
+  .day-meta span{display:inline-flex;align-items:center;gap:.4rem}
+  .day-meta .dot{width:3px;height:3px;border-radius:50%;background:var(--gray);align-self:center}
+
+  .day-lead{font-size:1.12rem;line-height:1.6;color:var(--navy);margin-bottom:2rem;font-weight:400}
+  .day-lead em{font-style:italic;color:var(--blue)}
+
+  .block{margin-bottom:2rem}
+  .block h2{font-size:1.32rem;font-weight:700;color:var(--navy);letter-spacing:-.4px;margin-bottom:.7rem;line-height:1.25}
+  .block p{margin-bottom:.9rem;color:var(--navy)}
+  .block p:last-child{margin-bottom:0}
+  .block strong{font-weight:700}
+
+  ul.ticks{list-style:none;display:flex;flex-direction:column;gap:.55rem;margin:.5rem 0 1rem}
+  ul.ticks li{position:relative;padding-left:1.5rem;color:var(--navy)}
+  ul.ticks li::before{content:'\25B6';position:absolute;left:0;top:.18em;font-size:.62em;color:var(--blue-light)}
+
+  .callout{background:var(--surface-2);border:1px solid var(--gray-light);border-left:3px solid var(--blue-light);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:1rem 1.2rem;margin:1.2rem 0;color:var(--navy)}
+  .callout-tag{display:block;font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--blue);margin-bottom:.3rem}
+
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:1rem 0}
+  .compare-card{background:var(--surface);border:1px solid var(--gray-light);border-radius:var(--radius-sm);padding:1.1rem}
+  .compare-card h4{font-weight:700;font-size:.92rem;color:var(--navy);margin-bottom:.4rem;display:flex;align-items:center;gap:.45rem}
+  .compare-card h4::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--gray)}
+  .compare-card p{font-size:.88rem;color:var(--gray);margin:0;line-height:1.55}
+  .compare-good{border-color:var(--green);background:var(--green-soft)}
+  .compare-good h4::before{background:var(--green)}
+
+  .note{background:rgba(8,111,161,.08);border:1px solid rgba(8,111,161,.18);border-radius:var(--radius-sm);padding:1rem 1.2rem;margin-bottom:1.8rem;font-size:.9rem;color:var(--navy)}
+  .note strong{color:var(--blue)}
+
+  .deliverable{background:linear-gradient(135deg,#162036,#1f2d46);border-radius:var(--radius);padding:1.5rem 1.7rem;margin:2.4rem 0;position:relative;overflow:hidden}
+  .deliverable::before{content:'';position:absolute;top:0;left:0;width:5px;height:100%;background:var(--grad-prog)}
+  .deliverable-tag{font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue-light);margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
+  .deliverable-tag::before{content:'\25C6';font-size:.7rem}
+  .deliverable-text{font-size:1.22rem;line-height:1.4;font-weight:600;color:#fff;letter-spacing:-.3px}
+  .deliverable-note{margin-top:.7rem;font-size:.9rem;color:rgba(255,255,255,.62);line-height:1.6;font-weight:300}
+
+  .daynav{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-top:2.6rem;padding-top:1.8rem;border-top:1px solid var(--gray-light)}
+  .daynav .spacer{flex:1}
+  .btn{font:inherit;font-weight:600;font-size:.9rem;cursor:pointer;padding:.7rem 1.3rem;border-radius:10px;border:1.5px solid transparent;display:inline-flex;align-items:center;gap:.5rem;transition:all .2s ease}
+  .btn-primary{background:var(--blue);color:#fff}
+  .btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 6px 16px rgba(8,111,161,.3)}
+  .btn-ghost{background:transparent;border-color:var(--gray-light);color:var(--navy)}
+  .btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+  .btn-done{background:var(--green-soft);color:var(--green-ink);cursor:default}
+  .btn:disabled,.btn[disabled]{opacity:.45;cursor:not-allowed;pointer-events:none}
+  .btn-link{background:none;border:none;color:var(--gray);padding:.7rem .3rem;font-weight:500}
+  .btn-link:hover{color:var(--navy)}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--navy-dark);border-top:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.45);padding:2.4rem var(--page-pad);font-size:13px}
+  .footer-inner{max-width:var(--page-max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+  .footer-logos{display:flex;align-items:center;gap:1.2rem}
+  .footer-logos img{height:24px;opacity:.7}
+  .footer-text{text-align:right}
+  .footer-text strong{color:rgba(255,255,255,.75);font-weight:600}
+  .footer-sub{margin-top:4px;font-size:12px;color:rgba(255,255,255,.35)}
+
+  /* ---------- Componentes interactivos ---------- */
+  .interactive{background:var(--surface-2);border:1px solid var(--gray-light);border-radius:var(--radius-sm);padding:1.4rem 1.5rem;margin:1.4rem 0}
+  .interactive-tag{font-size:10.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--purple);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
+  .interactive-tag::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--purple)}
+  .interactive h3{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.4rem}
+  .interactive-desc{font-size:.88rem;color:var(--gray);margin-bottom:1rem;line-height:1.55}
+
+  /* Curva del olvido — SVG container */
+  .curve-svg{width:100%;height:auto;display:block;margin:.8rem 0;max-width:540px;margin-left:auto;margin-right:auto}
+  .curve-controls{display:flex;align-items:center;gap:1rem;justify-content:center;margin-top:.8rem;flex-wrap:wrap}
+  .toggle-group{display:inline-flex;background:var(--surface);border:1px solid var(--gray-light);border-radius:99px;padding:3px;gap:0}
+  .toggle-btn{background:none;border:none;padding:.45rem 1rem;font:inherit;font-size:.82rem;font-weight:600;color:var(--gray);border-radius:99px;cursor:pointer;transition:all .2s}
+  .toggle-btn.active{background:var(--blue);color:#fff;box-shadow:0 2px 6px rgba(8,111,161,.25)}
+  .curve-legend{display:flex;gap:1.2rem;justify-content:center;font-size:.78rem;color:var(--gray);margin-top:.4rem;flex-wrap:wrap}
+  .curve-legend span{display:inline-flex;align-items:center;gap:.4rem}
+  .curve-legend .swatch{width:14px;height:3px;border-radius:2px;display:inline-block}
+
+  /* Drag & drop */
+  .dnd-wrap{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:.6rem}
+  .dnd-pool{display:flex;flex-wrap:wrap;gap:.5rem;min-height:60px;padding:.7rem;background:var(--surface);border:1.5px dashed var(--gray-light);border-radius:12px}
+  .dnd-pool-label{font-size:10.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gray);margin-bottom:.4rem}
+  .dnd-zones{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+  .dnd-zone{background:var(--surface);border:1.5px dashed var(--gray-light);border-radius:12px;padding:.7rem;min-height:130px;transition:all .2s}
+  .dnd-zone.cog{border-color:var(--green)}
+  .dnd-zone.cos{border-color:var(--gray)}
+  .dnd-zone.dragover{background:var(--cream);transform:scale(1.01)}
+  .dnd-zone-title{font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
+  .dnd-zone.cog .dnd-zone-title::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--green);flex:none}
+  .dnd-zone.cos .dnd-zone-title::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--gray);flex:none}
+  .dnd-item{background:var(--surface-2);border:1px solid var(--gray-light);border-radius:9px;padding:.5rem .8rem;font-size:.84rem;color:var(--navy);cursor:grab;user-select:none;transition:all .15s;line-height:1.35}
+  .dnd-item:hover{border-color:var(--blue-light);box-shadow:0 2px 8px rgba(8,111,161,.12)}
+  .dnd-item:active{cursor:grabbing}
+  .dnd-item.dragging{opacity:.4}
+  .dnd-item.correct{background:var(--green-soft);border-color:var(--green);color:var(--green-ink)}
+  .dnd-item.incorrect{background:#fde7eb;border-color:var(--pink);color:#9a1d36;animation:shake .3s}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+  .dnd-feedback{margin-top:.8rem;font-size:.85rem;color:var(--gray);text-align:center;min-height:1.2em}
+  .dnd-feedback.done{color:var(--green-ink);font-weight:600}
+  .dnd-reset{background:none;border:1px solid var(--gray-light);color:var(--gray);font:inherit;font-size:.78rem;padding:.35rem .8rem;border-radius:8px;cursor:pointer;transition:all .2s;margin-left:.5rem}
+  .dnd-reset:hover{border-color:var(--blue);color:var(--blue)}
+
+  /* Quiz */
+  .quiz{margin-top:1rem}
+  .quiz-q{margin-bottom:1.4rem;padding-bottom:1.2rem;border-bottom:1px solid var(--gray-light)}
+  .quiz-q:last-of-type{border-bottom:none;margin-bottom:.5rem}
+  .quiz-q-text{font-size:.95rem;font-weight:600;color:var(--navy);margin-bottom:.7rem;line-height:1.45}
+  .quiz-q-num{display:inline-block;background:var(--blue-light);color:#fff;border-radius:50%;width:22px;height:22px;text-align:center;line-height:22px;font-size:.75rem;font-weight:700;margin-right:.5rem}
+  .quiz-options{display:flex;flex-direction:column;gap:.45rem}
+  .quiz-opt{display:flex;align-items:flex-start;gap:.6rem;background:var(--surface);border:1.5px solid var(--gray-light);border-radius:10px;padding:.65rem .85rem;cursor:pointer;transition:all .15s;font-size:.88rem;color:var(--navy);line-height:1.45}
+  .quiz-opt:hover{border-color:var(--blue-light);background:var(--surface-2)}
+  .quiz-opt input{margin-top:.18em;accent-color:var(--blue);flex:none}
+  .quiz-opt.selected{border-color:var(--blue);background:rgba(8,111,161,.05)}
+  .quiz-opt.correct{border-color:var(--green);background:var(--green-soft);color:var(--green-ink)}
+  .quiz-opt.incorrect{border-color:var(--pink);background:#fde7eb;color:#9a1d36}
+  .quiz-opt.disabled{cursor:default;pointer-events:none}
+  .quiz-feedback{font-size:.82rem;margin-top:.5rem;padding:.4rem .7rem;border-radius:8px;line-height:1.5;display:none}
+  .quiz-feedback.show{display:block}
+  .quiz-feedback.ok{background:var(--green-soft);color:var(--green-ink)}
+  .quiz-feedback.bad{background:#fde7eb;color:#9a1d36}
+  .quiz-actions{display:flex;align-items:center;gap:.8rem;margin-top:1.2rem;flex-wrap:wrap}
+  .quiz-result{flex:1;font-size:.92rem;font-weight:600;color:var(--navy)}
+  .quiz-result.pass{color:var(--green-ink)}
+  .quiz-result.fail{color:#9a1d36}
+  .quiz-gate{background:rgba(130,40,200,.08);border:1px solid rgba(130,40,200,.2);border-radius:var(--radius-sm);padding:.85rem 1.1rem;margin:1.2rem 0 0;font-size:.88rem;color:var(--navy)}
+  .quiz-gate strong{color:var(--purple)}
+
+  /* ---------- Cuaderno FAB + Panel ---------- */
+  .fab{position:relative}
+  .fab-cuaderno{display:none}
+  .fab-cuaderno.visible{display:flex}
+  .fab-cuaderno .badge{position:absolute;top:-5px;right:-5px;background:var(--pink);color:#fff;border-radius:99px;padding:1px 6px;font-size:10px;font-weight:700;border:2px solid var(--bg);min-width:20px;text-align:center;line-height:1.2}
+  .cuaderno-panel{position:fixed;top:0;right:0;height:100vh;width:min(380px,90vw);background:var(--surface);border-left:1px solid var(--gray-light);box-shadow:-12px 0 30px rgba(0,0,0,.18);z-index:600;transform:translateX(100%);transition:transform .3s ease;display:flex;flex-direction:column;visibility:hidden}
+  .cuaderno-panel.open{transform:translateX(0);visibility:visible}
+  .cuaderno-head{padding:1.4rem 1.4rem 1rem;border-bottom:1px solid var(--gray-light);display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem}
+  .cuaderno-head h2{font-size:1.05rem;font-weight:700;color:var(--navy)}
+  .cuaderno-head p{font-size:.78rem;color:var(--gray);margin-top:.2rem;letter-spacing:.3px}
+  .cuaderno-close{background:none;border:1px solid var(--gray-light);width:32px;height:32px;border-radius:8px;cursor:pointer;color:var(--gray);font-size:1rem;display:grid;place-items:center;flex:none;font-family:inherit}
+  .cuaderno-close:hover{color:var(--navy);border-color:var(--navy)}
+  .cuaderno-body{flex:1;overflow-y:auto;padding:1.2rem 1.4rem}
+  .cuaderno-empty{font-size:.88rem;color:var(--gray);text-align:center;padding:2rem 1rem;line-height:1.5}
+  .insight{background:var(--surface-2);border-left:3px solid var(--blue-light);border-radius:0 10px 10px 0;padding:.85rem 1rem;margin-bottom:.7rem;animation:fadeUp .35s ease}
+  .insight-tag{font-size:9.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--blue);margin-bottom:.35rem}
+  .insight p{font-size:.88rem;color:var(--navy);line-height:1.5;margin:0}
+  .cuaderno-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:599;opacity:0;pointer-events:none;transition:opacity .2s}
+  .cuaderno-backdrop.open{opacity:1;pointer-events:auto}
+
+  /* ---------- Stepper (sticky) ---------- */
+  .day-stepper{position:sticky;top:calc(var(--nav-h) + .6rem);z-index:50;display:flex;gap:.4rem;align-items:center;background:var(--surface);border:1px solid var(--gray-light);border-radius:14px;padding:.55rem;margin-bottom:2.2rem;overflow-x:auto;box-shadow:var(--shadow-card);scrollbar-width:thin}
+  .step{display:flex;align-items:center;gap:.55rem;padding:.4rem .7rem;font-size:.78rem;font-weight:500;color:var(--gray);border-radius:9px;white-space:nowrap;border:1.5px solid transparent;transition:all .2s;background:none;font-family:inherit;cursor:default}
+  .step-n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--gray-light);color:var(--gray);font-weight:700;font-size:.72rem;transition:all .2s;flex:none}
+  .step.done{color:var(--green-ink);cursor:pointer}
+  .step.done .step-n{background:var(--green);color:#fff}
+  .step.done .step-n .num{display:none}
+  .step.done .step-n::before{content:'✓';font-size:.8rem}
+  .step.active{color:var(--navy);background:rgba(8,111,161,.08);border-color:var(--blue-light)}
+  .step.active .step-n{background:var(--blue);color:#fff}
+  .step.locked{color:var(--gray);opacity:.6;cursor:not-allowed}
+  .step-divider{height:2px;width:14px;background:var(--gray-light);border-radius:2px;flex:none}
+  .step-divider.done{background:var(--green)}
+
+  /* ---------- Section V2 ---------- */
+  .section{margin-bottom:3rem;animation:fadeUp .4s cubic-bezier(.2,.7,.3,1) both}
+  .section + .section{padding-top:2.6rem;border-top:1px dashed var(--gray-light)}
+
+  /* ---------- Concept hero ---------- */
+  .concept-hero{display:grid;grid-template-columns:300px 1fr;gap:1.5rem;background:var(--surface);border:1px solid var(--gray-light);border-radius:var(--radius);padding:1.4rem;margin-bottom:1.5rem;box-shadow:var(--shadow-card);position:relative;overflow:hidden}
+  .concept-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-prog)}
+  .concept-illo{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--cream),var(--surface-2));border-radius:12px;padding:1rem;min-height:200px}
+  .concept-illo svg{width:100%;height:auto;max-width:280px;display:block}
+  .concept-text{display:flex;flex-direction:column;justify-content:center}
+  .section-eyebrow{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--blue-light);margin-bottom:.6rem}
+  .concept-title{font-size:1.55rem;font-weight:700;color:var(--navy);letter-spacing:-.7px;line-height:1.12;margin-bottom:.6rem}
+  .concept-punch{font-size:.98rem;color:var(--navy);font-weight:500;line-height:1.5}
+  .concept-punch strong{color:var(--blue);font-weight:700}
+
+  /* ---------- Sofía ---------- */
+  .sofia-card{display:flex;gap:1rem;align-items:flex-start;background:linear-gradient(135deg,var(--surface),var(--surface-2));border:1px solid var(--gray-light);border-radius:var(--radius-sm);padding:1rem 1.2rem;margin:1.4rem 0;position:relative}
+  .sofia-card::before{content:'';position:absolute;left:64px;top:-7px;width:14px;height:14px;background:var(--surface);border:1px solid var(--gray-light);border-right:0;border-bottom:0;transform:rotate(45deg)}
+  .sofia-avatar{flex:none;width:60px;height:60px;border-radius:50%;overflow:hidden;border:2px solid var(--surface);box-shadow:var(--shadow-card)}
+  .sofia-avatar.sm{width:40px;height:40px}
+  .sofia-avatar svg{width:100%;height:100%;display:block}
+  .sofia-bubble{flex:1}
+  .sofia-bubble p{font-size:.96rem;color:var(--navy);line-height:1.55;font-style:italic;margin-bottom:.4rem}
+  .sofia-bubble p::before{content:'« ';color:var(--gray);font-weight:700;font-style:normal}
+  .sofia-bubble p::after{content:' »';color:var(--gray);font-weight:700;font-style:normal}
+  .sofia-name{font-size:11px;font-weight:600;color:var(--gray);letter-spacing:.4px;text-transform:uppercase}
+  .sofia-feedback{display:flex;gap:.8rem;align-items:center;background:var(--green-soft);border-left:3px solid var(--green);padding:.85rem 1.1rem;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin:1.2rem 0;animation:fadeUp .4s ease both}
+  .sofia-feedback p{font-size:.92rem;color:var(--green-ink);font-style:italic;margin:0}
+  .sofia-feedback p strong{color:var(--green-ink);font-style:normal}
+
+  /* ---------- Reading V2 ---------- */
+  .reading{margin-bottom:1.4rem}
+  .reading p{color:var(--navy);margin-bottom:.85rem;line-height:1.65}
+  .reading p:last-child{margin-bottom:0}
+  .reading strong{color:var(--navy);font-weight:700}
+  .reading em{color:var(--blue);font-style:italic}
+  .reading ul.ticks{margin:.6rem 0}
+
+  /* ---------- Step-next (Avanzar button) ---------- */
+  .step-next-wrap{margin:2.2rem auto 0;text-align:center}
+  .step-next{display:inline-flex;align-items:center;gap:.6rem;background:var(--blue);color:#fff;border:none;font:inherit;font-weight:600;font-size:.95rem;padding:.85rem 1.5rem;border-radius:12px;cursor:pointer;box-shadow:0 6px 16px rgba(8,111,161,.25);transition:all .2s}
+  .step-next:hover:not(:disabled){background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 8px 20px rgba(8,111,161,.35)}
+  .step-next:disabled{background:var(--gray-light);color:var(--gray);cursor:not-allowed;box-shadow:none}
+  .step-next .arr{transition:transform .2s;display:inline-block}
+  .step-next:hover:not(:disabled) .arr{transform:translateX(4px)}
+  .step-next-hint{display:block;margin-top:.4rem;font-size:.78rem;color:var(--gray)}
+
+  /* ---------- DnD V2 (pool izquierda · zonas derecha) ---------- */
+  .dnd-v2{display:grid;grid-template-columns:1fr 1.1fr;gap:1rem;margin-top:.8rem}
+  .dnd-pool-v2,.dnd-zone-v2{background:var(--surface);border:1.5px dashed var(--gray-light);border-radius:12px;padding:.75rem;display:flex;flex-direction:column;gap:.45rem}
+  .pool-label,.zone-label{font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray);margin-bottom:.25rem;display:flex;align-items:center;gap:.4rem}
+  .dnd-item-v2{background:var(--surface-2);border:1px solid var(--gray-light);border-radius:9px;padding:.55rem .75rem;font-size:.82rem;color:var(--navy);cursor:grab;line-height:1.4;transition:all .15s;user-select:none}
+  .dnd-item-v2:hover{border-color:var(--blue-light);box-shadow:0 2px 6px rgba(8,111,161,.1)}
+  .dnd-item-v2:active,.dnd-item-v2.dragging{cursor:grabbing;opacity:.5}
+  .dnd-item-v2.correct{background:var(--green-soft);border-color:var(--green);color:var(--green-ink);cursor:default}
+  .dnd-item-v2.incorrect{background:#fde7eb;border-color:var(--pink);color:#9a1d36;animation:shake .3s}
+  .dnd-zones-v2{display:flex;flex-direction:column;gap:.7rem}
+  .dnd-zone-v2{min-height:90px}
+  .dnd-zone-v2.cog{border-color:var(--green)}
+  .dnd-zone-v2.cos{border-color:var(--gray)}
+  .dnd-zone-v2.dragover{background:var(--cream);transform:scale(1.01)}
+  .zone-label.cog::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--green);flex:none}
+  .zone-label.cos::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--gray);flex:none}
+  .dnd-feedback-v2{margin-top:.8rem;font-size:.85rem;color:var(--gray);text-align:center;min-height:1.2em}
+  .dnd-feedback-v2.done{color:var(--green-ink);font-weight:600}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+  /* ---------- MDA interactive ---------- */
+  .mda-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:.8rem}
+  .mda-card{background:var(--surface);border:2px solid var(--gray-light);border-radius:12px;padding:.9rem;cursor:pointer;transition:all .2s;text-align:center;font-family:inherit}
+  .mda-card:hover{transform:translateY(-2px);border-color:var(--blue-light)}
+  .mda-card.active{border-color:var(--blue);background:rgba(8,111,161,.06);box-shadow:0 4px 12px rgba(8,111,161,.15)}
+  .mda-card-letter{font-size:1.6rem;font-weight:700;color:var(--blue-light);line-height:1;margin-bottom:.3rem;font-variant-numeric:tabular-nums}
+  .mda-card.active .mda-card-letter{color:var(--blue)}
+  .mda-card-name{font-size:.85rem;font-weight:600;color:var(--navy);letter-spacing:-.2px}
+  .mda-detail{margin-top:.9rem;padding:1rem 1.1rem;background:var(--surface-2);border:1px solid var(--gray-light);border-radius:12px;min-height:80px;font-size:.92rem;color:var(--navy);line-height:1.55}
+  .mda-detail strong{color:var(--blue);font-weight:700}
+
+  /* ---------- Four conditions interactive ---------- */
+  .cond-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.8rem}
+  .cond-card{background:var(--surface);border:2px solid var(--gray-light);border-radius:12px;padding:.9rem 1rem;cursor:pointer;transition:all .2s;text-align:left;font-family:inherit;width:100%}
+  .cond-card:hover{transform:translateY(-1px);border-color:var(--blue-light)}
+  .cond-card.open{border-color:var(--blue);background:rgba(8,111,161,.04)}
+  .cond-card-head{display:flex;align-items:center;gap:.55rem;font-weight:700;color:var(--navy);font-size:.92rem}
+  .cond-card-num{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--blue-light);color:#fff;font-size:.72rem;font-weight:700;flex:none}
+  .cond-card.open .cond-card-num{background:var(--blue)}
+  .cond-card-ex{font-size:.85rem;color:var(--gray);margin-top:.5rem;line-height:1.5;display:none}
+  .cond-card.open .cond-card-ex{display:block;animation:fadeUp .3s ease}
+  .cond-card-ex strong{color:var(--navy)}
+
+  /* ---------- Avatar img (PNG fallback) ---------- */
+  .sofia-avatar img{width:100%;height:100%;display:block;object-fit:cover}
+  .sofia-mini img{width:100%;height:100%;display:block;object-fit:cover}
+
+  /* ---------- Narrative V2 — section flow ---------- */
+  .section-head{display:flex;gap:1.2rem;align-items:flex-start;margin-bottom:1.4rem;padding-bottom:1.1rem;border-bottom:1px solid var(--gray-light)}
+  .section-head-text{flex:1;min-width:0}
+  .section-head-icon{flex:none;width:96px;height:96px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--cream),var(--surface-2));border-radius:14px;padding:.6rem;border:1px solid var(--gray-light)}
+  .section-head-icon svg{width:100%;height:100%}
+  .section-title{font-size:1.55rem;font-weight:700;color:var(--navy);letter-spacing:-.6px;line-height:1.12;margin:.45rem 0 .55rem}
+  .section-lead{font-size:1rem;color:var(--navy);line-height:1.55;font-weight:500}
+  .section-lead strong{color:var(--blue);font-weight:700}
+
+  /* Prose (the reading spine) */
+  .prose{margin:0 0 1.1rem}
+  .prose p{margin-bottom:1rem;color:var(--navy);line-height:1.72;font-size:1.02rem}
+  .prose p:last-child{margin-bottom:0}
+  .prose strong{color:var(--navy);font-weight:700}
+  .prose em{color:var(--blue);font-style:italic}
+  .prose ul.ticks{margin:.7rem 0 1rem}
+  .prose ul.ticks li{font-size:1rem;line-height:1.6}
+
+  /* Sofía inline quote (intro of section) */
+  .sofia-line{display:flex;gap:.75rem;align-items:flex-start;background:var(--surface-2);border-radius:10px;padding:.85rem 1rem;margin:1rem 0 1.3rem;border-left:3px solid var(--gray-light)}
+  .sofia-mini{flex:none;width:38px;height:38px;border-radius:50%;overflow:hidden;border:1.5px solid var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .sofia-mini svg{width:100%;height:100%;display:block}
+  .sofia-text{flex:1;font-size:.94rem;color:var(--navy);line-height:1.55;font-style:italic;margin:0}
+  .sofia-text::before{content:'« ';color:var(--gray);font-weight:700;font-style:normal}
+  .sofia-text::after{content:' »';color:var(--gray);font-weight:700;font-style:normal}
+  .sofia-attr{display:block;margin-top:.3rem;font-size:10.5px;font-weight:600;color:var(--gray);letter-spacing:.4px;text-transform:uppercase;font-style:normal}
+
+  /* Sofía reflection (after interactive, lighter — inline tone) */
+  .sofia-reflect{display:flex;gap:.65rem;align-items:flex-start;margin:1rem 0 1.1rem;padding-left:.2rem}
+  .sofia-reflect .sofia-mini{width:30px;height:30px;border-color:var(--green-soft);box-shadow:none}
+  .sofia-reflect p{flex:1;font-size:.95rem;color:var(--green-ink);line-height:1.55;font-style:italic;margin:0}
+  .sofia-reflect p::before{content:'— ';color:var(--green);font-weight:700;font-style:normal}
+  .sofia-reflect strong{color:var(--green-ink);font-style:normal;font-weight:700}
+
+  /* Key idea inline (no card) */
+  .lead-key{font-size:1.04rem;color:var(--navy);font-weight:600;background:rgba(8,111,161,.05);border-left:3px solid var(--blue-light);border-radius:0 8px 8px 0;padding:.85rem 1.1rem;margin:1.2rem 0;line-height:1.55}
+  .lead-key strong{color:var(--blue);font-weight:700}
+  .lead-key-tag{display:inline;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--blue);margin-right:.4rem}
+  .lead-key-tag::after{content:' · '}
+
+  /* Interactive lighter when inside a v2 narrative section */
+  .section .interactive{border-left:none;background:var(--surface);border:1px solid var(--gray-light);padding:1.1rem 1.25rem;margin:1.3rem 0;position:relative;overflow:hidden}
+  .section .interactive::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-prog);opacity:.65}
+  .section .interactive .interactive-tag{font-size:10px;color:var(--blue-light);text-transform:uppercase;letter-spacing:1.4px}
+  .section .interactive .interactive-tag::before{background:var(--blue-light)}
+  .section .interactive h3{font-size:1rem;color:var(--navy);margin-bottom:.3rem}
+  .section .interactive .interactive-desc{font-size:.84rem;margin-bottom:.85rem}
+
+  /* "Sección siguiente" como link discreto */
+  .section-next-wrap{margin:1.4rem 0 0;padding-top:.6rem;border-top:1px dashed var(--gray-light)}
+  .section-next{display:inline-flex;align-items:center;gap:.4rem;color:var(--blue);font-weight:600;font-size:.92rem;cursor:pointer;border:none;background:none;font-family:inherit;padding:.4rem 0;transition:gap .2s,color .2s}
+  .section-next:hover:not(:disabled){gap:.7rem;color:var(--blue-dark)}
+  .section-next:disabled{color:var(--gray);cursor:not-allowed;opacity:.65}
+  .section-next .arr{transition:transform .2s;display:inline-block}
+  .section-next:hover:not(:disabled) .arr{transform:translateX(3px)}
+  .section-next-hint{display:block;margin-top:.35rem;font-size:.78rem;color:var(--gray);font-weight:normal}
+
+  /* ---------- Scenario (mini-juego) ---------- */
+  .scenario{margin-top:.6rem}
+  .scenario-setup{font-size:.95rem;color:var(--navy);background:var(--surface-2);border-left:3px solid var(--gray);border-radius:0 10px 10px 0;padding:.85rem 1.1rem;margin-bottom:1.1rem;line-height:1.55}
+  .scenario-setup strong{color:var(--navy);font-weight:700}
+  .scenario-prompt{font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:.8rem;line-height:1.5}
+  .scenario-options{display:flex;flex-direction:column;gap:.5rem;margin-bottom:.4rem}
+  .scenario-opt{background:var(--surface);border:1.5px solid var(--gray-light);border-radius:10px;padding:.75rem 1rem;font:inherit;font-size:.92rem;color:var(--navy);text-align:left;cursor:pointer;transition:all .15s;line-height:1.45;width:100%}
+  .scenario-opt:hover:not(:disabled){border-color:var(--blue);background:rgba(8,111,161,.04);transform:translateX(2px)}
+  .scenario-opt-done{opacity:.45}
+  .scenario-opt-chosen{border-color:var(--blue)!important;background:rgba(8,111,161,.08)!important;opacity:1!important;color:var(--navy)}
+  .scenario-feedback{font-size:.92rem;color:var(--navy);background:linear-gradient(135deg,#fffbef,#fdf5d8);border:1px solid #f0d878;border-radius:10px;padding:.8rem 1rem;margin:.6rem 0 .8rem;line-height:1.55;font-style:italic;animation:fadeUp .3s ease}
+  .scenario-feedback strong{color:var(--navy);font-weight:700;font-style:normal}
+  .scenario-next{margin-top:.2rem}
+  .scenario-debrief{animation:fadeUp .4s ease both}
+  .debrief-title{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.9rem;line-height:1.4}
+  .debrief-item{background:var(--surface);border:1px solid var(--gray-light);border-left:3px solid var(--blue-light);border-radius:0 10px 10px 0;padding:.7rem 1rem;margin-bottom:.55rem}
+  .debrief-tag{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--blue);margin-bottom:.25rem}
+  .debrief-item p:last-child{font-size:.9rem;color:var(--navy);line-height:1.55;margin:0}
+  .debrief-item p:last-child strong{color:var(--navy);font-weight:700}
+  .debrief-item p:last-child em{color:var(--blue);font-style:italic}
+  .scenario-reset{margin-top:.9rem}
+
+  /* ---------- Celebration modal ---------- */
+  .celebration-overlay{position:fixed;inset:0;background:rgba(15,28,46,.75);z-index:800;display:flex;align-items:center;justify-content:center;padding:1.5rem;animation:fadeIn .25s ease both;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .celebration-modal{background:var(--surface);border-radius:var(--radius);max-width:560px;width:100%;padding:2rem 2.2rem 1.8rem;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.4);animation:scaleIn .4s cubic-bezier(.2,1,.3,1) both;max-height:90vh;overflow-y:auto}
+  @keyframes scaleIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+  .celebration-close{position:absolute;top:1rem;right:1rem;background:none;border:1px solid var(--gray-light);width:32px;height:32px;border-radius:8px;font-size:1rem;cursor:pointer;color:var(--gray);font-family:inherit;display:grid;place-items:center}
+  .celebration-close:hover{color:var(--navy);border-color:var(--navy)}
+  .celebration-check{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--green),#00a473);color:#fff;display:grid;place-items:center;font-size:2rem;font-weight:700;margin:0 auto 1rem;box-shadow:0 8px 22px rgba(0,200,140,.35);animation:popIn .55s cubic-bezier(.2,1.4,.3,1) both .12s}
+  @keyframes popIn{from{transform:scale(0)}to{transform:scale(1)}}
+  .celebration-modal h2{font-size:1.5rem;font-weight:700;color:var(--navy);text-align:center;letter-spacing:-.5px;margin-bottom:.45rem}
+  .celebration-sub{font-size:.92rem;color:var(--gray);text-align:center;margin-bottom:1.3rem;line-height:1.55}
+  .celebration-sub strong{color:var(--blue);font-weight:700}
+  .celebration-sub em{color:var(--navy);font-style:italic;font-weight:500}
+  .celebration-insights{list-style:none;margin:0 0 1.3rem;padding:0;background:var(--surface-2);border-radius:12px;border:1px solid var(--gray-light);max-height:240px;overflow-y:auto}
+  .celebration-insights li{padding:.7rem 1rem;font-size:.88rem;color:var(--navy);line-height:1.5;border-bottom:1px solid var(--gray-light)}
+  .celebration-insights li:last-child{border-bottom:none}
+  .cel-sec{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--blue);background:rgba(8,111,161,.08);padding:.15em .55em;border-radius:5px;margin-right:.5rem;vertical-align:middle}
+  .celebration-actions{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap}
+  .copy-ok{background:var(--green-soft)!important;color:var(--green-ink)!important;border-color:var(--green)!important}
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:860px){
+    .hero-inner{grid-template-columns:1fr;gap:2.2rem}
+    .topnav-menu{display:none}
+  }
+  @media(max-width:560px){
+    :root{--page-pad:1.2rem}
+    .day-arrow{display:none}
+    .compare{grid-template-columns:1fr}
+    .dnd-zones{grid-template-columns:1fr}
+    .panel-head{flex-direction:column;align-items:stretch}
+    .name-field input{min-width:0;width:100%}
+    .tb-name{display:none}
+    .hero-stats{grid-template-columns:1fr 1fr;gap:9px}
+    .footer-inner{flex-direction:column;text-align:center}
+    .footer-text{text-align:center}
+    .daynav{flex-direction:column;align-items:stretch}
+    .daynav .spacer{display:none}
+    .daynav .btn{justify-content:center;width:100%}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="sofia-avatar" viewBox="0 0 100 100">
+    <defs>
+      <radialGradient id="skinG" cx="38%" cy="32%" r="78%"><stop offset="0%" stop-color="#F4D5B4"/><stop offset="55%" stop-color="#E0B088"/><stop offset="100%" stop-color="#B8855E"/></radialGradient>
+      <radialGradient id="cheekG"><stop offset="0%" stop-color="#E07878" stop-opacity=".55"/><stop offset="100%" stop-color="#E07878" stop-opacity="0"/></radialGradient>
+      <linearGradient id="hairG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#3B1F12"/><stop offset="100%" stop-color="#180A04"/></linearGradient>
+      <linearGradient id="lipG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#9F3838"/><stop offset="50%" stop-color="#C25555"/><stop offset="100%" stop-color="#7A2424"/></linearGradient>
+      <linearGradient id="shirtG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E0563F"/><stop offset="100%" stop-color="#A8311E"/></linearGradient>
+      <radialGradient id="bgG" cx="35%" cy="30%" r="85%"><stop offset="0%" stop-color="#FCEFE0"/><stop offset="100%" stop-color="#EAD2B2"/></radialGradient>
+      <radialGradient id="irisG" cx="40%" cy="40%" r="70%"><stop offset="0%" stop-color="#A06A42"/><stop offset="55%" stop-color="#5C3220"/><stop offset="100%" stop-color="#2A1408"/></radialGradient>
+    </defs>
+    <circle cx="50" cy="50" r="50" fill="url(#bgG)"/>
+    <path d="M 12 100 C 12 78, 24 70, 50 70 C 76 70, 88 78, 88 100 Z" fill="url(#shirtG)"/>
+    <path d="M 38 70 L 38 73 L 62 73 L 62 70 Z" fill="#831F0F" opacity=".55"/>
+    <ellipse cx="50" cy="68.5" rx="9.5" ry="2" fill="#9C6B50" opacity=".7"/>
+    <path d="M 44 64 L 44 73 L 56 73 L 56 64 Z" fill="url(#skinG)"/>
+    <ellipse cx="50" cy="48" rx="18.5" ry="22.5" fill="url(#skinG)"/>
+    <path d="M 50 28 Q 65 32, 68 50 Q 65 70, 50 70 Q 60 60, 62 48 Q 60 35, 50 30 Z" fill="#9C6B50" opacity=".25"/>
+    <ellipse cx="36" cy="55" rx="4.5" ry="2.6" fill="url(#cheekG)"/>
+    <ellipse cx="64" cy="55" rx="4.5" ry="2.6" fill="url(#cheekG)"/>
+    <ellipse cx="42" cy="44" rx="3" ry="1.4" fill="#FFFFFF" opacity=".18"/>
+    <path d="M 20 56 Q 12 38, 22 20 Q 32 12, 50 12 Q 68 12, 78 20 Q 88 38, 80 56 L 78 56 L 78 42 Q 76 30, 50 30 Q 24 30, 22 42 L 22 56 Z" fill="url(#hairG)"/>
+    <g fill="url(#hairG)">
+      <circle cx="26" cy="22" r="6"/><circle cx="34" cy="14" r="6.5"/><circle cx="42" cy="10" r="6.5"/><circle cx="50" cy="9" r="6.5"/><circle cx="58" cy="10" r="6.5"/><circle cx="66" cy="14" r="6.5"/><circle cx="74" cy="22" r="6"/>
+      <circle cx="18" cy="32" r="5.5"/><circle cx="16" cy="42" r="5"/><circle cx="20" cy="52" r="4.5"/>
+      <circle cx="82" cy="32" r="5.5"/><circle cx="84" cy="42" r="5"/><circle cx="80" cy="52" r="4.5"/>
+    </g>
+    <g fill="#5C3220" opacity=".55">
+      <ellipse cx="42" cy="9" rx="2.5" ry="1.4"/><ellipse cx="50" cy="8" rx="2.5" ry="1.4"/><ellipse cx="58" cy="9" rx="2.5" ry="1.4"/>
+      <circle cx="34" cy="14" r="1.8"/><circle cx="66" cy="14" r="1.8"/><circle cx="18" cy="32" r="1.4"/><circle cx="82" cy="32" r="1.4"/>
+    </g>
+    <g fill="#180A04">
+      <ellipse cx="36" cy="33" rx="4.5" ry="3.8"/><ellipse cx="44" cy="30" rx="4.5" ry="3.8"/><ellipse cx="52" cy="30" rx="4.5" ry="3.8"/><ellipse cx="60" cy="33" rx="4.5" ry="3.8"/>
+    </g>
+    <path d="M 38 41 Q 42 39, 47 41" stroke="#180A04" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M 53 41 Q 58 39, 62 41" stroke="#180A04" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M 39 44.5 Q 43 43.3, 47 44.5" stroke="#9C6B50" stroke-width=".7" fill="none" opacity=".55"/>
+    <path d="M 53 44.5 Q 57 43.3, 61 44.5" stroke="#9C6B50" stroke-width=".7" fill="none" opacity=".55"/>
+    <ellipse cx="43" cy="46.5" rx="2.9" ry="2.7" fill="#FAFAF3"/>
+    <ellipse cx="57" cy="46.5" rx="2.9" ry="2.7" fill="#FAFAF3"/>
+    <circle cx="43" cy="46.5" r="2.1" fill="url(#irisG)"/>
+    <circle cx="57" cy="46.5" r="2.1" fill="url(#irisG)"/>
+    <circle cx="43" cy="46.7" r="1" fill="#0A0503"/>
+    <circle cx="57" cy="46.7" r="1" fill="#0A0503"/>
+    <circle cx="43.9" cy="45.6" r="0.8" fill="#FFFFFF"/>
+    <circle cx="57.9" cy="45.6" r="0.8" fill="#FFFFFF"/>
+    <circle cx="42.4" cy="47.2" r="0.35" fill="#FFFFFF" opacity=".7"/>
+    <circle cx="56.4" cy="47.2" r="0.35" fill="#FFFFFF" opacity=".7"/>
+    <path d="M 40.4 48.7 Q 43 49.8, 45.6 48.7" stroke="#9C6B50" stroke-width=".6" fill="none" opacity=".75"/>
+    <path d="M 54.4 48.7 Q 57 49.8, 59.6 48.7" stroke="#9C6B50" stroke-width=".6" fill="none" opacity=".75"/>
+    <path d="M 40.5 44.5 L 40.7 43.6 M 41.8 44 L 42 43.1 M 44.2 44 L 44.4 43.1 M 45.5 44.5 L 45.7 43.6" stroke="#180A04" stroke-width=".55" stroke-linecap="round"/>
+    <path d="M 54.5 44.5 L 54.3 43.6 M 55.8 44 L 55.6 43.1 M 58.2 44 L 58 43.1 M 59.5 44.5 L 59.3 43.6" stroke="#180A04" stroke-width=".55" stroke-linecap="round"/>
+    <path d="M 50 49 Q 48.7 54.5, 50 55.5 Q 51.3 54.5, 50.3 49" fill="#9C6B50" opacity=".22"/>
+    <path d="M 51 55.3 Q 52 56.3, 53 55.8" stroke="#9C6B50" stroke-width=".75" fill="none" stroke-linecap="round" opacity=".6"/>
+    <path d="M 49 55.3 Q 48 56.3, 47 55.8" stroke="#9C6B50" stroke-width=".75" fill="none" stroke-linecap="round" opacity=".6"/>
+    <ellipse cx="50.6" cy="53" rx="1.1" ry=".5" fill="#FFFFFF" opacity=".3"/>
+    <path d="M 44 58.5 Q 47 56.5, 50 58 Q 53 56.5, 56 58.5 Q 53 59.5, 50 59 Q 47 59.5, 44 58.5 Z" fill="url(#lipG)"/>
+    <path d="M 44 59 Q 47 62, 50 61.5 Q 53 62, 56 59 Q 53 60.8, 50 60.3 Q 47 60.8, 44 59 Z" fill="url(#lipG)"/>
+    <ellipse cx="50" cy="60.6" rx="2.5" ry=".5" fill="#FFFFFF" opacity=".3"/>
+    <path d="M 44 58.8 Q 47 60, 50 59.3 Q 53 60, 56 58.8" stroke="#6D1F1F" stroke-width=".6" fill="none"/>
+    <ellipse cx="50" cy="66.5" rx="6.5" ry="2" fill="#9C6B50" opacity=".22"/>
+  </symbol>
+  <symbol id="illo-olvido" viewBox="0 0 320 200">
+    <defs>
+      <linearGradient id="cgIllo" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#F02850"/>
+        <stop offset="1" stop-color="#F02850" stop-opacity=".25"/>
+      </linearGradient>
+    </defs>
+    <path d="M 30 38 Q 80 50, 130 95 Q 180 145, 290 165" stroke="url(#cgIllo)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <circle cx="55" cy="55" r="5" fill="#F02850"/>
+    <circle cx="90" cy="73" r="4.5" fill="#F02850" opacity="0.78"/>
+    <circle cx="130" cy="98" r="4" fill="#F02850" opacity="0.55"/>
+    <circle cx="172" cy="125" r="3.2" fill="#F02850" opacity="0.36"/>
+    <circle cx="215" cy="145" r="2.6" fill="#F02850" opacity="0.22"/>
+    <circle cx="258" cy="158" r="2" fill="#F02850" opacity="0.14"/>
+    <line x1="30" y1="180" x2="290" y2="180" stroke="#97A5BE" stroke-width="1"/>
+    <text x="30" y="195" font-size="9" fill="#97A5BE">Día 0</text>
+    <text x="270" y="195" font-size="9" fill="#97A5BE">Día 7</text>
+    <g transform="translate(255,40)">
+      <ellipse cx="0" cy="0" rx="22" ry="20" fill="#EAEFF7" stroke="#097BB3" stroke-width="1.4"/>
+      <path d="M -8 -2 Q -12 -10, -4 -12 Q 4 -16, 10 -10 Q 16 -8, 14 0 Q 10 8, 0 8 Q -10 8, -8 -2 Z" fill="#097BB3" opacity=".7"/>
+      <circle cx="-3" cy="2" r="1.4" fill="#1F2D46"/>
+      <circle cx="6" cy="2" r="1.4" fill="#1F2D46"/>
+    </g>
+  </symbol>
+  <symbol id="illo-compare" viewBox="0 0 320 200">
+    <rect x="14" y="32" width="130" height="148" rx="10" fill="#F7F9FE" stroke="#D8DFF0"/>
+    <rect x="26" y="78" width="106" height="60" rx="4" fill="#D8DFF0"/>
+    <text x="79" y="113" text-anchor="middle" font-size="9" fill="#97A5BE">contenido</text>
+    <circle cx="40" cy="56" r="9" fill="#F0BE00"/>
+    <text x="40" y="59" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">★</text>
+    <circle cx="65" cy="56" r="9" fill="#00C88C"/>
+    <text x="65" y="59" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">★</text>
+    <circle cx="90" cy="56" r="9" fill="#F02850"/>
+    <text x="90" y="59" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">★</text>
+    <text x="115" y="60" font-size="11" font-weight="700" fill="#1F2D46">+100</text>
+    <rect x="26" y="150" width="106" height="20" rx="4" fill="#EAEFF7"/>
+    <text x="79" y="163" text-anchor="middle" font-size="8" fill="#97A5BE">RANKING · #3 de 12</text>
+    <text x="79" y="24" text-anchor="middle" font-size="9" font-weight="700" fill="#F02850" letter-spacing="1.5">COSMÉTICA</text>
+    <rect x="176" y="32" width="130" height="148" rx="10" fill="#fff" stroke="#086FA1" stroke-width="1.5"/>
+    <text x="241" y="56" text-anchor="middle" font-size="10" font-weight="600" fill="#1F2D46">¿Qué hacés?</text>
+    <rect x="186" y="68" width="110" height="20" rx="6" fill="#EAEFF7" stroke="#097BB3"/>
+    <text x="241" y="82" text-anchor="middle" font-size="8.5" fill="#1F2D46">Opción A</text>
+    <rect x="186" y="94" width="110" height="20" rx="6" fill="#EAEFF7" stroke="#097BB3"/>
+    <text x="241" y="108" text-anchor="middle" font-size="8.5" fill="#1F2D46">Opción B</text>
+    <rect x="186" y="120" width="110" height="20" rx="6" fill="#EAEFF7" stroke="#097BB3"/>
+    <text x="241" y="134" text-anchor="middle" font-size="8.5" fill="#1F2D46">Opción C</text>
+    <text x="241" y="158" text-anchor="middle" font-size="9" fill="#00795A" font-weight="600">→ feedback distinto</text>
+    <text x="241" y="171" text-anchor="middle" font-size="8" fill="#97A5BE">según lo que elegiste</text>
+    <text x="241" y="24" text-anchor="middle" font-size="9" font-weight="700" fill="#00795A" letter-spacing="1.5">COGNITIVA</text>
+    <circle cx="160" cy="106" r="14" fill="#1F2D46"/>
+    <text x="160" y="111" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">vs</text>
+  </symbol>
+  <symbol id="illo-mda" viewBox="0 0 320 200">
+    <polygon points="160,30 50,165 270,165" fill="#EAEFF7" stroke="#097BB3" stroke-width="1.5" opacity=".7"/>
+    <circle cx="160" cy="30" r="22" fill="#8228C8"/>
+    <text x="160" y="36" text-anchor="middle" font-size="20" font-weight="700" fill="#fff">A</text>
+    <text x="160" y="14" text-anchor="middle" font-size="9" fill="#1F2D46" font-weight="700" letter-spacing="1.5">ESTÉTICA</text>
+    <circle cx="50" cy="165" r="22" fill="#F02850"/>
+    <text x="50" y="171" text-anchor="middle" font-size="20" font-weight="700" fill="#fff">M</text>
+    <text x="50" y="197" text-anchor="middle" font-size="9" fill="#1F2D46" font-weight="700" letter-spacing="1.5">MECÁNICA</text>
+    <circle cx="270" cy="165" r="22" fill="#00C88C"/>
+    <text x="270" y="171" text-anchor="middle" font-size="20" font-weight="700" fill="#fff">D</text>
+    <text x="270" y="197" text-anchor="middle" font-size="9" fill="#1F2D46" font-weight="700" letter-spacing="1.5">DINÁMICA</text>
+    <path d="M 78 160 Q 110 110, 142 60" stroke="#1F2D46" stroke-width="1.2" fill="none" stroke-dasharray="3,3" opacity=".5" marker-end="url(#arrMda)"/>
+    <defs><marker id="arrMda" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1F2D46" opacity=".5"/></marker></defs>
+    <text x="100" y="95" font-size="9" fill="#1F2D46" font-weight="600" opacity=".7">diseño</text>
+  </symbol>
+  <symbol id="illo-fourCond" viewBox="0 0 320 200">
+    <rect x="20" y="20" width="135" height="75" rx="9" fill="#EAEFF7" stroke="#097BB3" stroke-width="1.5"/>
+    <text x="35" y="42" font-size="18" fill="#097BB3" font-weight="700">⚡</text>
+    <text x="60" y="46" font-size="12" font-weight="700" fill="#1F2D46">Feedback</text>
+    <text x="60" y="62" font-size="11" fill="#1F2D46">inmediato</text>
+    <text x="60" y="82" font-size="9" fill="#97A5BE">cada decisión responde</text>
+    <rect x="165" y="20" width="135" height="75" rx="9" fill="#FBE7E0" stroke="#F02850" stroke-width="1.5"/>
+    <text x="180" y="44" font-size="18" fill="#F02850" font-weight="700">⚖</text>
+    <text x="205" y="46" font-size="12" font-weight="700" fill="#1F2D46">Dificultad</text>
+    <text x="205" y="62" font-size="11" fill="#1F2D46">calibrada</text>
+    <text x="205" y="82" font-size="9" fill="#97A5BE">zona de "flow"</text>
+    <rect x="20" y="105" width="135" height="75" rx="9" fill="#DFF5EE" stroke="#00C88C" stroke-width="1.5"/>
+    <text x="35" y="128" font-size="18" fill="#00C88C" font-weight="700">→</text>
+    <text x="60" y="131" font-size="12" font-weight="700" fill="#1F2D46">Consecuencias</text>
+    <text x="60" y="147" font-size="11" fill="#1F2D46">significativas</text>
+    <text x="60" y="167" font-size="9" fill="#97A5BE">las decisiones importan</text>
+    <rect x="165" y="105" width="135" height="75" rx="9" fill="#F0E8FB" stroke="#8228C8" stroke-width="1.5"/>
+    <text x="180" y="129" font-size="18" fill="#8228C8" font-weight="700">↻</text>
+    <text x="205" y="131" font-size="12" font-weight="700" fill="#1F2D46">Repetición</text>
+    <text x="205" y="147" font-size="11" fill="#1F2D46">voluntaria</text>
+    <text x="205" y="167" font-size="9" fill="#97A5BE">querés volver a intentar</text>
+  </symbol>
+  <symbol id="illo-quiz" viewBox="0 0 320 200">
+    <rect x="40" y="30" width="240" height="140" rx="12" fill="#fff" stroke="#097BB3" stroke-width="2"/>
+    <text x="160" y="58" text-anchor="middle" font-size="11" font-weight="700" fill="#1F2D46">Recuperación activa</text>
+    <rect x="55" y="72" width="210" height="22" rx="6" fill="#EAEFF7"/>
+    <text x="160" y="86" text-anchor="middle" font-size="9" fill="#1F2D46">Olvido lineal y parejo</text>
+    <rect x="55" y="100" width="210" height="22" rx="6" fill="#DFF5EE" stroke="#00C88C" stroke-width="1.4"/>
+    <text x="160" y="114" text-anchor="middle" font-size="9" fill="#00795A" font-weight="700">✓ Olvido exponencial, 24-48h</text>
+    <rect x="55" y="128" width="210" height="22" rx="6" fill="#EAEFF7"/>
+    <text x="160" y="142" text-anchor="middle" font-size="9" fill="#1F2D46">Mejor cuanto más largo el curso</text>
+    <circle cx="278" cy="48" r="14" fill="#00C88C"/>
+    <text x="278" y="53" text-anchor="middle" font-size="14" fill="#fff" font-weight="700">✓</text>
+  </symbol>
+</svg>
+
+<div id="scroll-progress" aria-hidden="true"></div>
+
+<div class="fab-stack">
+  <button class="fab fab-dark" id="darkFab" aria-label="Cambiar modo claro/oscuro" title="Modo claro/oscuro"><span id="darkIcon" aria-hidden="true">☀️</span></button>
+  <button class="fab fab-cuaderno" id="cuadernoFab" aria-label="Abrir cuaderno" title="Tu cuaderno del día">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 2.5h9a1 1 0 0 1 1 1V14L8 12l-5 2V3.5a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M5.5 6h5M5.5 8.5h3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+    <span class="badge" id="cuadernoBadge" style="display:none">0</span>
+  </button>
+  <button class="fab back-top" id="backTop" aria-label="Volver al inicio" title="Volver arriba">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 11V3M3 7l4-4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<div class="cuaderno-backdrop" id="cuadernoBackdrop" aria-hidden="true"></div>
+<aside class="cuaderno-panel" id="cuadernoPanel" aria-hidden="true" aria-label="Cuaderno del día">
+  <header class="cuaderno-head">
+    <div>
+      <h2>Tu cuaderno</h2>
+      <p id="cuadernoSub">Insights del día</p>
+    </div>
+    <button class="cuaderno-close" id="cuadernoClose" aria-label="Cerrar">✕</button>
+  </header>
+  <div class="cuaderno-body" id="cuadernoBody"></div>
+</aside>
+
+<header class="topnav" role="banner">
+  <div class="topnav-inner">
+    <div class="topnav-left">
+      <a href="#" class="logo-coto" data-home aria-label="COTO — ir al inicio"><img src="assets/logo-coto.png" alt="COTO CICSA"></a>
+      <span class="topnav-divider" aria-hidden="true"></span>
+      <a href="#" class="logo-rrhh" data-home aria-label="RRHH Aprendizaje — ir al inicio"><img src="assets/logo-rrhh.png" alt="Dirección de Recursos Humanos — Aprendizaje"></a>
+    </div>
+    <nav class="topnav-menu" aria-label="Menú"><a href="#" data-home>Programa</a></nav>
+    <div class="topnav-right">
+      <span class="tb-name" id="tbName"></span>
+      <div class="tb-prog" title="Progreso del programa">
+        <span class="tb-count" id="tbCount">0/10</span>
+        <div class="rail rail-sm"><div class="fill" id="tbFill" style="width:0"></div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-logos">
+      <img src="assets/logo-coto.png" alt="COTO CICSA">
+      <img src="assets/logo-rrhh.png" alt="RRHH Aprendizaje">
+    </div>
+    <div class="footer-text">
+      <p><strong>COTO CICSA</strong> — Dirección de Recursos Humanos · Aprendizaje</p>
+      <p class="footer-sub">Programa de formación interna · Gamificación en e-learning · Edición 2026</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   CONTENIDO DEL CURSO
+   ============================================================ */
+const COURSE = {
+  weeks:[
+    {n:1, title:"Marco y diseño", range:[1,5], accent:"#097bb3"},
+    {n:2, title:"Producción y prototipo", range:[6,10], accent:"#8228C8"}
+  ],
+  days:[
+    {
+      n:1, week:1, duration:"50 min",
+      title:"Gamificación y retención: el porqué",
+      summary:"La curva del olvido, MDA y la diferencia entre gamificación cosmética y cognitiva.",
+      deliverable:"Mapa mental «qué queremos retener y por qué no se retiene hoy»",
+      format:"v2",
+      sections:[
+        {
+          title:"La curva del olvido",
+          concept:{
+            eyebrow:"Sección 1 · La curva del olvido",
+            title:"Por qué se evapora lo que enseñamos",
+            punch:"El <strong>80%</strong> de lo aprendido desaparece en 48 horas si no hay refuerzo. No es opinión: es <strong>Ebbinghaus, 1885</strong>.",
+            illo:"olvido"
+          },
+          sofia:{
+            text:"Hace dos meses dí un curso de devoluciones. A los tres días les pregunté la diferencia entre TC y TM y nadie se acordaba. ¿Estoy haciendo algo mal?",
+            name:"Sofía · Capacitadora interna · Equipo COTO Aprendizaje"
+          },
+          reading:`<p>La respuesta corta: <strong>no, Sofía</strong>. La curva del olvido (Hermann Ebbinghaus, 1885) describe algo que vivimos todo el tiempo en producción: lo aprendido se desvanece rápido y la caída más brusca ocurre en las primeras 24–48 horas.</p>
+<p>Dos palancas la aplanan: <strong>repaso espaciado</strong> y <strong>recuperación activa</strong> (traer el contenido de memoria, no releerlo). La gamificación bien hecha es el vehículo para forzar la segunda.</p>`,
+          interactive:{type:"curve", tag:"Experimentá", title:"¿Qué pasa con o sin refuerzo?", desc:"La línea muestra qué porcentaje recuerda una persona a lo largo de los días. Activá el refuerzo espaciado y mirá cómo cambia."},
+          feedback:{
+            curious:"Bien — al comparar las dos curvas se ve directo el efecto. El <strong>repaso espaciado no es decoración</strong>: es lo que cambia el resultado.",
+            default:"Ah — entonces lo que falta es <strong>volver al contenido en momentos clave</strong> después del curso. No más PDFs que se ven una vez."
+          },
+          idea:{tag:"Idea clave", text:"No gamificamos para entretener: gamificamos para provocar <strong>recuperación activa</strong> antes de que la curva caiga."},
+          insight:"El olvido cae fuerte en 24-48h. Repaso espaciado + recuperación activa aplanan la curva. La gamificación bien hecha fuerza la segunda."
+        },
+        {
+          title:"Cosmética vs cognitiva",
+          concept:{
+            eyebrow:"Sección 2 · Cosmética vs cognitiva",
+            title:"Cuándo gamificar mejora la retención (y cuándo es decoración)",
+            punch:"Sacale las medallas. <strong>¿Sigue enseñando?</strong> Esa es la pregunta de oro.",
+            illo:"compare"
+          },
+          sofia:{
+            text:"Ya le pegué badges, puntos y un ranking al mismo curso. Igual nadie retuvo nada. ¿Por qué no funcionó?",
+            name:"Sofía · una semana después"
+          },
+          reading:`<p>Porque las medallas y los puntos quedaron <strong>encima de un contenido que no cambió</strong>. No tocaron cómo se procesa la información: solo decoraron la pantalla. Eso es <em>chocolate-covered broccoli</em>: el brócoli sigue siendo brócoli.</p>
+<p>La distinción operativa: si sacás los puntos y la actividad sigue enseñando lo mismo, es <strong>cognitiva</strong>. Si sin los puntos no queda nada, es <strong>cosmética</strong>.</p>`,
+          interactive:{
+            type:"dnd", tag:"Decidí", title:"Clasificá estos seis ejemplos", desc:"Arrastrá cada caso a su zona. La distancia es corta y horizontal.",
+            items:[
+              {id:1, text:"Cada slide muestra un trofeo cuando hacés click en \"siguiente\"", cat:"cos"},
+              {id:2, text:"El curso muestra un caso, pedís decidir y según la elección abre un escenario distinto con feedback", cat:"cog"},
+              {id:3, text:"Ranking público de quién terminó el módulo más rápido", cat:"cos"},
+              {id:4, text:"Tres preguntas de recuperación tras cada bloque que tenés que aprobar para seguir", cat:"cog"},
+              {id:5, text:"Mecánica de \"vidas\": si no acertás en pocos intentos, el módulo te devuelve a repasar el punto débil", cat:"cog"},
+              {id:6, text:"Una barra de XP que sube cada vez que entrás al curso, sin importar si aprendiste algo", cat:"cos"}
+            ]
+          },
+          feedback:{
+            allCorrect:"<strong>Lo entendiste rápido.</strong> El criterio quedó claro: las cognitivas obligan a procesar, las cosméticas son recompensas pegadas.",
+            mixed:"<strong>Te llevó algunos intentos</strong>, pero quedó claro: las cognitivas obligan a procesar el contenido. Las cosméticas no.",
+            default:"Entendí: lo que importa es si la mecánica <strong>cambia lo que hago</strong>, no lo que veo. Voy a rediseñar el curso desde la decisión, no desde las medallas."
+          },
+          idea:{tag:"Prueba rápida", text:"Si sacás los puntos y la actividad sigue enseñando lo mismo, es <strong>cognitiva</strong>. Si sin los puntos no queda nada, es <strong>cosmética</strong>."},
+          insight:"Cosmética = recompensa pegada encima sin tocar el procesamiento. Cognitiva = la mecánica ES la actividad de aprendizaje."
+        },
+        {
+          title:"El marco MDA",
+          concept:{
+            eyebrow:"Sección 3 · El marco MDA",
+            title:"Un lenguaje común para diseñar y criticar juegos",
+            punch:"<strong>Mecánica · Dinámica · Estética</strong>. El diseñador construye de izquierda a derecha. Quien juega, lo experimenta al revés.",
+            illo:"mda"
+          },
+          sofia:{
+            text:"Si tengo que diseñar una mecánica nueva, ¿por dónde arranco? ¿Pongo puntos y veo qué pasa?",
+            name:"Sofía · pensando el diseño"
+          },
+          reading:`<p>MDA es el atajo conceptual que más vale la pena tener a mano. Define tres capas:</p>
+<ul class="ticks">
+<li><strong>Mecánicas</strong> — las reglas y los componentes: puntos, turnos, vidas, decisiones.</li>
+<li><strong>Dinámicas</strong> — el comportamiento que emerge al jugar: tensión, estrategia, exploración.</li>
+<li><strong>Estética</strong> — la experiencia y la emoción resultante: desafío, descubrimiento, dominio.</li>
+</ul>
+<p>Como diseñadores construimos de mecánicas a estéticas. Quien juega experimenta al revés. Por eso conviene <strong>definir primero la emoción y el objetivo de aprendizaje</strong>, y recién después elegir las mecánicas.</p>`,
+          interactive:{type:"mda", tag:"Explorá las capas", title:"Tocá cada letra del triángulo", desc:"Una a una, mirá qué incluye y para qué sirve cada capa."},
+          feedback:{default:"Claro — primero la emoción que quiero generar, y la mecánica viene en función de eso. <strong>No al revés.</strong>"},
+          idea:{tag:"Regla práctica", text:"Definí primero el <strong>objetivo de aprendizaje y la emoción</strong>. Las mecánicas no son el punto de partida: son el final del diseño."},
+          insight:"MDA: el diseñador va de mecánica a estética. Quien aprende va de estética a mecánica. Empezar por la emoción + objetivo, no por los puntos."
+        },
+        {
+          title:"¿Qué hace que enseñe?",
+          concept:{
+            eyebrow:"Sección 4 · Lo que enseña",
+            title:"Las 4 condiciones que separan jugar de aprender jugando",
+            punch:"Feedback inmediato. Dificultad calibrada. Consecuencias significativas. Repetición voluntaria.",
+            illo:"fourCond"
+          },
+          sofia:{
+            text:"Las 4 condiciones suenan claras en el papel. Pero, ¿cómo se sienten cuando estás vos diseñando una capacitación real? Probemos.",
+            name:"Sofía · arremangándose"
+          },
+          reading:`<p>Cuatro condiciones aparecen una y otra vez en los juegos que efectivamente enseñan. Pero leerlas no es lo mismo que <em>sentirlas</em>. Acá, en vez de listarlas, las vas a vivir.</p><p>Tomá una decisión, mirá qué pasa, seguí. Al final vemos qué tan distinto se sintió del "leer la teoría".</p>`,
+          interactive:{
+            type:"scenario", tag:"Vivilo", title:"Una decisión con consecuencias", desc:"60–90 segundos. Después del juego, debrief con las 4 condiciones señaladas.",
+            scenario:{
+              setup:"Tenés a <strong>María</strong>, cajera nueva. La semana pasada confundió TC con TM y devolvió $5.000 de más. Mañana arranca a la mañana. Te quedan 30 minutos al final de hoy para enseñarle.",
+              steps:[
+                {
+                  id:"start",
+                  prompt:"¿Cómo encarás esos 30 minutos?",
+                  options:[
+                    {text:"Le paso el PDF del manual y le digo que lo lea esta noche.", feedback:"María se va con el PDF. Mañana se traba en el mismo punto. <strong>Lectura sin práctica no fija.</strong>", next:"slow"},
+                    {text:"Le muestro un ticket TM y uno TC, y le pido que me explique la diferencia.", feedback:"Mira un rato, prueba decir algo, se traba, vuelve a mirar — y arranca a entender. <strong>Procesó el contenido.</strong>", next:"good"},
+                    {text:"Le digo 'lo vas viendo solo' y la apuro a salir.", feedback:"Mañana ni siquiera intentó. Pierde plata y confianza. <strong>Cero estructura, cero aprendizaje.</strong>", next:"slow"}
+                  ]
+                },
+                {
+                  id:"slow",
+                  prompt:"Mañana María sigue sin saber. Tenés 5 minutos antes de abrir caja. ¿Qué hacés?",
+                  options:[
+                    {text:"Le repito el PDF.", feedback:"Se traba otra vez. El PDF no es el problema.", next:"debrief"},
+                    {text:"Le tiro 3 casos rápidos para que decida, con corrección al instante.", feedback:"Mejora. Empieza a internalizar. <strong>Esto sí enseña.</strong>", next:"debrief"},
+                    {text:"Le digo 'preguntá cuando dudes'.", feedback:"Pregunta una vez, después se calla por no molestar.", next:"debrief"}
+                  ]
+                },
+                {
+                  id:"good",
+                  prompt:"María entendió el principio. Pero a la hora del caso real va a dudar. ¿Cómo asegurás que se quede?",
+                  options:[
+                    {text:"Le digo 'cualquier duda, vení a mí'.", feedback:"Viene una vez. Después se calla por no molestar.", next:"debrief"},
+                    {text:"Le mando un mini-caso por WhatsApp cada día durante 3 días: que decida y me responda.", feedback:"<strong>Espaciado + retrieval.</strong> Al cuarto día responde sin dudar.", next:"debrief"},
+                    {text:"La mando a hacer otra capacitación.", feedback:"Otro curso, mismo problema. Se aburre.", next:"debrief"}
+                  ]
+                }
+              ],
+              debrief:[
+                {tag:"Feedback inmediato", text:"Cada decisión que tomaste tenía consecuencia <strong>ahora</strong>, no al final del juego. Esa respuesta inmediata es lo que te hace reflexionar."},
+                {tag:"Dificultad calibrada", text:"Las opciones no eran obvias — había balance entre la fácil (PDF) y la imposible (que se arregle sola). Esa zona intermedia es donde realmente se aprende."},
+                {tag:"Consecuencias significativas", text:"Lo que elegiste en el primer paso <strong>cambió las opciones del siguiente</strong>. Tus decisiones importaron — no eran cosméticas."},
+                {tag:"Repetición voluntaria", text:"Si querés ver qué pasa con la otra ruta, podés reiniciar — y ese deseo <em>es</em> la repetición voluntaria que aplana la curva del olvido."}
+              ]
+            }
+          },
+          feedback:{
+            efficient:"<strong>Buena ruta.</strong> Elegiste enseñar haciendo y reforzaste con espaciado. Eso es las 4 condiciones puestas a trabajar.",
+            rough:"Es una ruta dura, pero ese rebote también es aprendizaje: las decisiones tienen consecuencias y se sienten. Probá la otra ruta cuando quieras.",
+            default:"Viviste las 4 condiciones en acción. Ahora la lista ya no es teoría — la <em>sentiste</em>."
+          },
+          idea:{tag:"Tu checklist", text:"Una mecánica que cumple las 4 condiciones <strong>no es decoración</strong>: es recuperación activa disfrazada de juego."},
+          insight:"Las 4 condiciones (feedback inmediato + dificultad calibrada + consecuencias + repetición) no son teoría: son lo que hace que el aprendizaje se sienta como juego."
+        },
+        {
+          title:"Recuperación activa",
+          concept:{
+            eyebrow:"Sección 5 · Cierre",
+            title:"Recuperación activa: chequeo de cierre",
+            punch:"El quiz no es decorativo: <strong>es la mecánica que el día propone</strong>. Aprobalo y desbloqueás el siguiente.",
+            illo:"quiz"
+          },
+          sofia:{
+            text:"Voy a aplicar todo esto. Pero primero, dejame ver si me quedó.",
+            name:"Sofía · cerrando el día"
+          },
+          reading:`<p>Este es tu propio momento de recuperación activa. <strong>Cuatro preguntas, tres correctas para aprobar.</strong> Reintentos ilimitados — la idea es traer el contenido de memoria, no releerlo arriba.</p>`,
+          interactive:{type:"quiz", tag:"Quiz de cierre · 4 preguntas", title:"Aprobá con 3 de 4 para desbloquear el día siguiente", desc:"Reintentos ilimitados. La idea es traer el contenido de memoria."},
+          feedback:{
+            perfect:"<strong>Cuatro de cuatro al primer intento.</strong> Tenés el marco internalizado. Mañana arrancamos con mecánicas concretas.",
+            passedFirst:"<strong>Tres de cuatro al primer intento</strong> — la idea quedó. Mañana profundizamos.",
+            passedRetry:"Te llevó algunos intentos, pero quedó. Mejor así: <strong>el repaso forzado fue recuperación activa real</strong>.",
+            passed:"<strong>Aprobado.</strong> Ya tenés el marco completo. Mañana vamos a las mecánicas en concreto."
+          },
+          idea:{tag:"Lo que te llevás", text:"<strong>Por qué olvidamos</strong>, qué distingue la gamificación cognitiva de la cosmética, el marco <strong>MDA</strong>, y las <strong>4 condiciones</strong> que hacen que un juego enseñe."},
+          insight:"Marco completo del día listo: olvido → MDA → 4 condiciones. Próximo paso: mecánicas concretas para retail y operaciones."
+        }
+      ],
+      quiz:[
+        {
+          q:"¿Qué describe la curva del olvido de Ebbinghaus?",
+          opts:[
+            "Un olvido lineal y parejo a lo largo del tiempo",
+            "Un olvido exponencial con caída pronunciada en las primeras 24–48 horas",
+            "Que el contenido se retiene mejor cuanto más largo es el curso",
+            "Que sin emociones fuertes no hay retención"
+          ],
+          correct:1,
+          explain:"La curva es exponencial: la mayor pérdida ocurre apenas pasan las primeras 24–48 horas, no a lo largo del tiempo de forma pareja."
+        },
+        {
+          q:"¿Cuál de estas es gamificación cognitiva, no cosmética?",
+          opts:[
+            "Mostrar una medalla al terminar cada slide",
+            "Sumar puntos por hacer click en todos los botones",
+            "Pedir a la persona que decida cómo actuar ante un caso y darle feedback distinto según la elección",
+            "Mostrar un ranking de quién terminó el curso más rápido"
+          ],
+          correct:2,
+          explain:"La decisión con feedback diferenciado obliga a procesar el contenido. Las otras tres pegan recompensas encima sin tocar cómo se aprende."
+        },
+        {
+          q:"En el marco MDA, ¿en qué orden conviene diseñar?",
+          opts:[
+            "Mecánica → dinámica → estética",
+            "Estética y objetivo de aprendizaje primero, después mecánica",
+            "Dinámica primero, mecánica al final",
+            "Todo al mismo tiempo, sin orden"
+          ],
+          correct:1,
+          explain:"Quien juega experimenta de estética a mecánica. Por eso conviene definir primero la emoción y el objetivo de aprendizaje, y recién después elegir las mecánicas que los producen."
+        },
+        {
+          q:"¿Cuál NO es una de las cuatro condiciones que hacen que un juego enseñe?",
+          opts:[
+            "Feedback inmediato y específico",
+            "Dificultad calibrada (zona de flow)",
+            "Consecuencias significativas en las decisiones",
+            "Premios externos cada vez más grandes"
+          ],
+          correct:3,
+          explain:"Las cuatro condiciones son feedback inmediato, dificultad calibrada, consecuencias significativas y repetición voluntaria. Los premios externos pertenecen a la gamificación cosmética."
+        }
+      ],
+      deliverableNote:"Elegí un curso real de COTO. Listá los 3–5 conocimientos críticos que deberían retenerse y, al lado de cada uno, por qué hoy no se retienen (módulo único, sin práctica, sin refuerzo…). El mapa mental es el insumo de toda la semana."
+    },
+    {
+      n:2, week:1, duration:"55 min",
+      title:"Mecánicas de juego para aprendizaje",
+      summary:"Taxonomía de mecánicas, tipos de jugador (Bartle) y factibilidad técnica.",
+      deliverable:"Tabla «mecánica → objetivo de aprendizaje → factibilidad técnica»",
+      outline:[
+        "Taxonomía de mecánicas: feedback inmediato, retos progresivos, narrativa, recompensas.",
+        "Tipos de jugador (Bartle): logrador, explorador, social, competidor.",
+        "Qué mecánicas aplican en contextos de retail y operaciones.",
+        "Storyline vs. HTML: mapa de posibilidades técnicas por mecánica."
+      ]
+    },
+    {
+      n:3, week:1, duration:"60 min",
+      title:"Taller: disección de juegos existentes",
+      summary:"Analizar juegos con MDA, mapear brechas y definir cuándo NO gamificar.",
+      deliverable:"Ficha de análisis MDA + lista de 5 mecánicas priorizadas",
+      outline:[
+        "Cómo analizar un juego con el marco MDA.",
+        "Ejercicio: analizar 3 juegos (casual, educativo y uno propio).",
+        "Mapear brechas: curso sin gamificar vs. versión gamificada hipotética.",
+        "¿Cuándo NO gamificar? criterios de decisión."
+      ]
+    },
+    {
+      n:4, week:1, duration:"55 min",
+      title:"Diseño instruccional gamificado",
+      summary:"Incorporar mecánicas desde el guion, antes de abrir Storyline.",
+      deliverable:"Guion gamificado de un módulo corto con mecánicas anotadas",
+      outline:[
+        "Cómo incorporar mecánicas desde el guion, antes de abrir Storyline.",
+        "Diseño de feedback: corrector, narrativo o ninguno.",
+        "Progresión de dificultad en un módulo de 15–20 slides.",
+        "Ejercicio: rediseñar 3 slides existentes con mecánicas."
+      ]
+    },
+    {
+      n:5, week:1, duration:"60 min",
+      title:"Herramientas: Storyline avanzado + HTML con Claude",
+      summary:"Variables y triggers en Storyline, y el flujo HTML con Claude hasta Moodle.",
+      deliverable:"Decisión de herramienta para el prototipo + brief inicial del juego",
+      outline:[
+        "Storyline: variables numéricas, capas con estados y triggers para gamificación.",
+        "Cuándo Storyline alcanza y cuándo conviene HTML.",
+        "Flujo HTML con Claude: brief → prompt → iteración → integración en Moodle.",
+        "Demo: construir una mecánica de feedback en HTML con Claude."
+      ]
+    },
+    {
+      n:6, week:2, duration:"55 min",
+      title:"Diseño del prototipo: mecánica + narrativa",
+      summary:"Elegir tema y mecánica central, y escribir el guion completo del juego.",
+      deliverable:"Guion finalizado + wireframe del flujo del juego",
+      outline:[
+        "Cómo elegir tema, mecánica central y objetivo de aprendizaje.",
+        "Diseño de narrativa: personaje, situación y consecuencias de las decisiones.",
+        "Guion completo: estados del juego, flujos de decisión, feedback y cierre.",
+        "División de roles: diseño visual, lógica de juego y producción audiovisual."
+      ]
+    },
+    {
+      n:7, week:2, duration:"60 min",
+      title:"Sprint I: assets y estructura",
+      summary:"Pantallas y estados en Illustrator, y estructura base del juego.",
+      deliverable:"Assets exportados + estructura base funcional",
+      outline:[
+        "Diseño en Illustrator: pantallas base y estados visuales (correcto/incorrecto/neutro).",
+        "Estructura base en Storyline o HTML (esqueleto sin lógica completa).",
+        "Prompt engineering con Claude para generar la estructura del juego.",
+        "Revisión de avance entre integrantes."
+      ]
+    },
+    {
+      n:8, week:2, duration:"60 min",
+      title:"Sprint II: lógica y feedback",
+      summary:"Implementar la mecánica central, el feedback narrativo y el testing interno.",
+      deliverable:"Prototipo jugable con al menos 2 rutas de decisión completas",
+      outline:[
+        "Implementar la mecánica central: decisiones, puntaje, intentos y estados.",
+        "Feedback narrativo: textos y visuales alineados con el contenido.",
+        "Integración de audio (Audition) si aplica.",
+        "Testing interno: jugar el prototipo y anotar bugs y fricciones."
+      ]
+    },
+    {
+      n:9, week:2, duration:"60 min",
+      title:"Pulido, integración en Moodle y testing",
+      summary:"Empaquetado SCORM, integración en Moodle y test con usuario externo.",
+      deliverable:"Juego publicado en Moodle (curso de prueba) + reporte de testing",
+      outline:[
+        "Corrección de bugs y refinamiento.",
+        "Empaquetado SCORM desde Storyline o generación del paquete para HTML.",
+        "Integración en Moodle: criterio de completitud y seguimiento SCORM/xAPI.",
+        "Test con un usuario externo al equipo y recolección de feedback."
+      ]
+    },
+    {
+      n:10, week:2, duration:"45 min",
+      title:"Retrospectiva y hoja de ruta",
+      summary:"Demo, comparación de enfoques y backlog de gamificación para COTO.",
+      deliverable:"Documento «criterios de gamificación para COTO» + backlog de 6 meses",
+      outline:[
+        "Demo del prototipo: presentación del equipo.",
+        "Retrospectiva: qué aprendimos y qué cambiaríamos.",
+        "Comparación: Storyline puro vs. HTML con Claude vs. el nuevo prototipo.",
+        "Hoja de ruta: criterios de gamificación + backlog de cursos candidatos para COTO."
+      ]
+    }
+  ]
+};
+
+/* ============================================================
+   ESTADO + PERSISTENCIA
+   ============================================================ */
+const PREFIX="coto-gam", PROFILE_KEY=PREFIX+":profile", THEME_KEY=PREFIX+":theme";
+const TOTAL=COURSE.days.length;
+const state={name:"",completed:new Set()};
+
+const slug=s=>(s||"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"default";
+const progressKey=()=>PREFIX+":progress:"+slug(state.name);
+
+function loadProfile(){ try{state.name=localStorage.getItem(PROFILE_KEY)||"";}catch(e){state.name="";} }
+function loadProgress(){ try{const r=localStorage.getItem(progressKey());state.completed=new Set(r?JSON.parse(r):[]);}catch(e){state.completed=new Set();} }
+function saveProgress(){ try{localStorage.setItem(progressKey(),JSON.stringify([...state.completed]));}catch(e){} }
+function setName(n){ state.name=n.trim(); try{localStorage.setItem(PROFILE_KEY,state.name);}catch(e){} loadProgress(); loadQuiz(); loadSections(); }
+
+/* Quiz state: aprobado o no por día, por usuario */
+const quizKey=()=>PREFIX+":quiz:"+slug(state.name);
+const quizState={passed:new Set()};
+function loadQuiz(){ try{const r=localStorage.getItem(quizKey());quizState.passed=new Set(r?JSON.parse(r):[]);}catch(e){quizState.passed=new Set();} }
+function saveQuiz(){ try{localStorage.setItem(quizKey(),JSON.stringify([...quizState.passed]));}catch(e){} }
+function quizPassed(n){ return quizState.passed.has(n); }
+function markQuizPassed(n){ quizState.passed.add(n); saveQuiz(); }
+
+const isDone=n=>state.completed.has(n);
+const isUnlocked=n=>n===1||state.completed.has(n-1);
+const doneCount=()=>state.completed.size;
+const pad=n=>String(n).padStart(2,"0");
+const weekOf=n=>COURSE.weeks.find(w=>n>=w.range[0]&&n<=w.range[1]);
+function nextDay(){ for(let i=1;i<=TOTAL;i++) if(isUnlocked(i)&&!isDone(i)) return i; return TOTAL; }
+
+/* ============================================================
+   ELEMENTOS GLOBALES
+   ============================================================ */
+const app=document.getElementById("app");
+const tbCount=document.getElementById("tbCount");
+const tbFill=document.getElementById("tbFill");
+const tbName=document.getElementById("tbName");
+
+function updateTopbar(){
+  tbCount.textContent=doneCount()+"/"+TOTAL;
+  tbFill.style.width=Math.round(doneCount()/TOTAL*100)+"%";
+  tbName.textContent=state.name?("Hola, "+state.name):"";
+}
+
+function countUp(el,target,dur=1100){
+  const start=performance.now();
+  (function tick(now){
+    const p=Math.min(1,(now-start)/dur), e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(target*e);
+    if(p<1)requestAnimationFrame(tick); else el.textContent=target;
+  })(performance.now());
+}
+
+/* ============================================================
+   RENDER — HOME
+   ============================================================ */
+function statusBadge(n){
+  if(isDone(n)) return '<span class="badge badge-done">✓ Completado</span>';
+  if(isUnlocked(n)) return '<span class="badge badge-open">Disponible</span>';
+  return '<span class="badge badge-lock">Bloqueado</span>';
+}
+
+function dayCard(d){
+  const done=isDone(d.n), unlocked=isUnlocked(d.n);
+  const accent=weekOf(d.n).accent;
+  const cls=["day-card",done?"is-done":"",!unlocked?"is-locked":""].filter(Boolean).join(" ");
+  const inner=`
+    <div class="day-accent"></div>
+    <div class="day-inner">
+      <div class="day-index">${pad(d.n)}</div>
+      <div class="day-main">
+        <div class="day-cardhead"><h3>${d.title}</h3>${statusBadge(d.n)}</div>
+        <p class="day-summary">${d.summary}</p>
+        <p class="day-deliv"><span class="chip">Entregable</span> ${d.deliverable}</p>
+      </div>
+      <div class="day-arrow">→</div>
+    </div>`;
+  return unlocked
+    ? `<a class="${cls}" style="--accent:${accent}" href="#dia-${d.n}">${inner}</a>`
+    : `<div class="${cls}" style="--accent:${accent}" aria-disabled="true">${inner}</div>`;
+}
+
+function renderHome(){
+  const fab=document.getElementById('cuadernoFab'); if(fab) fab.classList.remove('visible');
+  const done=doneCount(), pct=Math.round(done/TOTAL*100), allDone=done===TOTAL, nd=nextDay();
+
+  const stats=[
+    {v:TOTAL,  s:"días",        p:"De contenido", grad:"linear-gradient(to right,#F02850,#097bb3)"},
+    {v:2,      s:"semanas",     p:"Marco + producción", grad:"linear-gradient(to right,#8228C8,#1E78DC)"},
+    {v:done,   s:"completados", p:"Tu avance", grad:"linear-gradient(to right,#00C88C,#1EAADC)", id:"statDone"},
+    {v:2026,   s:"edición",     p:"Programa interno", grad:"linear-gradient(to right,#F0A032,#F0BE00)"}
+  ];
+  const statsHTML=stats.map(c=>`
+    <div class="stat-mini" style="--accent:${c.grad}">
+      <span class="stat-mini-dot" aria-hidden="true"></span>
+      <strong class="stat-counter"${c.id?` id="${c.id}"`:""} data-target="${c.v}">0</strong>
+      <span>${c.s}</span>
+    </div>`).join("");
+
+  const weeksHTML=COURSE.weeks.map(w=>{
+    const days=COURSE.days.filter(d=>d.n>=w.range[0]&&d.n<=w.range[1]);
+    const wd=days.filter(d=>isDone(d.n)).length;
+    return `
+      <section class="week">
+        <div class="week-head" style="--accent:${w.accent}">
+          <h2><span class="week-num">Semana ${w.n}</span>${w.title}</h2>
+          <div class="week-line"></div>
+          <span class="week-meta">${wd}/${days.length} días</span>
+        </div>
+        ${days.map(dayCard).join("")}
+      </section>`;
+  }).join("");
+
+  const celebrate=allDone?`
+    <div class="panel panel-done">
+      <div class="check">✓</div>
+      <div><h3>¡Completaste el programa!</h3><p>Recorriste los 10 días. Volvé cuando quieras a repasar cualquier jornada.</p></div>
+    </div>`:"";
+
+  app.innerHTML=`
+    <div class="view">
+      <section class="hero" id="hero">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-inner">
+          <div class="hero-content">
+            <div class="hero-tag">Aprendizaje</div>
+            <h1 class="hero-h1">
+              <span class="hero-h1-light">Programa de formación interna</span>
+              <span class="hero-h1-bold">Gamificación en e-learning</span>
+            </h1>
+            <p class="hero-sub">Dos semanas, diez días: de entender por qué la gente olvida, a producir y publicar un prototipo gamificado real en Moodle. Para el equipo de Aprendizaje de COTO CICSA.</p>
+            <div class="hero-ctas">
+              <a class="hero-cta hero-cta-solid" href="#dia-${nd}">${allDone?"Repasar el programa":(done?"Continuar":"Comenzar")} <span class="arr">→</span></a>
+              <a class="hero-cta" href="#programa">Ver el programa <span class="arr">↓</span></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-strip" aria-label="Datos del programa">
+        <div class="stats-strip-inner">${statsHTML}</div>
+      </section>
+
+      <div class="home-body page-wrap" id="programa">
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Tu progreso</p>
+              <p class="panel-count"><strong>${done}</strong> de ${TOTAL} días completados</p>
+            </div>
+            <div class="name-field">
+              <label for="nameInput">Quién sos</label>
+              <input id="nameInput" type="text" placeholder="Tu nombre" value="${state.name.replace(/"/g,"&quot;")}" autocomplete="off">
+            </div>
+          </div>
+          <div class="rail rail-lg"><div class="fill" style="width:${pct}%"></div></div>
+        </section>
+        ${celebrate}
+        ${weeksHTML}
+      </div>
+    </div>`;
+
+  const input=document.getElementById("nameInput");
+  input.addEventListener("change",e=>{ setName(e.target.value); renderHome(); updateTopbar(); });
+
+  app.querySelectorAll(".stat-counter").forEach(el=>countUp(el,parseInt(el.dataset.target,10)));
+}
+
+/* ============================================================
+   RENDER — DÍA
+   ============================================================ */
+function dayBody(d){
+  if(d.sections) return d.sections.map(s=>`<section class="block"><h2>${s.h}</h2>${s.html}</section>`).join("");
+  return `
+    <div class="note"><strong>Versión de muestra.</strong> Este día está listo en su temario; el contenido completo se desarrolla igual que el Día 1. Abajo, lo que vas a trabajar.</div>
+    <section class="block"><h2>Lo que vas a trabajar</h2><ul class="ticks">${d.outline.map(i=>`<li>${i}</li>`).join("")}</ul></section>`;
+}
+
+function renderDay(n){
+  const d=COURSE.days[n-1];
+  if(d.format==="v2") return renderDayV2(n);
+  return renderDayLegacy(n);
+}
+
+function renderDayLegacy(n){
+  const d=COURSE.days[n-1], w=weekOf(n), done=isDone(n);
+  const hasQuiz=Array.isArray(d.quiz)&&d.quiz.length>0;
+  const passed=hasQuiz?quizPassed(n):true;
+
+  let completeBtn;
+  if(done){
+    completeBtn='<span class="btn btn-done">✓ Día completado</span>';
+  } else if(hasQuiz&&!passed){
+    completeBtn=`<button class="btn btn-primary" disabled title="Aprobá el quiz de cierre para habilitar">Marcar como completado</button>`;
+  } else {
+    completeBtn=`<button class="btn btn-primary" data-complete="${n}">Marcar como completado</button>`;
+  }
+  const prevBtn=n>1 ? `<a class="btn-link" href="#dia-${n-1}">← Día ${n-1}</a>` : `<a class="btn-link" href="#" data-home>← Índice</a>`;
+  let nextBtn="";
+  if(n<TOTAL){
+    nextBtn=done ? `<a class="btn btn-ghost" href="#dia-${n+1}">Día ${n+1} →</a>`
+                 : `<button class="btn btn-ghost" disabled title="Completá este día para continuar">Día ${n+1} →</button>`;
+  } else if(done){
+    nextBtn=`<a class="btn btn-ghost" href="#" data-home>Volver al índice →</a>`;
+  }
+
+  app.innerHTML=`
+    <div class="view">
+      <div class="day-wrap">
+        <a class="back" href="#" data-home>← Índice del programa</a>
+        <header class="day-header">
+          <p class="eyebrow">Semana ${w.n} · Día ${n} de ${TOTAL}</p>
+          <h1 class="day-title">${d.title}</h1>
+          <div class="day-meta">
+            <span>⏱ ${d.duration}</span><span class="dot"></span><span>${w.title}</span>
+          </div>
+        </header>
+        ${d.lead?`<p class="day-lead">${d.lead}</p>`:""}
+        ${dayBody(d)}
+        <aside class="deliverable">
+          <p class="deliverable-tag">Entregable del día</p>
+          <p class="deliverable-text">${d.deliverable}</p>
+          ${d.deliverableNote?`<p class="deliverable-note">${d.deliverableNote}</p>`:""}
+        </aside>
+        <nav class="daynav">
+          ${prevBtn}<span class="spacer"></span>${completeBtn}${nextBtn}
+        </nav>
+      </div>
+    </div>`;
+
+  const btn=app.querySelector("[data-complete]");
+  if(btn) btn.addEventListener("click",()=>{ state.completed.add(n); saveProgress(); updateTopbar(); renderDay(n); });
+
+  initInteractives(n);
+}
+
+/* ============================================================
+   STATE: SECTIONS V2 (disclosure progresivo)
+   ============================================================ */
+const SECTIONS_KEY = PREFIX + ":sections:";
+const sectionsState = {};
+function sectionsKey(){ return SECTIONS_KEY + slug(state.name); }
+function loadSections(){
+  try{
+    Object.keys(sectionsState).forEach(k=>delete sectionsState[k]);
+    const r=localStorage.getItem(sectionsKey());
+    const obj=r?JSON.parse(r):{};
+    for(const k in obj) sectionsState[k]=new Set(obj[k]);
+  }catch(e){}
+}
+function saveSections(){
+  const obj={};
+  for(const k in sectionsState) obj[k]=[...sectionsState[k]];
+  try{localStorage.setItem(sectionsKey(),JSON.stringify(obj));}catch(e){}
+}
+function isSectionDone(dN,i){ return sectionsState[dN]?.has(i); }
+function markSectionDone(dN,i){
+  if(!sectionsState[dN]) sectionsState[dN]=new Set();
+  sectionsState[dN].add(i);
+  saveSections();
+}
+function visibleSectionCount(dN,total){
+  let n=1;
+  for(let i=0;i<total-1;i++){ if(isSectionDone(dN,i)) n++; else break; }
+  return n;
+}
+
+/* ============================================================
+   RENDER V2 — DÍA con disclosure progresivo
+   ============================================================ */
+function renderDayV2(n){
+  const d=COURSE.days[n-1], w=weekOf(n), done=isDone(n);
+  const total=d.sections.length;
+  const visible=visibleSectionCount(n,total);
+  const hasQuiz=Array.isArray(d.quiz)&&d.quiz.length>0;
+  const passed=hasQuiz?quizPassed(n):true;
+  const allDone=visible===total && passed;
+
+  const stepperHTML=d.sections.map((s,i)=>{
+    let cls="step";
+    if(isSectionDone(n,i)) cls+=" done";
+    else if(i<visible) cls+=" active";
+    else cls+=" locked";
+    const stepBtn=`<button class="${cls}" data-step="${i}" ${i>=visible?'disabled':''}><span class="step-n"><span class="num">${i+1}</span></span><span>${s.title}</span></button>`;
+    const divider=i<total-1 ? `<span class="step-divider ${isSectionDone(n,i)?'done':''}"></span>` : '';
+    return stepBtn+divider;
+  }).join("");
+
+  const sectionsHTML=d.sections.slice(0,visible).map((s,i)=>renderSectionV2(s,i,n,total)).join("");
+
+  let completeBtn;
+  if(done){
+    completeBtn='<span class="btn btn-done">✓ Día completado</span>';
+  } else if(!allDone){
+    const reason=hasQuiz&&!passed&&visible===total ? "Aprobá el quiz de la sección 5" : "Completá todas las secciones";
+    completeBtn=`<button class="btn btn-primary" disabled title="${reason}">Marcar como completado</button>`;
+  } else {
+    completeBtn=`<button class="btn btn-primary" data-complete="${n}">Marcar como completado</button>`;
+  }
+  const prevBtn=n>1 ? `<a class="btn-link" href="#dia-${n-1}">← Día ${n-1}</a>` : `<a class="btn-link" href="#" data-home>← Índice</a>`;
+  let nextBtn="";
+  if(n<TOTAL){
+    nextBtn=done ? `<a class="btn btn-ghost" href="#dia-${n+1}">Día ${n+1} →</a>`
+                 : `<button class="btn btn-ghost" disabled title="Completá este día para continuar">Día ${n+1} →</button>`;
+  } else if(done){
+    nextBtn=`<a class="btn btn-ghost" href="#" data-home>Volver al índice →</a>`;
+  }
+
+  app.innerHTML=`
+    <div class="view">
+      <div class="day-wrap">
+        <a class="back" href="#" data-home>← Índice del programa</a>
+        <header class="day-header">
+          <p class="eyebrow">Semana ${w.n} · Día ${n} de ${TOTAL}</p>
+          <h1 class="day-title">${d.title}</h1>
+          <div class="day-meta">
+            <span>⏱ ${d.duration}</span><span class="dot"></span><span>${w.title}</span>
+          </div>
+        </header>
+        <nav class="day-stepper" id="dayStepper" aria-label="Progreso del día">${stepperHTML}</nav>
+        ${sectionsHTML}
+        <aside class="deliverable">
+          <p class="deliverable-tag">Entregable del día</p>
+          <p class="deliverable-text">${d.deliverable}</p>
+          ${d.deliverableNote?`<p class="deliverable-note">${d.deliverableNote}</p>`:""}
+        </aside>
+        <nav class="daynav">
+          ${prevBtn}<span class="spacer"></span>${completeBtn}${nextBtn}
+        </nav>
+      </div>
+    </div>`;
+
+  const cb=app.querySelector("[data-complete]");
+  if(cb) cb.addEventListener("click",()=>{ state.completed.add(n); saveProgress(); updateTopbar(); renderDay(n); showDayCelebration(n); });
+
+  app.querySelectorAll('.step.done').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const i=parseInt(btn.dataset.step,10);
+      const sec=app.querySelector(`#sec-${i}`);
+      if(sec) sec.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+
+  initInteractivesV2(n);
+
+  document.getElementById('cuadernoFab').classList.add('visible');
+  updateCuaderno(n);
+}
+
+/* PNG → SVG fallback para Sofía */
+let SOFIA_PNG_OK = false;
+(function checkSofiaPng(){
+  const img = new Image();
+  img.addEventListener('load', () => {
+    SOFIA_PNG_OK = true;
+    const n = parseHash && parseHash();
+    if(n && typeof renderDay==='function') renderDay(n);
+  });
+  img.src = 'assets/sofia.png';
+})();
+function sofiaAvatarMarkup(){
+  if(SOFIA_PNG_OK) return `<img src="assets/sofia.png" alt="Sofía">`;
+  return `<svg viewBox="0 0 100 100"><use href="#sofia-avatar"/></svg>`;
+}
+
+function renderSectionV2(s,i,dayN,total){
+  const done=isSectionDone(dayN,i);
+  const isLast=i===total-1;
+  const av = sofiaAvatarMarkup();
+
+  // Header slim: text + small icon
+  const headerHTML = `
+    <header class="section-head">
+      <div class="section-head-text">
+        <p class="section-eyebrow">${s.concept.eyebrow}</p>
+        <h2 class="section-title">${s.concept.title}</h2>
+        <p class="section-lead">${s.concept.punch}</p>
+      </div>
+      <div class="section-head-icon"><svg viewBox="0 0 320 200"><use href="#illo-${s.concept.illo}"/></svg></div>
+    </header>`;
+
+  // Sofía intro (inline quote with mini avatar)
+  const sofiaIntroHTML = s.sofia ? `
+    <div class="sofia-line">
+      <div class="sofia-mini">${av}</div>
+      <div style="flex:1">
+        <p class="sofia-text">${s.sofia.text}</p>
+        <span class="sofia-attr">${s.sofia.name}</span>
+      </div>
+    </div>` : '';
+
+  // Prose (the reading spine)
+  const readingHTML = s.reading ? `<div class="prose">${s.reading}</div>` : '';
+
+  // Interactive
+  const interactiveHTML = renderInteractiveV2(s.interactive, dayN, i);
+
+  // After interactive — only when done: Sofía reflect + idea inline
+  const fbText = done && s.feedback ? (s.feedback.default||s.feedback.passed||Object.values(s.feedback)[0]||'') : '';
+  const reflectHTML = (done && s.feedback) ? `
+    <div class="sofia-reflect">
+      <div class="sofia-mini">${av}</div>
+      <p>${fbText}</p>
+    </div>` : '';
+  const ideaHTML = (done && s.idea) ? `
+    <p class="lead-key"><span class="lead-key-tag">${s.idea.tag}</span>${s.idea.text}</p>` : '';
+
+  // Subtle next link
+  const nextHTML = !isLast ? `
+    <div class="section-next-wrap">
+      <button class="section-next" data-section-next="${i}" ${done?'':'disabled'}>
+        Sección siguiente <span class="arr">→</span>
+      </button>
+      ${done?'':'<span class="section-next-hint">Interactuá con el componente de arriba para continuar</span>'}
+    </div>` : '';
+
+  return `
+    <section class="section" id="sec-${i}" data-section="${i}">
+      ${headerHTML}
+      ${sofiaIntroHTML}
+      ${readingHTML}
+      ${interactiveHTML}
+      ${reflectHTML}
+      ${ideaHTML}
+      ${nextHTML}
+    </section>`;
+}
+
+function renderInteractiveV2(int, dayN, secIdx){
+  if(!int) return '';
+  const head=`<p class="interactive-tag">${int.tag}</p><h3>${int.title}</h3><p class="interactive-desc">${int.desc}</p>`;
+  let body='';
+  if(int.type==='curve'){ body = renderCurveSvg(); }
+  else if(int.type==='dnd'){ body = `<div class="dnd-v2"><div class="dnd-pool-v2" id="dnd-pool-${secIdx}"><p class="pool-label">Por clasificar</p></div><div class="dnd-zones-v2"><div class="dnd-zone-v2 cog" data-zone="cog"><p class="zone-label cog">Cognitiva — la mecánica enseña</p></div><div class="dnd-zone-v2 cos" data-zone="cos"><p class="zone-label cos">Cosmética — recompensa pegada encima</p></div></div></div><p class="dnd-feedback-v2" id="dnd-feedback-${secIdx}" aria-live="polite">Arrastrá los seis ítems.</p>`; }
+  else if(int.type==='mda'){ body = `<div class="mda-grid"><button class="mda-card" data-mda="mecanica" type="button"><div class="mda-card-letter">M</div><div class="mda-card-name">Mecánica</div></button><button class="mda-card" data-mda="dinamica" type="button"><div class="mda-card-letter">D</div><div class="mda-card-name">Dinámica</div></button><button class="mda-card" data-mda="estetica" type="button"><div class="mda-card-letter">A</div><div class="mda-card-name">Estética</div></button></div><div class="mda-detail" id="mda-detail-${secIdx}">Hacé click en una de las tres letras para ver qué incluye.</div>`; }
+  else if(int.type==='fourCheck'){ body = `<div class="cond-grid"><button class="cond-card" data-cond="0" type="button"><div class="cond-card-head"><span class="cond-card-num">1</span><span>Feedback inmediato y específico</span></div><p class="cond-card-ex">El juego responde a cada decisión, no recién al final. <strong>Ejemplo:</strong> en Duolingo, cada respuesta se evalúa en el momento — no esperás al cierre del módulo.</p></button><button class="cond-card" data-cond="1" type="button"><div class="cond-card-head"><span class="cond-card-num">2</span><span>Dificultad calibrada (zona de flow)</span></div><p class="cond-card-ex">Ni tan fácil que aburra, ni tan difícil que frustre. <strong>Ejemplo:</strong> los puzzles de Foldit ajustan su dificultad a tu nivel de juego previo.</p></button><button class="cond-card" data-cond="2" type="button"><div class="cond-card-head"><span class="cond-card-num">3</span><span>Consecuencias significativas</span></div><p class="cond-card-ex">Las decisiones importan y cambian lo que pasa. <strong>Ejemplo:</strong> en un escenario de atención al cliente, lo que elegís ramifica la conversación en vez de volverte al mismo lugar.</p></button><button class="cond-card" data-cond="3" type="button"><div class="cond-card-head"><span class="cond-card-num">4</span><span>Repetición voluntaria</span></div><p class="cond-card-ex">Querés volver a intentar, y ahí ocurre el repaso espaciado. <strong>Ejemplo:</strong> Habitica te invita a hacer las tareas hoy y mañana sin presionarte — el ciclo es atractivo.</p></button></div>`; }
+  else if(int.type==='scenario'){ body = `<div class="scenario" data-scenario><div class="scenario-setup">${int.scenario.setup}</div><div class="scenario-stage" data-stage></div></div>`; }
+  else if(int.type==='quiz'){ body = `<div class="quiz" id="quiz-d1"></div><div class="quiz-actions"><button class="btn btn-primary" id="quiz-submit" type="button">Corregir respuestas</button><button class="btn btn-ghost" id="quiz-retry" type="button" style="display:none">Reintentar</button><p class="quiz-result" id="quiz-result"></p></div><div class="quiz-gate" id="quiz-gate"><strong>Aún no aprobaste el quiz.</strong> Respondé y corregí; con 3 aciertos o más se desbloquea el día siguiente.</div>`; }
+  return `<div class="interactive" data-interactive="${int.type}" data-int-section="${secIdx}">${head}${body}</div>`;
+}
+
+function renderCurveSvg(){
+  return `<svg class="curve-svg" viewBox="0 0 540 280" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="gradNoX" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F02850" stop-opacity=".25"/><stop offset="100%" stop-color="#F02850" stop-opacity="0"/></linearGradient>
+      <linearGradient id="gradYesX" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00C88C" stop-opacity=".22"/><stop offset="100%" stop-color="#00C88C" stop-opacity="0"/></linearGradient>
+    </defs>
+    <line x1="50" y1="240" x2="510" y2="240" stroke="#97a5be" stroke-width="1.2"/>
+    <line x1="50" y1="20" x2="50" y2="240" stroke="#97a5be" stroke-width="1.2"/>
+    <line x1="50" y1="64" x2="510" y2="64" stroke="#d8dff0" stroke-width=".8" stroke-dasharray="3,3"/>
+    <line x1="50" y1="108" x2="510" y2="108" stroke="#d8dff0" stroke-width=".8" stroke-dasharray="3,3"/>
+    <line x1="50" y1="152" x2="510" y2="152" stroke="#d8dff0" stroke-width=".8" stroke-dasharray="3,3"/>
+    <line x1="50" y1="196" x2="510" y2="196" stroke="#d8dff0" stroke-width=".8" stroke-dasharray="3,3"/>
+    <text x="42" y="24" text-anchor="end" font-size="10" fill="#97a5be">100%</text>
+    <text x="42" y="68" text-anchor="end" font-size="10" fill="#97a5be">75%</text>
+    <text x="42" y="112" text-anchor="end" font-size="10" fill="#97a5be">50%</text>
+    <text x="42" y="156" text-anchor="end" font-size="10" fill="#97a5be">25%</text>
+    <text x="42" y="244" text-anchor="end" font-size="10" fill="#97a5be">0%</text>
+    <text x="50" y="258" text-anchor="middle" font-size="10" fill="#97a5be">0</text>
+    <text x="142" y="258" text-anchor="middle" font-size="10" fill="#97a5be">1</text>
+    <text x="234" y="258" text-anchor="middle" font-size="10" fill="#97a5be">2</text>
+    <text x="326" y="258" text-anchor="middle" font-size="10" fill="#97a5be">5</text>
+    <text x="418" y="258" text-anchor="middle" font-size="10" fill="#97a5be">10</text>
+    <text x="510" y="258" text-anchor="middle" font-size="10" fill="#97a5be">30</text>
+    <text x="280" y="274" text-anchor="middle" font-size="10.5" fill="#97a5be" font-weight="600">Días desde el aprendizaje</text>
+    <path d="M 50 22 Q 90 80, 142 130 T 234 178 T 326 210 T 418 224 T 510 232 L 510 240 L 50 240 Z" fill="url(#gradNoX)"/>
+    <path d="M 50 22 Q 90 80, 142 130 T 234 178 T 326 210 T 418 224 T 510 232" fill="none" stroke="#F02850" stroke-width="2.4" stroke-linecap="round"/>
+    <g class="curve-yes" opacity="0">
+      <path d="M 50 22 Q 90 80, 142 130 L 142 60 Q 188 75, 234 95 L 234 50 Q 280 62, 326 78 L 326 40 Q 372 50, 418 65 L 418 35 Q 464 42, 510 55 L 510 240 L 50 240 Z" fill="url(#gradYesX)"/>
+      <path d="M 50 22 Q 90 80, 142 130 L 142 60 Q 188 75, 234 95 L 234 50 Q 280 62, 326 78 L 326 40 Q 372 50, 418 65 L 418 35 Q 464 42, 510 55" fill="none" stroke="#00C88C" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="142" cy="60" r="4" fill="#00C88C"/>
+      <circle cx="234" cy="50" r="4" fill="#00C88C"/>
+      <circle cx="326" cy="40" r="4" fill="#00C88C"/>
+      <circle cx="418" cy="35" r="4" fill="#00C88C"/>
+      <text x="142" y="48" text-anchor="middle" font-size="9" fill="#00795a" font-weight="600">repaso</text>
+    </g>
+  </svg>
+  <div class="curve-controls">
+    <div class="toggle-group" role="tablist">
+      <button class="toggle-btn active" data-curve="no" type="button">Sin refuerzo</button>
+      <button class="toggle-btn" data-curve="yes" type="button">Con refuerzo espaciado</button>
+    </div>
+  </div>
+  <div class="curve-legend">
+    <span><span style="width:14px;height:3px;border-radius:2px;display:inline-block;background:#F02850"></span>Olvido natural</span>
+    <span><span style="width:14px;height:3px;border-radius:2px;display:inline-block;background:#00C88C"></span>Retención con repaso</span>
+  </div>`;
+}
+
+/* ============================================================
+   INTERACTIVES V2
+   ============================================================ */
+function initInteractivesV2(dayN){
+  const d=COURSE.days[dayN-1];
+  const total=d.sections.length;
+  const visible=visibleSectionCount(dayN,total);
+  for(let i=0;i<visible;i++){
+    const sec=d.sections[i];
+    const block=app.querySelector(`.section[data-section="${i}"] .interactive`);
+    if(!block) continue;
+    const type=block.dataset.interactive;
+    const alreadyDone=isSectionDone(dayN,i);
+    if(type==='curve') initCurveV2(block,dayN,i,alreadyDone);
+    else if(type==='dnd') initDndV2(block,dayN,i,sec.interactive.items,alreadyDone);
+    else if(type==='mda') initMdaV2(block,dayN,i,alreadyDone);
+    else if(type==='fourCheck') initFourCheckV2(block,dayN,i,alreadyDone);
+    else if(type==='scenario') initScenarioV2(block,dayN,i,sec.interactive.scenario,alreadyDone);
+    else if(type==='quiz') initQuizV2(dayN,d.quiz,i);
+  }
+}
+
+function showSectionExtras(dayN,secIdx,performance){
+  const section=app.querySelector(`.section[data-section="${secIdx}"]`);
+  if(!section) return;
+  const btn=section.querySelector('.section-next');
+  if(btn){
+    btn.disabled=false;
+    const hint=section.querySelector('.section-next-hint');
+    if(hint) hint.remove();
+  }
+  const sec=COURSE.days[dayN-1].sections[secIdx];
+  const av = sofiaAvatarMarkup();
+  if(sec.feedback && !section.querySelector('.sofia-reflect')){
+    let text=sec.feedback.default || sec.feedback.passed || '';
+    if(performance && sec.feedback[performance]) text=sec.feedback[performance];
+    const fb=document.createElement('div');
+    fb.className='sofia-reflect';
+    fb.innerHTML=`<div class="sofia-mini">${av}</div><p>${text}</p>`;
+    const interactive=section.querySelector('.interactive');
+    interactive.after(fb);
+  }
+  if(sec.idea && !section.querySelector('.lead-key')){
+    const c=document.createElement('p');
+    c.className='lead-key';
+    c.innerHTML=`<span class="lead-key-tag">${sec.idea.tag}</span>${sec.idea.text}`;
+    const ref=section.querySelector('.sofia-reflect') || section.querySelector('.interactive');
+    ref.after(c);
+  }
+}
+
+function updateSofiaFeedback(dayN, secIdx, performance){
+  const section=app.querySelector(`.section[data-section="${secIdx}"]`);
+  if(!section) return;
+  const fb=section.querySelector('.sofia-reflect p');
+  if(!fb) return;
+  const sec=COURSE.days[dayN-1].sections[secIdx];
+  if(sec.feedback && sec.feedback[performance]){
+    fb.innerHTML=sec.feedback[performance];
+  }
+}
+
+function initCurveV2(block,dayN,secIdx,alreadyDone){
+  const btns=block.querySelectorAll('.toggle-btn');
+  const yesG=block.querySelector('.curve-yes');
+  const clicked=new Set();
+  let interacted=alreadyDone;
+  btns.forEach(b=>{
+    b.addEventListener('click',()=>{
+      btns.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      if(b.dataset.curve==='yes'){ yesG.style.transition='opacity .5s'; yesG.style.opacity='1'; }
+      else { yesG.style.opacity='0'; }
+      clicked.add(b.dataset.curve);
+      if(!interacted){
+        interacted=true;
+        const perf = clicked.size===2 ? 'curious' : 'default';
+        showSectionExtras(dayN,secIdx,perf);
+      } else if(clicked.size===2){
+        updateSofiaFeedback(dayN,secIdx,'curious');
+      }
+    });
+  });
+}
+
+function initDndV2(block,dayN,secIdx,items,alreadyDone){
+  const pool=block.querySelector('.dnd-pool-v2');
+  const zones=block.querySelectorAll('.dnd-zone-v2');
+  const feedback=block.querySelector('.dnd-feedback-v2');
+  const shuffled=[...items].sort(()=>Math.random()-0.5);
+  shuffled.forEach(item=>{
+    const el=document.createElement('div');
+    el.className='dnd-item-v2';
+    el.draggable=true;
+    el.dataset.id=item.id;
+    el.dataset.cat=item.cat;
+    el.textContent=item.text;
+    pool.appendChild(el);
+  });
+  let dragged=null, firstTry=true, completed=alreadyDone;
+  const allItems=block.querySelectorAll('.dnd-item-v2');
+  allItems.forEach(it=>{
+    it.addEventListener('dragstart',e=>{
+      dragged=it; it.classList.add('dragging');
+      e.dataTransfer.effectAllowed='move';
+      e.dataTransfer.setData('text/plain',it.dataset.id);
+    });
+    it.addEventListener('dragend',()=>{ it.classList.remove('dragging'); dragged=null; });
+    let touchClone=null, offX=0, offY=0;
+    it.addEventListener('touchstart',e=>{
+      const t=e.touches[0], r=it.getBoundingClientRect();
+      offX=t.clientX-r.left; offY=t.clientY-r.top;
+      dragged=it; it.classList.add('dragging');
+    },{passive:true});
+    it.addEventListener('touchmove',e=>{
+      if(!dragged) return; e.preventDefault();
+      const t=e.touches[0];
+      if(!touchClone){
+        touchClone=it.cloneNode(true);
+        touchClone.style.position='fixed';
+        touchClone.style.zIndex='9999';
+        touchClone.style.pointerEvents='none';
+        touchClone.style.width=it.offsetWidth+'px';
+        touchClone.style.opacity='.85';
+        document.body.appendChild(touchClone);
+      }
+      touchClone.style.left=(t.clientX-offX)+'px';
+      touchClone.style.top=(t.clientY-offY)+'px';
+      zones.forEach(z=>z.classList.remove('dragover'));
+      const el=document.elementFromPoint(t.clientX,t.clientY);
+      const z=el?el.closest('.dnd-zone-v2'):null;
+      if(z) z.classList.add('dragover');
+    },{passive:false});
+    it.addEventListener('touchend',e=>{
+      if(!dragged) return;
+      const t=e.changedTouches[0];
+      const el=document.elementFromPoint(t.clientX,t.clientY);
+      const z=el?el.closest('.dnd-zone-v2'):null;
+      zones.forEach(zn=>zn.classList.remove('dragover'));
+      if(touchClone){ touchClone.remove(); touchClone=null; }
+      it.classList.remove('dragging');
+      if(z) drop(it,z);
+      dragged=null;
+    });
+  });
+  zones.forEach(z=>{
+    z.addEventListener('dragover',e=>{ e.preventDefault(); z.classList.add('dragover'); });
+    z.addEventListener('dragleave',()=>z.classList.remove('dragover'));
+    z.addEventListener('drop',e=>{
+      e.preventDefault(); z.classList.remove('dragover');
+      if(!dragged) return;
+      drop(dragged,z);
+    });
+  });
+  function drop(item,zone){
+    const correct=item.dataset.cat===zone.dataset.zone;
+    if(correct){
+      item.classList.remove('incorrect');
+      item.classList.add('correct');
+      item.draggable=false;
+      zone.appendChild(item);
+    } else {
+      item.classList.add('incorrect');
+      firstTry=false;
+      setTimeout(()=>item.classList.remove('incorrect'),600);
+    }
+    update();
+  }
+  function update(){
+    const correct=block.querySelectorAll('.dnd-item-v2.correct').length;
+    if(correct===items.length){
+      feedback.textContent='¡Listo! Los seis están bien clasificados.';
+      feedback.classList.add('done');
+      if(!completed){
+        completed=true;
+        const perf = firstTry ? 'allCorrect' : 'mixed';
+        showSectionExtras(dayN,secIdx,perf);
+      }
+    } else {
+      feedback.textContent=`Llevás ${correct} de ${items.length} bien clasificados.`;
+    }
+  }
+}
+
+function initMdaV2(block,dayN,secIdx,alreadyDone){
+  const detail=block.querySelector('.mda-detail');
+  const cards=block.querySelectorAll('.mda-card');
+  const visited=new Set();
+  let completed=alreadyDone;
+  const data={
+    mecanica:{title:'Mecánica',text:'Las reglas y los componentes del juego: puntos, turnos, vidas, decisiones, mapas. <strong>Lo que el diseñador construye directamente.</strong> Es el nivel más concreto.'},
+    dinamica:{title:'Dinámica',text:'El comportamiento que emerge cuando alguien juega: tensión, estrategia, exploración, competencia. <strong>No la diseñás directamente: la provocás eligiendo bien la mecánica.</strong>'},
+    estetica:{title:'Estética',text:'La experiencia y la emoción resultante: desafío, descubrimiento, dominio, fantasía, narrativa. <strong>Es donde vive el aprendizaje. Empezá el diseño acá.</strong>'}
+  };
+  cards.forEach(c=>{
+    c.addEventListener('click',()=>{
+      cards.forEach(x=>x.classList.remove('active'));
+      c.classList.add('active');
+      const key=c.dataset.mda;
+      visited.add(key);
+      const d=data[key];
+      detail.innerHTML=`<strong>${d.title}.</strong> ${d.text}`;
+      if(visited.size===3 && !completed){ completed=true; showSectionExtras(dayN,secIdx,'default'); }
+    });
+  });
+}
+
+function initFourCheckV2(block,dayN,secIdx,alreadyDone){
+  const cards=block.querySelectorAll('.cond-card');
+  const opened=new Set();
+  let completed=alreadyDone;
+  cards.forEach(c=>{
+    c.addEventListener('click',()=>{
+      c.classList.toggle('open');
+      opened.add(c.dataset.cond);
+      if(opened.size===4 && !completed){ completed=true; showSectionExtras(dayN,secIdx,'default'); }
+    });
+  });
+}
+
+function initScenarioV2(block,dayN,secIdx,scenario,alreadyDone){
+  const stage=block.querySelector('[data-stage]');
+  if(!stage) return;
+  let completed=alreadyDone;
+  let firstChoiceGood=null;
+
+  function renderStep(stepId){
+    const step=scenario.steps.find(s=>s.id===stepId);
+    if(!step){ showDebrief(); return; }
+    stage.innerHTML=`
+      <p class="scenario-prompt">${step.prompt}</p>
+      <div class="scenario-options">
+        ${step.options.map((o,i)=>`<button class="scenario-opt" data-opt="${i}" type="button">${o.text}</button>`).join("")}
+      </div>
+      <div class="scenario-result"></div>
+    `;
+    stage.querySelectorAll('.scenario-opt').forEach((b,i)=>{
+      b.addEventListener('click',()=>{
+        const opt=step.options[i];
+        if(firstChoiceGood===null && step.id==='start') firstChoiceGood = opt.next==='good';
+        stage.querySelectorAll('.scenario-opt').forEach(x=>{ x.disabled=true; x.classList.add('scenario-opt-done'); });
+        b.classList.add('scenario-opt-chosen');
+        const result=stage.querySelector('.scenario-result');
+        result.innerHTML=`<p class="scenario-feedback">${opt.feedback}</p>
+          <button class="btn btn-primary scenario-next" type="button">${opt.next==='debrief'?'Ver el debrief →':'Continuar →'}</button>`;
+        result.querySelector('.scenario-next').addEventListener('click',()=>{
+          if(opt.next==='debrief'){ showDebrief(); }
+          else { renderStep(opt.next); }
+        });
+      });
+    });
+  }
+
+  function showDebrief(){
+    const debriefHTML=scenario.debrief.map(d=>`
+      <div class="debrief-item">
+        <p class="debrief-tag">${d.tag}</p>
+        <p>${d.text}</p>
+      </div>`).join("");
+    stage.innerHTML=`
+      <div class="scenario-debrief">
+        <p class="debrief-title">Lo que acabás de vivir como diseñador del aprendizaje:</p>
+        ${debriefHTML}
+        <button class="btn btn-ghost scenario-reset" type="button">↻ Probar otra ruta</button>
+      </div>`;
+    stage.querySelector('.scenario-reset').addEventListener('click',()=>{
+      firstChoiceGood=null;
+      renderStep('start');
+    });
+    if(!completed){
+      completed=true;
+      const perf = firstChoiceGood ? 'efficient' : (firstChoiceGood===false ? 'rough' : 'default');
+      showSectionExtras(dayN,secIdx,perf);
+    }
+  }
+
+  renderStep('start');
+}
+
+function initQuizV2(dayN, questions, secIdx){
+  const container=app.querySelector('#quiz-d1');
+  if(!container) return;
+  const submitBtn=app.querySelector('#quiz-submit');
+  const retryBtn=app.querySelector('#quiz-retry');
+  const result=app.querySelector('#quiz-result');
+  const gate=app.querySelector('#quiz-gate');
+  const passedAlready=quizPassed(dayN);
+  let retryCount=0;
+
+  container.innerHTML=questions.map((q,i)=>`
+    <div class="quiz-q" data-q="${i}">
+      <p class="quiz-q-text"><span class="quiz-q-num">${i+1}</span>${q.q}</p>
+      <div class="quiz-options">
+        ${q.opts.map((o,j)=>`<label class="quiz-opt" data-opt="${j}"><input type="radio" name="q${i}" value="${j}"><span>${o}</span></label>`).join("")}
+      </div>
+      <div class="quiz-feedback" id="qfb-${i}"></div>
+    </div>
+  `).join("");
+
+  container.querySelectorAll('.quiz-opt').forEach(opt=>{
+    opt.addEventListener('click',()=>{
+      const q=opt.closest('.quiz-q');
+      q.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('selected'));
+      opt.classList.add('selected');
+    });
+  });
+
+  function correctAll(){
+    let score=0;
+    questions.forEach((q,i)=>{
+      const sel=container.querySelector(`input[name="q${i}"]:checked`);
+      const opts=container.querySelectorAll(`.quiz-q[data-q="${i}"] .quiz-opt`);
+      const fb=container.querySelector(`#qfb-${i}`);
+      opts.forEach(o=>o.classList.add('disabled'));
+      if(!sel){
+        fb.textContent='Sin respuesta. La correcta es: «'+q.opts[q.correct]+'». '+q.explain;
+        fb.className='quiz-feedback bad show';
+        opts[q.correct].classList.add('correct');
+        return;
+      }
+      const picked=parseInt(sel.value,10);
+      if(picked===q.correct){
+        score++;
+        opts[picked].classList.add('correct');
+        fb.textContent='Correcto. '+q.explain;
+        fb.className='quiz-feedback ok show';
+      } else {
+        opts[picked].classList.add('incorrect');
+        opts[q.correct].classList.add('correct');
+        fb.textContent='La correcta es: «'+q.opts[q.correct]+'». '+q.explain;
+        fb.className='quiz-feedback bad show';
+      }
+    });
+    const pass=score>=3;
+    result.textContent=`${score} / ${questions.length} respuestas correctas${pass?' — aprobado':''}`;
+    result.className='quiz-result '+(pass?'pass':'fail');
+    submitBtn.style.display='none';
+    retryBtn.style.display='';
+    if(pass){
+      markQuizPassed(dayN);
+      gate.innerHTML='<strong>¡Aprobado!</strong> Ya podés marcar el día como completado abajo.';
+      gate.style.background='var(--green-soft)';
+      gate.style.borderColor='var(--green)';
+      markSectionDone(dayN,secIdx);
+      let perf='passed';
+      if(retryCount===0 && score===questions.length) perf='perfect';
+      else if(retryCount===0) perf='passedFirst';
+      else perf='passedRetry';
+      showSectionExtras(dayN,secIdx,perf);
+      setTimeout(()=>{ renderDay(dayN); updateTopbar(); updateCuaderno(dayN); },800);
+    }
+  }
+
+  if(passedAlready){
+    result.textContent='Aprobado anteriormente.';
+    result.className='quiz-result pass';
+    gate.innerHTML='<strong>¡Aprobado!</strong> Ya podés marcar el día como completado abajo.';
+    gate.style.background='var(--green-soft)';
+    gate.style.borderColor='var(--green)';
+    submitBtn.style.display='none';
+    retryBtn.style.display='';
+  }
+
+  submitBtn.addEventListener('click',correctAll);
+  retryBtn.addEventListener('click',()=>{
+    retryCount++;
+    container.querySelectorAll('.quiz-opt').forEach(o=>{ o.classList.remove('selected','correct','incorrect','disabled'); });
+    container.querySelectorAll('.quiz-feedback').forEach(fb=>{ fb.textContent=''; fb.className='quiz-feedback'; });
+    container.querySelectorAll('input').forEach(i=>i.checked=false);
+    if(!quizPassed(dayN)){
+      result.textContent=''; result.className='quiz-result';
+      submitBtn.style.display=''; retryBtn.style.display='none';
+    }
+  });
+}
+
+/* ============================================================
+   CUADERNO
+   ============================================================ */
+function updateCuaderno(dayN){
+  const panel=document.getElementById('cuadernoBody');
+  const badge=document.getElementById('cuadernoBadge');
+  const sub=document.getElementById('cuadernoSub');
+  if(!panel) return;
+  const d=COURSE.days[dayN-1];
+  const insights=[];
+  if(d.sections){
+    d.sections.forEach((s,i)=>{ if(isSectionDone(dayN,i) && s.insight) insights.push({section:i+1,text:s.insight}); });
+  }
+  if(sub) sub.textContent=`Día ${dayN} · Insights del día`;
+  if(badge){ badge.textContent=insights.length; badge.style.display=insights.length>0?'inline-block':'none'; }
+  if(insights.length===0){
+    panel.innerHTML=`<p class="cuaderno-empty">Tu cuaderno está vacío. Avanzá por las secciones del día y los insights van apareciendo acá. Al final del día son el material para tu entregable.</p>`;
+  } else {
+    panel.innerHTML=insights.map(ins=>`<div class="insight"><p class="insight-tag">Sección ${ins.section}</p><p>${ins.text}</p></div>`).join("");
+  }
+}
+function openCuaderno(){
+  document.getElementById('cuadernoPanel').classList.add('open');
+  document.getElementById('cuadernoBackdrop').classList.add('open');
+}
+function closeCuaderno(){
+  document.getElementById('cuadernoPanel').classList.remove('open');
+  document.getElementById('cuadernoBackdrop').classList.remove('open');
+}
+
+/* ============================================================
+   CIERRE DEL DÍA — modal de celebración
+   ============================================================ */
+function showDayCelebration(dayN){
+  const d=COURSE.days[dayN-1];
+  const insights=[];
+  if(d.sections){
+    d.sections.forEach((s,i)=>{ if(isSectionDone(dayN,i) && s.insight) insights.push({n:i+1,t:s.insight}); });
+  }
+  const nextN = dayN+1<=TOTAL ? dayN+1 : null;
+  const insightsHTML = insights.map(ins=>`<li><span class="cel-sec">Sección ${ins.n}</span>${ins.t}</li>`).join("");
+  const insightsText = `Día ${dayN} — ${d.title}\n\n` + insights.map(ins=>`• ${ins.t}`).join("\n") + `\n\nEntregable: ${d.deliverable}`;
+
+  const overlay=document.createElement('div');
+  overlay.className='celebration-overlay';
+  overlay.innerHTML=`
+    <div class="celebration-modal" role="dialog" aria-modal="true">
+      <button class="celebration-close" aria-label="Cerrar">✕</button>
+      <div class="celebration-check">✓</div>
+      <h2>¡Día ${dayN} completado!</h2>
+      <p class="celebration-sub">Estos son los <strong>${insights.length} insights</strong> que recolectaste. Son el material para tu entregable: <em>${d.deliverable}</em></p>
+      <ul class="celebration-insights">${insightsHTML}</ul>
+      <div class="celebration-actions">
+        <button class="btn btn-ghost" id="celebration-copy" type="button">📋 Copiar insights</button>
+        ${nextN ? `<a class="btn btn-primary" href="#dia-${nextN}">Pasar al Día ${nextN} <span class="arr">→</span></a>` : '<a class="btn btn-primary" href="#" data-home>Volver al índice →</a>'}
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  document.body.style.overflow='hidden';
+
+  const close=()=>{ overlay.remove(); document.body.style.overflow=''; };
+  overlay.querySelector('.celebration-close').addEventListener('click',close);
+  overlay.addEventListener('click',e=>{ if(e.target===overlay) close(); });
+  overlay.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+
+  const copyBtn=overlay.querySelector('#celebration-copy');
+  copyBtn.addEventListener('click',async()=>{
+    try{
+      await navigator.clipboard.writeText(insightsText);
+      copyBtn.textContent='✓ Copiado al portapapeles';
+      copyBtn.classList.add('copy-ok');
+      setTimeout(()=>{ copyBtn.textContent='📋 Copiar insights'; copyBtn.classList.remove('copy-ok'); },2200);
+    }catch(e){
+      copyBtn.textContent='No pude copiar — seleccionalos abajo';
+    }
+  });
+}
+
+/* "Avanzar" handler */
+document.addEventListener('click',e=>{
+  const btn=e.target.closest('[data-section-next]');
+  if(btn && !btn.disabled){
+    const idx=parseInt(btn.dataset.sectionNext,10);
+    const dN=parseHash();
+    if(dN){
+      markSectionDone(dN,idx);
+      renderDay(dN);
+      updateTopbar();
+      setTimeout(()=>{
+        const newSec=app.querySelector(`#sec-${idx+1}`);
+        if(newSec) newSec.scrollIntoView({behavior:'smooth',block:'start'});
+      },120);
+    }
+  }
+});
+
+/* ============================================================
+   ROUTER
+   ============================================================ */
+const parseHash=()=>{ const m=location.hash.match(/^#dia-(\d+)$/); return m?parseInt(m[1],10):null; };
+function route(){
+  const n=parseHash();
+  if(n!==null&&n>=1&&n<=TOTAL){
+    if(isUnlocked(n)) renderDay(n);
+    else { history.replaceState(null,"",location.pathname+location.search); renderHome(); }
+  } else renderHome();
+  updateTopbar();
+  window.scrollTo(0,0);
+}
+
+/* ============================================================
+   TEMA · SCROLL · FABS
+   ============================================================ */
+const darkFab=document.getElementById("darkFab"), darkIcon=document.getElementById("darkIcon"), backTop=document.getElementById("backTop"), scrollBar=document.getElementById("scroll-progress");
+function syncThemeIcon(){ darkIcon.textContent=document.documentElement.getAttribute("data-theme")==="dark"?"🌙":"☀️"; }
+darkFab.addEventListener("click",()=>{
+  const next=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+  document.documentElement.setAttribute("data-theme",next);
+  try{localStorage.setItem(THEME_KEY,next);}catch(e){}
+  syncThemeIcon();
+});
+backTop.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+
+/* Cuaderno wiring */
+document.getElementById("cuadernoFab").addEventListener("click",openCuaderno);
+document.getElementById("cuadernoClose").addEventListener("click",closeCuaderno);
+document.getElementById("cuadernoBackdrop").addEventListener("click",closeCuaderno);
+function onScroll(){
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  scrollBar.style.width=(h>0?(window.scrollY/h*100):0)+"%";
+  backTop.classList.toggle("visible",window.scrollY>400);
+}
+window.addEventListener("scroll",onScroll,{passive:true});
+
+/* Links "volver al inicio" */
+document.addEventListener("click",e=>{
+  const home=e.target.closest("[data-home]");
+  if(home){ e.preventDefault(); if(location.hash){ location.hash=""; } else { renderHome(); updateTopbar(); window.scrollTo(0,0); } }
+});
+
+/* ============================================================
+   INTERACTIVOS DEL DÍA
+   ============================================================ */
+function initInteractives(dayN){
+  const d=COURSE.days[dayN-1];
+  initCurve();
+  initDnD();
+  if(d.quiz) initQuiz(dayN,d.quiz);
+}
+
+/* Curva del olvido: toggle entre dos curvas SVG */
+function initCurve(){
+  const block=app.querySelector('[data-interactive="curve"]');
+  if(!block) return;
+  const btns=block.querySelectorAll('.toggle-btn');
+  const curveYes=block.querySelector('#curveYes');
+  btns.forEach(b=>{
+    b.addEventListener('click',()=>{
+      btns.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      if(b.dataset.curve==='yes'){
+        curveYes.style.transition='opacity .5s';
+        curveYes.style.opacity='1';
+      } else {
+        curveYes.style.opacity='0';
+      }
+    });
+  });
+}
+
+/* Drag & drop: clasificar cosmética vs cognitiva */
+const DND_ITEMS=[
+  {id:1,text:"Cada slide muestra un trofeo cuando hacés click en \"siguiente\"",cat:"cos"},
+  {id:2,text:"El curso muestra un caso, pedís decidir y según la elección abre un escenario distinto con feedback",cat:"cog"},
+  {id:3,text:"Ranking público de quién terminó el módulo más rápido",cat:"cos"},
+  {id:4,text:"Después de cada bloque de contenido, tres preguntas de recuperación que tenés que aprobar para seguir",cat:"cog"},
+  {id:5,text:"Una mecánica de \"vidas\": si no acertás en pocos intentos, el módulo te devuelve al contenido a repasar el punto débil",cat:"cog"},
+  {id:6,text:"Una barra de XP que sube cada vez que entrás al curso, sin importar si aprendiste algo",cat:"cos"}
+];
+
+function initDnD(){
+  const block=app.querySelector('[data-interactive="dnd"]');
+  if(!block) return;
+  const pool=block.querySelector('#dnd-pool');
+  const zones=block.querySelectorAll('.dnd-zone');
+  const feedback=block.querySelector('#dnd-feedback');
+
+  /* Mezclar y renderizar items */
+  const shuffled=[...DND_ITEMS].sort(()=>Math.random()-0.5);
+  shuffled.forEach(item=>{
+    const el=document.createElement('div');
+    el.className='dnd-item';
+    el.draggable=true;
+    el.dataset.id=item.id;
+    el.dataset.cat=item.cat;
+    el.textContent=item.text;
+    pool.appendChild(el);
+  });
+
+  let dragged=null;
+  const items=block.querySelectorAll('.dnd-item');
+
+  items.forEach(it=>{
+    it.addEventListener('dragstart',e=>{
+      dragged=it;
+      it.classList.add('dragging');
+      e.dataTransfer.effectAllowed='move';
+      e.dataTransfer.setData('text/plain',it.dataset.id);
+    });
+    it.addEventListener('dragend',()=>{
+      it.classList.remove('dragging');
+      dragged=null;
+    });
+  });
+
+  /* Soporte touch básico */
+  items.forEach(it=>{
+    let touchClone=null,startX=0,startY=0,offsetX=0,offsetY=0;
+    it.addEventListener('touchstart',e=>{
+      const t=e.touches[0];
+      const r=it.getBoundingClientRect();
+      startX=t.clientX;startY=t.clientY;
+      offsetX=t.clientX-r.left;offsetY=t.clientY-r.top;
+      dragged=it;
+      it.classList.add('dragging');
+    },{passive:true});
+    it.addEventListener('touchmove',e=>{
+      if(!dragged) return;
+      e.preventDefault();
+      const t=e.touches[0];
+      if(!touchClone){
+        touchClone=it.cloneNode(true);
+        touchClone.style.position='fixed';
+        touchClone.style.zIndex='9999';
+        touchClone.style.pointerEvents='none';
+        touchClone.style.width=it.offsetWidth+'px';
+        touchClone.style.opacity='.85';
+        document.body.appendChild(touchClone);
+      }
+      touchClone.style.left=(t.clientX-offsetX)+'px';
+      touchClone.style.top=(t.clientY-offsetY)+'px';
+      /* highlight zona */
+      zones.forEach(z=>z.classList.remove('dragover'));
+      const el=document.elementFromPoint(t.clientX,t.clientY);
+      const z=el?el.closest('.dnd-zone'):null;
+      if(z) z.classList.add('dragover');
+    },{passive:false});
+    it.addEventListener('touchend',e=>{
+      if(!dragged) return;
+      const t=e.changedTouches[0];
+      const el=document.elementFromPoint(t.clientX,t.clientY);
+      const z=el?el.closest('.dnd-zone'):null;
+      zones.forEach(zn=>zn.classList.remove('dragover'));
+      if(touchClone){ touchClone.remove(); touchClone=null; }
+      it.classList.remove('dragging');
+      if(z) dropItem(it,z);
+      dragged=null;
+    });
+  });
+
+  zones.forEach(z=>{
+    z.addEventListener('dragover',e=>{
+      e.preventDefault();
+      z.classList.add('dragover');
+    });
+    z.addEventListener('dragleave',()=>z.classList.remove('dragover'));
+    z.addEventListener('drop',e=>{
+      e.preventDefault();
+      z.classList.remove('dragover');
+      if(!dragged) return;
+      dropItem(dragged,z);
+    });
+  });
+
+  function dropItem(item,zone){
+    const correct=item.dataset.cat===zone.dataset.zone;
+    if(correct){
+      item.classList.remove('incorrect');
+      item.classList.add('correct');
+      item.draggable=false;
+      zone.appendChild(item);
+    } else {
+      item.classList.add('incorrect');
+      setTimeout(()=>item.classList.remove('incorrect'),600);
+    }
+    updateFeedback();
+  }
+
+  function updateFeedback(){
+    const total=DND_ITEMS.length;
+    const correct=block.querySelectorAll('.dnd-item.correct').length;
+    if(correct===total){
+      feedback.textContent='¡Listo! Los seis están bien clasificados.';
+      feedback.classList.add('done');
+      if(!block.querySelector('.dnd-reset')){
+        const btn=document.createElement('button');
+        btn.className='dnd-reset';
+        btn.type='button';
+        btn.textContent='Reintentar';
+        btn.addEventListener('click',()=>{
+          block.querySelector('.dnd-wrap').remove();
+          feedback.classList.remove('done');
+          feedback.textContent='Arrastrá los seis ítems para empezar.';
+          btn.remove();
+          /* rebuild */
+          const wrap=document.createElement('div');
+          wrap.className='dnd-wrap';
+          wrap.innerHTML=`<div><p class="dnd-pool-label">Ejemplos por clasificar</p><div class="dnd-pool" id="dnd-pool"></div></div><div class="dnd-zones"><div class="dnd-zone cos" data-zone="cos"><p class="dnd-zone-title">Cosmética</p></div><div class="dnd-zone cog" data-zone="cog"><p class="dnd-zone-title">Cognitiva</p></div></div>`;
+          feedback.parentNode.insertBefore(wrap,feedback);
+          initDnD();
+        });
+        feedback.parentNode.insertBefore(btn,feedback.nextSibling);
+      }
+    } else {
+      feedback.textContent=`Llevás ${correct} de ${total} bien clasificados.`;
+    }
+  }
+}
+
+/* Quiz bloqueante */
+function initQuiz(dayN,questions){
+  const container=app.querySelector('#quiz-d1');
+  if(!container) return;
+  const submitBtn=app.querySelector('#quiz-submit');
+  const retryBtn=app.querySelector('#quiz-retry');
+  const result=app.querySelector('#quiz-result');
+  const gate=app.querySelector('#quiz-gate');
+
+  const passed=quizPassed(dayN);
+
+  container.innerHTML=questions.map((q,i)=>`
+    <div class="quiz-q" data-q="${i}">
+      <p class="quiz-q-text"><span class="quiz-q-num">${i+1}</span>${q.q}</p>
+      <div class="quiz-options">
+        ${q.opts.map((o,j)=>`
+          <label class="quiz-opt" data-opt="${j}">
+            <input type="radio" name="q${i}" value="${j}">
+            <span>${o}</span>
+          </label>
+        `).join("")}
+      </div>
+      <div class="quiz-feedback" id="qfb-${i}"></div>
+    </div>
+  `).join("");
+
+  /* Marcar selección visualmente */
+  container.querySelectorAll('.quiz-opt').forEach(opt=>{
+    opt.addEventListener('click',e=>{
+      const q=opt.closest('.quiz-q');
+      q.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('selected'));
+      opt.classList.add('selected');
+    });
+  });
+
+  if(passed){
+    showResults(true);
+  }
+
+  submitBtn.addEventListener('click',()=>{
+    let score=0;
+    questions.forEach((q,i)=>{
+      const sel=container.querySelector(`input[name="q${i}"]:checked`);
+      const opts=container.querySelectorAll(`.quiz-q[data-q="${i}"] .quiz-opt`);
+      const fb=container.querySelector(`#qfb-${i}`);
+      opts.forEach(o=>o.classList.add('disabled'));
+      if(!sel){
+        fb.textContent='Sin respuesta. La correcta es: «'+q.opts[q.correct]+'». '+q.explain;
+        fb.className='quiz-feedback bad show';
+        opts[q.correct].classList.add('correct');
+        return;
+      }
+      const picked=parseInt(sel.value,10);
+      if(picked===q.correct){
+        score++;
+        opts[picked].classList.add('correct');
+        fb.textContent='Correcto. '+q.explain;
+        fb.className='quiz-feedback ok show';
+      } else {
+        opts[picked].classList.add('incorrect');
+        opts[q.correct].classList.add('correct');
+        fb.textContent='La correcta es: «'+q.opts[q.correct]+'». '+q.explain;
+        fb.className='quiz-feedback bad show';
+      }
+    });
+    const total=questions.length;
+    const pass=score>=3;
+    result.textContent=`${score} / ${total} respuestas correctas${pass?' — aprobado':''}`;
+    result.className='quiz-result '+(pass?'pass':'fail');
+    submitBtn.style.display='none';
+    retryBtn.style.display='';
+    if(pass){
+      markQuizPassed(dayN);
+      gate.innerHTML='<strong>¡Aprobado!</strong> Ya podés marcar el día como completado abajo.';
+      gate.style.background='var(--green-soft)';
+      gate.style.borderColor='var(--green)';
+      /* Re-render para habilitar el botón */
+      setTimeout(()=>{
+        const btnComplete=app.querySelector('.daynav .btn[disabled]');
+        if(btnComplete && btnComplete.textContent.includes('Marcar')){
+          const newBtn=document.createElement('button');
+          newBtn.className='btn btn-primary';
+          newBtn.textContent='Marcar como completado';
+          newBtn.dataset.complete=dayN;
+          newBtn.addEventListener('click',()=>{
+            state.completed.add(dayN); saveProgress(); updateTopbar(); renderDay(dayN);
+          });
+          btnComplete.replaceWith(newBtn);
+        }
+      },400);
+    }
+  });
+
+  retryBtn.addEventListener('click',()=>{
+    /* Reset */
+    container.querySelectorAll('.quiz-opt').forEach(o=>{
+      o.classList.remove('selected','correct','incorrect','disabled');
+      const inp=o.querySelector('input'); if(inp) inp.checked=false;
+    });
+    container.querySelectorAll('.quiz-feedback').forEach(f=>{
+      f.className='quiz-feedback';
+      f.textContent='';
+    });
+    result.textContent='';
+    result.className='quiz-result';
+    submitBtn.style.display='';
+    retryBtn.style.display='none';
+  });
+
+  function showResults(asPassed){
+    /* Modo solo-lectura: mostrar correctas sin tocar nada */
+    if(!asPassed) return;
+    result.textContent='Quiz aprobado. Podés reintentar para repasar.';
+    result.className='quiz-result pass';
+    gate.innerHTML='<strong>Quiz aprobado.</strong> El botón de completar el día está habilitado abajo.';
+    gate.style.background='var(--green-soft)';
+    gate.style.borderColor='var(--green)';
+  }
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+loadProfile(); loadProgress(); loadQuiz(); loadSections(); syncThemeIcon();
+window.addEventListener("hashchange",route);
+route(); onScroll();
+</script>
+</body>
+</html>
