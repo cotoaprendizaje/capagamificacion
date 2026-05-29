@@ -518,6 +518,35 @@
   .onboarding-close{position:absolute;top:.7rem;right:.8rem;background:none;border:none;color:var(--gray);font-size:1rem;cursor:pointer;font-family:inherit;padding:.25rem .4rem;line-height:1}
   .onboarding-close:hover{color:var(--navy)}
 
+  /* ---------- Tooltips de términos técnicos ---------- */
+  .term{border-bottom:1.5px dashed var(--blue-light);cursor:help;position:relative;transition:color .2s}
+  .term:hover{color:var(--blue)}
+  .term::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 10px);left:50%;background:var(--navy-dark);color:#fff;padding:.65rem .9rem;border-radius:8px;font-size:.82rem;line-height:1.5;white-space:normal;width:280px;max-width:min(90vw,280px);z-index:100;box-shadow:0 8px 24px rgba(0,0,0,.22);font-style:normal;font-weight:400;letter-spacing:0;opacity:0;pointer-events:none;transition:opacity .18s;transform:translateX(-50%)}
+  .term::before{content:'';position:absolute;bottom:calc(100% + 4px);left:50%;width:0;height:0;border:6px solid transparent;border-top-color:var(--navy-dark);transform:translateX(-50%);opacity:0;pointer-events:none;transition:opacity .18s;z-index:100}
+  .term:hover::after,.term:hover::before,.term.open::after,.term.open::before,.term:focus-visible::after,.term:focus-visible::before{opacity:1}
+  /* En mobile, los tooltips junto al borde de pantalla se desplazan */
+  @media(max-width:560px){
+    .term::after{width:220px;max-width:80vw}
+  }
+
+  /* ---------- Figure (inline illustration) ---------- */
+  .figure{margin:1.4rem 0;background:linear-gradient(135deg,var(--cream),var(--surface-2));border:1px solid var(--gray-light);border-radius:12px;padding:1.1rem 1.2rem;overflow:hidden}
+  .figure svg{width:100%;height:auto;max-width:660px;display:block;margin:0 auto}
+  .figure-caption{font-size:.82rem;color:var(--gray);text-align:center;margin-top:.7rem;font-style:italic;line-height:1.5}
+
+  /* ---------- YouTube video block (lazy-load) ---------- */
+  .video-block{margin:1.4rem 0;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0a0a0a;box-shadow:var(--shadow);position:relative}
+  .video-thumb{width:100%;height:100%;border:none;background:linear-gradient(135deg,#1f1f1f,#0a0a0a);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;font-family:inherit;position:relative;overflow:hidden}
+  .video-thumb::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(255,0,0,.08),transparent 70%)}
+  .video-thumb-overlay{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:.9rem;padding:1rem}
+  .video-play{width:68px;height:68px;border-radius:50%;background:rgba(255,0,0,.92);color:#fff;display:grid;place-items:center;font-size:1.9rem;padding-left:6px;transition:transform .2s,background .2s;box-shadow:0 8px 22px rgba(0,0,0,.4)}
+  .video-thumb:hover .video-play{transform:scale(1.08);background:#ff0000}
+  .video-thumb-caption{color:rgba(255,255,255,.92);font-size:.95rem;font-weight:600;margin:0;text-align:center;line-height:1.4}
+  .video-thumb-hint{color:rgba(255,255,255,.55);font-size:.78rem;margin:0;text-align:center}
+  .video-block iframe{width:100%;height:100%;border:none;display:block}
+  .video-block.no-id{background:repeating-linear-gradient(45deg,#1a1a1a,#1a1a1a 10px,#1f1f1f 10px,#1f1f1f 20px)}
+  .video-block.no-id .video-thumb-caption{color:#FFB84D}
+
   /* ---------- Scenario (mini-juego) ---------- */
   .scenario{margin-top:.6rem}
   .scenario-setup{font-size:.95rem;color:var(--navy);background:var(--surface-2);border-left:3px solid var(--gray);border-radius:0 10px 10px 0;padding:.85rem 1.1rem;margin-bottom:1.1rem;line-height:1.55}
@@ -836,8 +865,8 @@ const COURSE = {
             text:"Hace dos meses dí un curso de devoluciones. A los tres días les pregunté la diferencia entre TC y TM y nadie se acordaba. ¿Estoy haciendo algo mal?",
             name:"Sofía · Capacitadora interna · Equipo COTO Aprendizaje"
           },
-          reading:`<p>La respuesta corta: <strong>no, Sofía</strong>. La curva del olvido (Hermann Ebbinghaus, 1885) describe algo que vivimos todo el tiempo en producción: lo aprendido se desvanece rápido y la caída más brusca ocurre en las primeras 24–48 horas.</p>
-<p>Dos palancas la aplanan: <strong>repaso espaciado</strong> y <strong>recuperación activa</strong> (traer el contenido de memoria, no releerlo). La gamificación bien hecha es el vehículo para forzar la segunda.</p>`,
+          reading:`<p>La respuesta corta: <strong>no, Sofía</strong>. La curva del olvido (<span class="term" data-tip="Psicólogo alemán que en 1885 publicó el primer estudio empírico de la curva del olvido. Aprendía y olvidaba sílabas sin sentido para medir cómo decae la memoria con el tiempo.">Hermann Ebbinghaus</span>, 1885) describe algo que vivimos todo el tiempo en producción: lo aprendido se desvanece rápido y la caída más brusca ocurre en las primeras 24–48 horas.</p>
+<p>Dos palancas la aplanan: <strong><span class="term" data-tip="Técnica donde el contenido se revisita con intervalos crecientes (1 día, 3 días, 1 semana…). Cepeda et al. probaron que es 2–3× más efectivo que el repaso concentrado de una sola sentada.">repaso espaciado</span></strong> y <strong><span class="term" data-tip="Traer información a la memoria sin tener el material a la vista. Karpicke (2008) mostró que es la técnica de estudio más potente — más que releer o subrayar.">recuperación activa</span></strong> (traer el contenido de memoria, no releerlo). La gamificación bien hecha es el vehículo para forzar la segunda.</p>`,
           interactive:{type:"curve", tag:"Experimentá", title:"¿Qué pasa con o sin refuerzo?", desc:"La línea muestra qué porcentaje recuerda una persona a lo largo de los días. Activá el refuerzo espaciado y mirá cómo cambia."},
           feedback:{
             curious:"Bien — al comparar las dos curvas se ve directo el efecto. El <strong>repaso espaciado no es decoración</strong>: es lo que cambia el resultado.",
@@ -858,7 +887,93 @@ const COURSE = {
             text:"Probé pegándole badges, puntos y un ranking al mismo curso. Igual no retuvieron nada. Algo más profundo está mal y no lo veo.",
             name:"Sofía · probando"
           },
-          reading:`<p>Porque las medallas y los puntos quedaron <strong>encima de un contenido que no cambió</strong>. No tocaron cómo se procesa la información: solo decoraron la pantalla. Eso es <em>chocolate-covered broccoli</em>: el brócoli sigue siendo brócoli.</p>
+          reading:`<p>Porque las medallas y los puntos quedaron <strong>encima de un contenido que no cambió</strong>. No tocaron cómo se procesa la información: solo decoraron la pantalla. Eso es <em><span class="term" data-tip="Término del diseño de juegos educativos. Describe productos que disfrazan contenido aburrido con decoración atractiva. Si sacás la decoración, el contenido sigue siendo el mismo.">chocolate-covered broccoli</span></em>: el brócoli sigue siendo brócoli.</p>
+<figure class="figure">
+  <svg viewBox="0 0 700 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Comparación entre pantalla cosmética y pantalla cognitiva (estilo Duolingo)">
+    <defs>
+      <linearGradient id="phoneBgL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#f3f4f6"/></linearGradient>
+      <linearGradient id="phoneBgR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#eaf7e6"/></linearGradient>
+      <marker id="arrFig" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#666"/></marker>
+    </defs>
+    <text x="160" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#F02850" letter-spacing="2">LO QUE DECORA</text>
+    <g transform="translate(40, 36)">
+      <rect x="0" y="0" width="240" height="300" rx="22" fill="#1a1a1a"/>
+      <rect x="6" y="6" width="228" height="288" rx="16" fill="url(#phoneBgL)"/>
+      <text x="120" y="22" text-anchor="middle" font-size="9" fill="#999">9:41</text>
+      <g transform="translate(14, 34)">
+        <rect x="0" y="0" width="62" height="30" rx="15" fill="#fff" stroke="#e5e7eb"/>
+        <text x="14" y="20" font-size="13">🔥</text>
+        <text x="32" y="20" font-size="11" font-weight="700" fill="#FF9600">42</text>
+        <rect x="70" y="0" width="62" height="30" rx="15" fill="#fff" stroke="#e5e7eb"/>
+        <text x="82" y="20" font-size="13">⭐</text>
+        <text x="100" y="20" font-size="11" font-weight="700" fill="#E59A00">2.340</text>
+        <rect x="140" y="0" width="62" height="30" rx="15" fill="#fff" stroke="#e5e7eb"/>
+        <text x="154" y="20" font-size="13">💎</text>
+        <text x="172" y="20" font-size="11" font-weight="700" fill="#1CB0F6">158</text>
+      </g>
+      <g transform="translate(14, 78)">
+        <rect x="0" y="0" width="212" height="10" rx="5" fill="#e5e7eb"/>
+        <rect x="0" y="0" width="124" height="10" rx="5" fill="#58CC02"/>
+      </g>
+      <g transform="translate(14, 108)" opacity=".4">
+        <rect x="0" y="0" width="212" height="14" rx="3" fill="#9ca3af"/>
+        <rect x="0" y="22" width="178" height="14" rx="3" fill="#9ca3af"/>
+        <rect x="0" y="44" width="200" height="14" rx="3" fill="#9ca3af"/>
+        <rect x="0" y="66" width="160" height="14" rx="3" fill="#9ca3af"/>
+        <text x="106" y="100" text-anchor="middle" font-size="10" fill="#9ca3af" font-style="italic">contenido</text>
+      </g>
+      <g transform="translate(14, 220)">
+        <rect x="0" y="0" width="212" height="56" rx="12" fill="#fef3c7" stroke="#FFB84D" stroke-width="1.5"/>
+        <text x="20" y="28" font-size="22">🏆</text>
+        <text x="50" y="22" font-size="11" font-weight="700" fill="#92400e">LIGA ESMERALDA</text>
+        <text x="50" y="38" font-size="10" fill="#a16207">Vas #3 de 30 esta semana</text>
+        <text x="50" y="52" font-size="9" fill="#a16207">¡no perdas tu lugar! +5 medallas</text>
+      </g>
+    </g>
+    <g transform="translate(305, 165)">
+      <text x="45" y="-18" text-anchor="middle" font-size="11" font-weight="600" fill="#666">sacale la</text>
+      <text x="45" y="-4" text-anchor="middle" font-size="11" font-weight="600" fill="#666">cosmética</text>
+      <path d="M -10 18 L 100 18" stroke="#666" stroke-width="2" marker-end="url(#arrFig)" stroke-dasharray="5,3"/>
+      <text x="45" y="38" text-anchor="middle" font-size="10" fill="#666" font-style="italic">¿sigue enseñando?</text>
+      <text x="45" y="58" text-anchor="middle" font-size="11" font-weight="700" fill="#22c55e">SÍ. ESTO ES LO QUE</text>
+      <text x="45" y="72" text-anchor="middle" font-size="11" font-weight="700" fill="#22c55e">REALMENTE ENSEÑA</text>
+    </g>
+    <text x="540" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#22c55e" letter-spacing="2">LO QUE ENSEÑA</text>
+    <g transform="translate(420, 36)">
+      <rect x="0" y="0" width="240" height="300" rx="22" fill="#1a1a1a"/>
+      <rect x="6" y="6" width="228" height="288" rx="16" fill="url(#phoneBgR)"/>
+      <text x="120" y="22" text-anchor="middle" font-size="9" fill="#999">9:41</text>
+      <g transform="translate(14, 38)">
+        <text x="106" y="14" text-anchor="middle" font-size="11" font-weight="700" fill="#3c3c3c" letter-spacing=".5">ESCRIBÍ EN ESPAÑOL</text>
+        <text x="106" y="40" text-anchor="middle" font-size="14" font-weight="700" fill="#1CB0F6">"The girl reads a book"</text>
+        <text x="106" y="58" text-anchor="middle" font-size="10" fill="#888">🔊 tap para escuchar</text>
+      </g>
+      <g transform="translate(14, 110)">
+        <rect x="0" y="0" width="64" height="26" rx="13" fill="#fff" stroke="#ccc"/>
+        <text x="32" y="18" text-anchor="middle" font-size="11" fill="#3c3c3c">La</text>
+        <rect x="72" y="0" width="64" height="26" rx="13" fill="#fff" stroke="#ccc"/>
+        <text x="104" y="18" text-anchor="middle" font-size="11" fill="#3c3c3c">niña</text>
+        <rect x="144" y="0" width="64" height="26" rx="13" fill="#fff" stroke="#ccc"/>
+        <text x="176" y="18" text-anchor="middle" font-size="11" fill="#3c3c3c">lee</text>
+        <rect x="0" y="34" width="80" height="26" rx="13" fill="#fff" stroke="#ccc"/>
+        <text x="40" y="52" text-anchor="middle" font-size="11" fill="#3c3c3c">un libro</text>
+        <rect x="86" y="34" width="64" height="26" rx="13" fill="#fff" stroke="#ccc"/>
+        <text x="118" y="52" text-anchor="middle" font-size="11" fill="#3c3c3c">leen</text>
+        <rect x="156" y="34" width="52" height="26" rx="13" fill="#fff" stroke="#ccc"/>
+        <text x="182" y="52" text-anchor="middle" font-size="11" fill="#3c3c3c">leo</text>
+      </g>
+      <g transform="translate(14, 195)">
+        <rect x="0" y="0" width="212" height="40" rx="8" fill="#fff" stroke="#ccc" stroke-dasharray="4,3"/>
+        <text x="106" y="25" text-anchor="middle" font-size="11" fill="#aaa">arrastrá tu respuesta acá</text>
+      </g>
+      <g transform="translate(14, 248)">
+        <rect x="0" y="0" width="212" height="34" rx="17" fill="#58CC02"/>
+        <text x="106" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">VERIFICAR</text>
+      </g>
+    </g>
+  </svg>
+  <figcaption class="figure-caption">A la izquierda: la chrome cosmética de Duolingo (streak, XP, gemas, liga). A la derecha: la mecánica cognitiva — decidir, ordenar, recibir feedback. <strong>Sacale lo de la izquierda: la derecha sigue enseñando.</strong></figcaption>
+</figure>
 <p>La distinción operativa: si sacás los puntos y la actividad sigue enseñando lo mismo, es <strong>cognitiva</strong>. Si sin los puntos no queda nada, es <strong>cosmética</strong>.</p>`,
           interactive:{
             type:"dnd", tag:"Decidí", title:"Clasificá estos seis ejemplos", desc:"Arrastrá cada caso a su zona. La distancia es corta y horizontal.",
@@ -891,7 +1006,7 @@ const COURSE = {
             text:"Si tengo que diseñar una mecánica nueva, ¿por dónde arranco? ¿Pongo puntos y veo qué pasa?",
             name:"Sofía · pensando el diseño"
           },
-          reading:`<p>MDA es el atajo conceptual que más vale la pena tener a mano. Define tres capas:</p>
+          reading:`<p><span class="term" data-tip="Mechanics — Dynamics — Aesthetics. Framework de diseño de juegos propuesto por Hunicke, LeBlanc y Zubek (2004) para analizar cómo las reglas del juego (mecánica) producen un comportamiento (dinámica) que genera una experiencia (estética).">MDA</span> es el atajo conceptual que más vale la pena tener a mano. Define tres capas:</p>
 <ul class="ticks">
 <li><strong>Mecánicas</strong> — las reglas y los componentes: puntos, turnos, vidas, decisiones.</li>
 <li><strong>Dinámicas</strong> — el comportamiento que emerge al jugar: tensión, estrategia, exploración.</li>
@@ -915,7 +1030,8 @@ const COURSE = {
             text:"Las 4 condiciones suenan claras en el papel. Pero, ¿cómo se sienten cuando estás vos diseñando una capacitación real? Probemos.",
             name:"Sofía · arremangándose"
           },
-          reading:`<p>Cuatro condiciones aparecen una y otra vez en los juegos que efectivamente enseñan. Pero leerlas no es lo mismo que <em>sentirlas</em>. Acá, en vez de listarlas, las vas a vivir.</p><p>Tomá una decisión, mirá qué pasa, seguí. Al final vemos qué tan distinto se sintió del "leer la teoría".</p>`,
+          reading:`<p>Cuatro condiciones aparecen una y otra vez en los juegos que efectivamente enseñan. Pero leerlas no es lo mismo que <em>sentirlas</em>. Acá, en vez de listarlas, las vas a vivir.</p>
+<p><strong>Tomá una decisión, mirá qué pasa, seguí.</strong> Al final vemos qué tan distinto se sintió del "leer la teoría".</p>`,
           interactive:{
             type:"scenario", tag:"Vivilo", title:"Una decisión con consecuencias", desc:"60–90 segundos. Después del juego, debrief con las 4 condiciones señaladas.",
             scenario:{
@@ -2132,6 +2248,36 @@ function showDayCelebration(dayN){
     }
   });
 }
+
+/* Tooltips: tap toggle (mobile) + close-on-outside-click */
+document.addEventListener('click',e=>{
+  const term=e.target.closest('.term');
+  if(term){
+    e.stopPropagation();
+    document.querySelectorAll('.term.open').forEach(t=>{ if(t!==term) t.classList.remove('open'); });
+    term.classList.toggle('open');
+    return;
+  }
+  document.querySelectorAll('.term.open').forEach(t=>t.classList.remove('open'));
+});
+
+/* YouTube lazy-load handler */
+document.addEventListener('click',e=>{
+  const thumb=e.target.closest('.video-thumb');
+  if(!thumb) return;
+  const block=thumb.closest('.video-block');
+  if(!block) return;
+  const id=block.dataset.ytId;
+  if(!id || id==='REEMPLAZAR_ID'){
+    block.classList.add('no-id');
+    const cap=block.querySelector('.video-thumb-caption');
+    const hint=block.querySelector('.video-thumb-hint');
+    if(cap) cap.textContent='⚠ ID del video pendiente';
+    if(hint) hint.textContent='editá data-yt-id en el HTML con cualquier ID de YouTube (ej. dQw4w9WgXcQ)';
+    return;
+  }
+  block.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1" title="${block.dataset.ytTitle||'Video'}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+});
 
 /* "Avanzar" handler */
 document.addEventListener('click',e=>{
