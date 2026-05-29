@@ -349,7 +349,8 @@
   .step.done .step-n::before{content:'✓';font-size:.8rem}
   .step.active{color:var(--navy);background:rgba(8,111,161,.08);border-color:var(--blue-light)}
   .step.active .step-n{background:var(--blue);color:#fff}
-  .step.locked{color:var(--gray);opacity:.6;cursor:not-allowed}
+  .step.locked{color:var(--gray);opacity:.65;cursor:not-allowed;padding:.4rem .55rem}
+  .step.locked .step-title{display:none}
   .step-divider{height:2px;width:14px;background:var(--gray-light);border-radius:2px;flex:none}
   .step-divider.done{background:var(--green)}
 
@@ -495,14 +496,15 @@
   .section .interactive h3{font-size:1rem;color:var(--navy);margin-bottom:.3rem}
   .section .interactive .interactive-desc{font-size:.84rem;margin-bottom:.85rem}
 
-  /* "Sección siguiente" como link discreto */
-  .section-next-wrap{margin:1.4rem 0 0;padding-top:.6rem;border-top:1px dashed var(--gray-light)}
-  .section-next{display:inline-flex;align-items:center;gap:.4rem;color:var(--blue);font-weight:600;font-size:.92rem;cursor:pointer;border:none;background:none;font-family:inherit;padding:.4rem 0;transition:gap .2s,color .2s}
-  .section-next:hover:not(:disabled){gap:.7rem;color:var(--blue-dark)}
-  .section-next:disabled{color:var(--gray);cursor:not-allowed;opacity:.65}
+  /* "Siguiente sección" — botón verde con latido */
+  .section-next-wrap{margin:1.4rem 0 0;padding-top:.8rem;border-top:1px dashed var(--gray-light);text-align:right}
+  .section-next{display:inline-flex;align-items:center;gap:.55rem;background:var(--green);color:#fff;font-weight:700;font-size:.93rem;cursor:pointer;border:none;font-family:inherit;padding:.78rem 1.4rem;border-radius:12px;box-shadow:0 6px 16px rgba(0,200,140,.30);transition:all .2s;animation:nextPulse 2.4s ease-in-out infinite;letter-spacing:.2px}
+  .section-next:hover:not(:disabled){background:#00a473;transform:translateY(-1px);box-shadow:0 8px 22px rgba(0,200,140,.45);animation-play-state:paused}
+  .section-next:disabled{background:var(--gray-light);color:var(--gray);cursor:not-allowed;box-shadow:none;animation:none;font-weight:500}
   .section-next .arr{transition:transform .2s;display:inline-block}
-  .section-next:hover:not(:disabled) .arr{transform:translateX(3px)}
-  .section-next-hint{display:block;margin-top:.35rem;font-size:.78rem;color:var(--gray);font-weight:normal}
+  .section-next:hover:not(:disabled) .arr{transform:translateX(4px)}
+  .section-next-hint{display:block;margin-top:.5rem;font-size:.78rem;color:var(--gray);font-weight:normal;text-align:right}
+  @keyframes nextPulse{0%,100%{box-shadow:0 6px 16px rgba(0,200,140,.30)}50%{box-shadow:0 8px 26px rgba(0,200,140,.55)}}
 
   /* ---------- Onboarding ---------- */
   .onboarding-card{display:flex;gap:1rem;align-items:flex-start;background:linear-gradient(135deg,var(--surface),var(--surface-2));border:1px solid var(--gray-light);border-radius:var(--radius);padding:1.3rem 1.5rem 1.3rem;margin-bottom:1.8rem;position:relative;box-shadow:var(--shadow-card);animation:fadeUp .45s ease both;overflow:hidden}
@@ -646,6 +648,11 @@
   .celebration-insights li{padding:.7rem 1rem;font-size:.88rem;color:var(--navy);line-height:1.5;border-bottom:1px solid var(--gray-light)}
   .celebration-insights li:last-child{border-bottom:none}
   .cel-sec{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--blue);background:rgba(8,111,161,.08);padding:.15em .55em;border-radius:5px;margin-right:.5rem;vertical-align:middle}
+  .celebration-deliverable{background:linear-gradient(135deg,#162036,#1f2d46);border-radius:12px;padding:1rem 1.2rem;margin:0 0 1.3rem;position:relative;overflow:hidden}
+  .celebration-deliverable::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--grad-prog)}
+  .celebration-deliverable-tag{font-size:10px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--blue-light);margin-bottom:.4rem}
+  .celebration-deliverable-title{font-size:1.05rem;font-weight:700;color:#fff;line-height:1.35;margin-bottom:.5rem;letter-spacing:-.2px}
+  .celebration-deliverable-note{font-size:.85rem;color:rgba(255,255,255,.7);line-height:1.55;font-weight:300}
   .celebration-actions{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap}
   .copy-ok{background:var(--green-soft)!important;color:var(--green-ink)!important;border-color:var(--green)!important}
 
@@ -947,7 +954,8 @@ const COURSE = {
             text:"Probé pegándole badges, puntos y un ranking al mismo curso. Igual no retuvieron nada. Algo más profundo está mal y no lo veo.",
             name:"Sofía · probando"
           },
-          reading:`<p>Porque las medallas y los puntos quedaron <strong>encima de un contenido que no cambió</strong>. No tocaron cómo se procesa la información: solo decoraron la pantalla. Eso es <em><span class="term" data-tip="Término del diseño de juegos educativos. Describe productos que disfrazan contenido aburrido con decoración atractiva. Si sacás la decoración, el contenido sigue siendo el mismo.">chocolate-covered broccoli</span></em>: el brócoli sigue siendo brócoli.</p>
+          reading:`<p>Lo que probaste, Sofía, tiene nombre. Las medallas y los puntos pegados <strong>encima de un contenido que no cambió</strong> son <strong>gamificación cosmética</strong>: decoran, motivan al principio, pero no tocan cómo se procesa la información. Su primo malo es el <em><span class="term" data-tip="Término acuñado por Brenda Laurel para describir productos educativos que disfrazan contenido aburrido con decoración atractiva. Si sacás la decoración, el contenido sigue siendo el mismo.">chocolate-covered broccoli</span></em>: sacale la cobertura y el brócoli sigue siendo brócoli.</p>
+<p>Lo opuesto es la <strong>gamificación cognitiva</strong>: cuando la mecánica <em>es</em> la actividad de aprendizaje. Decidir, equivocarse, recibir feedback distinto según lo que elegiste, reintentar. La mecánica no decora — <strong>obliga a procesar el contenido</strong>. Y la retención cambia.</p>
 <figure class="figure">
   <svg viewBox="0 0 700 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Comparación entre pantalla cosmética y pantalla cognitiva (estilo Duolingo)">
     <defs>
@@ -1841,7 +1849,7 @@ function renderDayV2(n){
     if(isSectionDone(n,i)) cls+=" done";
     else if(i<visible) cls+=" active";
     else cls+=" locked";
-    const stepBtn=`<button class="${cls}" data-step="${i}" ${i>=visible?'disabled':''}><span class="step-n"><span class="num">${i+1}</span></span><span>${s.title}</span></button>`;
+    const stepBtn=`<button class="${cls}" data-step="${i}" ${i>=visible?'disabled':''}><span class="step-n"><span class="num">${i+1}</span></span><span class="step-title">${s.title}</span></button>`;
     const divider=i<total-1 ? `<span class="step-divider ${isSectionDone(n,i)?'done':''}"></span>` : '';
     return stepBtn+divider;
   }).join("");
@@ -1880,11 +1888,6 @@ function renderDayV2(n){
         ${onboardingHTML}
         <nav class="day-stepper" id="dayStepper" aria-label="Progreso del día">${stepperHTML}</nav>
         ${sectionsHTML}
-        <aside class="deliverable">
-          <p class="deliverable-tag">Entregable del día</p>
-          <p class="deliverable-text">${d.deliverable}</p>
-          ${d.deliverableNote?`<p class="deliverable-note">${d.deliverableNote}</p>`:""}
-        </aside>
         <nav class="daynav">
           ${prevBtn}<span class="spacer"></span>${completeBtn}${nextBtn}
         </nav>
@@ -1978,7 +1981,7 @@ function renderSectionV2(s,i,dayN,total){
   const nextHTML = !isLast ? `
     <div class="section-next-wrap">
       <button class="section-next" data-section-next="${i}" ${done?'':'disabled'}>
-        Sección siguiente <span class="arr">→</span>
+        Siguiente sección <span class="arr">→</span>
       </button>
       ${done?'':'<span class="section-next-hint">Interactuá con el componente de arriba para continuar</span>'}
     </div>` : '';
@@ -2600,8 +2603,13 @@ function showDayCelebration(dayN){
       <button class="celebration-close" aria-label="Cerrar">✕</button>
       <div class="celebration-check">✓</div>
       <h2>¡Día ${dayN} completado!</h2>
-      <p class="celebration-sub">Estos son los <strong>${insights.length} insights</strong> que recolectaste. Son el material para tu entregable: <em>${d.deliverable}</em></p>
+      <p class="celebration-sub">Recolectaste <strong>${insights.length} insights</strong>. Son el material para tu entregable.</p>
       <ul class="celebration-insights">${insightsHTML}</ul>
+      <div class="celebration-deliverable">
+        <p class="celebration-deliverable-tag">◆ Tu entregable del Día ${dayN}</p>
+        <p class="celebration-deliverable-title">${d.deliverable}</p>
+        ${d.deliverableNote ? `<p class="celebration-deliverable-note">${d.deliverableNote}</p>` : ''}
+      </div>
       <div class="celebration-actions">
         <button class="btn btn-ghost" id="celebration-copy" type="button">📋 Copiar insights</button>
         ${nextN ? `<a class="btn btn-primary" href="#dia-${nextN}">Pasar al Día ${nextN} <span class="arr">→</span></a>` : '<a class="btn btn-primary" href="#" data-home>Volver al índice →</a>'}
