@@ -580,6 +580,21 @@
     .family-grid,.principles-grid{grid-template-columns:1fr}
   }
 
+  /* ---------- FX toggle FAB ---------- */
+  .fab-fx{position:relative}
+  .fab-fx.off span{filter:grayscale(1) opacity(.6)}
+  .fab-fx.off::after{content:'';position:absolute;top:50%;left:8px;right:8px;height:2px;background:#fff;transform:rotate(-25deg);border-radius:1px}
+
+  /* ---------- Insight toast ---------- */
+  .insight-toast{position:fixed;bottom:1.5rem;right:5.4rem;background:var(--green-soft);border:1px solid var(--green);border-radius:99px;padding:.55rem 1rem;color:var(--green-ink);font-size:.85rem;font-weight:600;display:inline-flex;align-items:center;gap:.45rem;z-index:550;box-shadow:0 8px 22px rgba(0,200,140,.25);animation:toastIn .4s cubic-bezier(.2,1.4,.3,1) both}
+  .insight-toast.hide{animation:toastOut .35s ease both}
+  .insight-toast-icon{font-size:1rem;line-height:1}
+  @keyframes toastIn{from{opacity:0;transform:translateY(15px) scale(.85)}to{opacity:1;transform:none}}
+  @keyframes toastOut{to{opacity:0;transform:translateY(15px) scale(.85)}}
+
+  /* ---------- Confetti canvas ---------- */
+  .confetti-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999}
+
   /* ---------- Audio buttons (locución) ---------- */
   .audio-btn{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:rgba(8,111,161,.10);color:var(--blue);border:1px solid rgba(8,111,161,.25);cursor:pointer;margin-left:.5rem;vertical-align:middle;transition:all .2s;font-family:inherit;padding:0;line-height:1;flex:none;font-size:.65rem}
   .audio-btn::before{content:'🔊';line-height:1}
@@ -727,8 +742,6 @@
     <g fill="#180A04">
       <ellipse cx="36" cy="33" rx="4.5" ry="3.8"/><ellipse cx="44" cy="30" rx="4.5" ry="3.8"/><ellipse cx="52" cy="30" rx="4.5" ry="3.8"/><ellipse cx="60" cy="33" rx="4.5" ry="3.8"/>
     </g>
-    <path d="M 38 41 Q 42 39, 47 41" stroke="#180A04" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-    <path d="M 53 41 Q 58 39, 62 41" stroke="#180A04" stroke-width="1.8" fill="none" stroke-linecap="round"/>
     <path d="M 39 44.5 Q 43 43.3, 47 44.5" stroke="#9C6B50" stroke-width=".7" fill="none" opacity=".55"/>
     <path d="M 53 44.5 Q 57 43.3, 61 44.5" stroke="#9C6B50" stroke-width=".7" fill="none" opacity=".55"/>
     <ellipse cx="43" cy="46.5" rx="2.9" ry="2.7" fill="#FAFAF3"/>
@@ -749,10 +762,6 @@
     <path d="M 51 55.3 Q 52 56.3, 53 55.8" stroke="#9C6B50" stroke-width=".75" fill="none" stroke-linecap="round" opacity=".6"/>
     <path d="M 49 55.3 Q 48 56.3, 47 55.8" stroke="#9C6B50" stroke-width=".75" fill="none" stroke-linecap="round" opacity=".6"/>
     <ellipse cx="50.6" cy="53" rx="1.1" ry=".5" fill="#FFFFFF" opacity=".3"/>
-    <path d="M 44 58.5 Q 47 56.5, 50 58 Q 53 56.5, 56 58.5 Q 53 59.5, 50 59 Q 47 59.5, 44 58.5 Z" fill="url(#lipG)"/>
-    <path d="M 44 59 Q 47 62, 50 61.5 Q 53 62, 56 59 Q 53 60.8, 50 60.3 Q 47 60.8, 44 59 Z" fill="url(#lipG)"/>
-    <ellipse cx="50" cy="60.6" rx="2.5" ry=".5" fill="#FFFFFF" opacity=".3"/>
-    <path d="M 44 58.8 Q 47 60, 50 59.3 Q 53 60, 56 58.8" stroke="#6D1F1F" stroke-width=".6" fill="none"/>
     <ellipse cx="50" cy="66.5" rx="6.5" ry="2" fill="#9C6B50" opacity=".22"/>
   </symbol>
   <symbol id="illo-olvido" viewBox="0 0 320 200">
@@ -862,6 +871,7 @@
 
 <div class="fab-stack">
   <button class="fab fab-dark" id="darkFab" aria-label="Cambiar modo claro/oscuro" title="Modo claro/oscuro"><span id="darkIcon" aria-hidden="true">☀️</span></button>
+  <button class="fab fab-fx" id="fxFab" aria-label="Activar/desactivar efectos" title="Sonido + efectos"><span id="fxIcon" aria-hidden="true">🔔</span></button>
   <button class="fab fab-cuaderno" id="cuadernoFab" aria-label="Abrir cuaderno" title="Tu cuaderno del día">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 2.5h9a1 1 0 0 1 1 1V14L8 12l-5 2V3.5a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M5.5 6h5M5.5 8.5h3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
     <span class="badge" id="cuadernoBadge" style="display:none">0</span>
@@ -1830,7 +1840,7 @@ function visibleSectionCount(dN,total){
 function isOnboarded(n){ try{ return localStorage.getItem(PREFIX+":onboarded:"+slug(state.name)+":"+n)==='1'; }catch(e){ return false; } }
 function markOnboarded(n){ try{ localStorage.setItem(PREFIX+":onboarded:"+slug(state.name)+":"+n,'1'); }catch(e){} }
 function renderOnboarding(n){
-  const av=sofiaAvatarMarkup();
+  const av=sofiaAvatarMarkup(n);
   const greet=state.name?`Hola, ${state.name}`:'Hola';
   return `
     <div class="onboarding-card" id="onboarding-card">
@@ -1943,15 +1953,16 @@ let SOFIA_PNG_OK = false;
   });
   img.src = 'assets/sofia.png';
 })();
-function sofiaAvatarMarkup(){
+function sofiaAvatarMarkup(dayN){
   if(SOFIA_PNG_OK) return `<img src="assets/sofia.png" alt="Sofía">`;
-  return `<svg viewBox="0 0 100 100"><use href="#sofia-avatar"/></svg>`;
+  const mood = moodForDay(dayN);
+  return `<svg viewBox="0 0 100 100"><use href="#sofia-avatar"/>${SOFIA_MOOD[mood]}</svg>`;
 }
 
 function renderSectionV2(s,i,dayN,total){
   const done=isSectionDone(dayN,i);
   const isLast=i===total-1;
-  const av = sofiaAvatarMarkup();
+  const av = sofiaAvatarMarkup(dayN);
 
   // Header slim: text + small icon
   const headerHTML = `
@@ -2122,6 +2133,7 @@ function initInteractivesV2(dayN){
 function showSectionExtras(dayN,secIdx,performance){
   const section=app.querySelector(`.section[data-section="${secIdx}"]`);
   if(!section) return;
+  sfx.sectionUnlock();
   const btn=section.querySelector('.section-next');
   if(btn){
     btn.disabled=false;
@@ -2129,7 +2141,7 @@ function showSectionExtras(dayN,secIdx,performance){
     if(hint) hint.remove();
   }
   const sec=COURSE.days[dayN-1].sections[secIdx];
-  const av = sofiaAvatarMarkup();
+  const av = sofiaAvatarMarkup(dayN);
   if(sec.feedback && !section.querySelector('.sofia-reflect')){
     let text=sec.feedback.default || sec.feedback.passed || '';
     if(performance && sec.feedback[performance]) text=sec.feedback[performance];
@@ -2258,9 +2270,11 @@ function initDndV2(block,dayN,secIdx,items,alreadyDone){
       item.classList.add('correct');
       item.draggable=false;
       zone.appendChild(item);
+      sfx.dropCorrect();
     } else {
       item.classList.add('incorrect');
       firstTry=false;
+      sfx.dropIncorrect();
       setTimeout(()=>item.classList.remove('incorrect'),600);
     }
     update();
@@ -2494,6 +2508,7 @@ function initQuizV2(dayN, questions, secIdx){
       const q=opt.closest('.quiz-q');
       q.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('selected'));
       opt.classList.add('selected');
+      sfx.quizSelect();
     });
   });
 
@@ -2524,6 +2539,7 @@ function initQuizV2(dayN, questions, secIdx){
       }
     });
     const pass=score>=3;
+    if(pass) sfx.quizCorrect(); else sfx.quizIncorrect();
     result.textContent=`${score} / ${questions.length} respuestas correctas${pass?' — aprobado':''}`;
     result.className='quiz-result '+(pass?'pass':'fail');
     submitBtn.style.display='none';
@@ -2600,6 +2616,8 @@ function closeCuaderno(){
    CIERRE DEL DÍA — modal de celebración
    ============================================================ */
 function showDayCelebration(dayN){
+  sfx.dayComplete();
+  fireConfetti();
   const d=COURSE.days[dayN-1];
   const insights=[];
   if(d.sections){
@@ -2648,6 +2666,121 @@ function showDayCelebration(dayN){
     }
   });
 }
+
+/* ============================================================
+   COSMETICS · sounds · confetti · toasts
+   ============================================================ */
+const FX_KEY = PREFIX + ":fx";
+let fxEnabled = true;
+try{ fxEnabled = localStorage.getItem(FX_KEY) !== 'off'; }catch(e){}
+
+function syncFxIcon(){
+  const fab=document.getElementById('fxFab'), icon=document.getElementById('fxIcon');
+  if(icon) icon.textContent = fxEnabled ? '🔔' : '🔕';
+  if(fab) fab.classList.toggle('off', !fxEnabled);
+}
+function toggleFx(){
+  fxEnabled = !fxEnabled;
+  try{ localStorage.setItem(FX_KEY, fxEnabled ? 'on' : 'off'); }catch(e){}
+  syncFxIcon();
+  if(fxEnabled) sfx.click();
+}
+
+/* Web Audio engine — sonidos procedurales */
+let _ac=null;
+function getAC(){
+  if(!_ac && (window.AudioContext||window.webkitAudioContext)){
+    try{ _ac = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){}
+  }
+  return _ac;
+}
+function tone(freq,dur,type,startGain){
+  if(!fxEnabled) return;
+  const ctx=getAC(); if(!ctx) return;
+  type=type||'sine'; startGain=startGain||0.08;
+  const osc=ctx.createOscillator(), g=ctx.createGain();
+  osc.type=type; osc.frequency.value=freq;
+  g.gain.setValueAtTime(startGain, ctx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime+dur);
+  osc.connect(g); g.connect(ctx.destination);
+  osc.start(); osc.stop(ctx.currentTime+dur);
+}
+const sfx = {
+  click:        ()=> tone(800, 0.04, 'square', 0.04),
+  dropCorrect:  ()=>{ tone(523, 0.08, 'sine', 0.1); setTimeout(()=>tone(784, 0.13, 'sine', 0.1), 60); },
+  dropIncorrect:()=> tone(180, 0.18, 'sawtooth', 0.05),
+  quizSelect:   ()=> tone(440, 0.03, 'sine', 0.04),
+  quizCorrect:  ()=>{ tone(523, 0.18, 'sine', 0.08); tone(659, 0.18, 'sine', 0.08); tone(784, 0.28, 'sine', 0.08); },
+  quizIncorrect:()=>{ tone(220, 0.22, 'sawtooth', 0.045); setTimeout(()=>tone(196, 0.2, 'sawtooth', 0.045), 120); },
+  sectionUnlock:()=>{ tone(523, 0.1, 'sine', 0.07); setTimeout(()=>tone(659, 0.12, 'sine', 0.07), 80); setTimeout(()=>tone(784, 0.16, 'sine', 0.07), 160); },
+  dayComplete:  ()=>{
+    tone(523, 0.35, 'sine', 0.09);
+    setTimeout(()=>tone(659, 0.35, 'sine', 0.09), 100);
+    setTimeout(()=>tone(784, 0.35, 'sine', 0.09), 200);
+    setTimeout(()=>tone(1047, 0.55, 'sine', 0.09), 320);
+  }
+};
+
+/* Confetti procedural */
+function fireConfetti(){
+  if(!fxEnabled) return;
+  const canvas=document.createElement('canvas');
+  canvas.className='confetti-canvas';
+  document.body.appendChild(canvas);
+  const ctx=canvas.getContext('2d');
+  canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+  const colors=['#F02850','#00C88C','#097bb3','#F0BE00','#8228C8','#fff'];
+  const N=140, particles=[];
+  const cx=window.innerWidth/2, cy=window.innerHeight*.45;
+  for(let i=0;i<N;i++){
+    const angle = -Math.PI/2 + (Math.random()-0.5)*Math.PI*1.2;
+    const speed = 7 + Math.random()*10;
+    particles.push({
+      x:cx+(Math.random()-0.5)*40, y:cy,
+      vx:Math.cos(angle)*speed, vy:Math.sin(angle)*speed,
+      g:0.32+Math.random()*0.18,
+      color:colors[Math.floor(Math.random()*colors.length)],
+      size:5+Math.random()*5,
+      rot:Math.random()*Math.PI*2, vr:(Math.random()-0.5)*0.32,
+      shape:Math.random()<0.5?'rect':'circle'
+    });
+  }
+  let frames=0;
+  function tick(){
+    frames++;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.vy+=p.g; p.rot+=p.vr;
+      ctx.save();
+      ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+      ctx.fillStyle=p.color;
+      if(p.shape==='rect') ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size*0.55);
+      else{ ctx.beginPath(); ctx.arc(0,0,p.size/2,0,Math.PI*2); ctx.fill(); }
+      ctx.restore();
+    });
+    if(frames<200) requestAnimationFrame(tick);
+    else canvas.remove();
+  }
+  requestAnimationFrame(tick);
+}
+
+/* Insight toast */
+function showInsightToast(){
+  if(!fxEnabled) return;
+  const t=document.createElement('div');
+  t.className='insight-toast';
+  t.innerHTML=`<span class="insight-toast-icon">📝</span> Insight guardado`;
+  document.body.appendChild(t);
+  setTimeout(()=>t.classList.add('hide'),1800);
+  setTimeout(()=>t.remove(),2200);
+}
+
+/* Sofía moods (curious para días 1-4, confident para 5-10) */
+const SOFIA_MOOD = {
+  curious: `<path d="M 38 41 Q 42 39, 47 41" stroke="#180A04" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M 53 41 Q 58 39, 62 41" stroke="#180A04" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M 44 58.5 Q 47 56.5, 50 58 Q 53 56.5, 56 58.5 Q 53 59.5, 50 59 Q 47 59.5, 44 58.5 Z" fill="url(#lipG)"/><path d="M 44 59 Q 47 62, 50 61.5 Q 53 62, 56 59 Q 53 60.8, 50 60.3 Q 47 60.8, 44 59 Z" fill="url(#lipG)"/><ellipse cx="50" cy="60.6" rx="2.5" ry=".5" fill="#fff" opacity=".3"/><path d="M 44 58.8 Q 47 60, 50 59.3 Q 53 60, 56 58.8" stroke="#6D1F1F" stroke-width=".6" fill="none"/>`,
+  confident: `<path d="M 38 40 Q 42 37.5, 47 40" stroke="#180A04" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M 53 40 Q 58 37.5, 62 40" stroke="#180A04" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M 42 57.5 Q 46 55, 50 56.8 Q 54 55, 58 57.5 Q 54 58.3, 50 57.8 Q 46 58.3, 42 57.5 Z" fill="url(#lipG)"/><path d="M 42 57.6 Q 50 63.2, 58 57.6 Q 54 61.3, 50 60.8 Q 46 61.3, 42 57.6 Z" fill="url(#lipG)"/><ellipse cx="50" cy="60.5" rx="3.4" ry=".5" fill="#fff" opacity=".35"/><path d="M 42 57.6 Q 50 60, 58 57.6" stroke="#6D1F1F" stroke-width=".6" fill="none"/>`
+};
+function moodForDay(dayN){ return (!dayN || dayN<=4) ? 'curious' : 'confident'; }
 
 /* ============================================================
    AUDIO MANAGER — MP3 si existe, fallback a Web Speech API
@@ -2750,6 +2883,7 @@ document.addEventListener('click',e=>{
     const dN=parseHash();
     if(dN){
       markSectionDone(dN,idx);
+      showInsightToast();
       renderDay(dN);
       updateTopbar();
       setTimeout(()=>{
@@ -2786,6 +2920,10 @@ darkFab.addEventListener("click",()=>{
   syncThemeIcon();
 });
 backTop.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+
+/* FX toggle wiring */
+document.getElementById("fxFab").addEventListener("click",toggleFx);
+syncFxIcon();
 
 /* Cuaderno wiring */
 document.getElementById("cuadernoFab").addEventListener("click",openCuaderno);
