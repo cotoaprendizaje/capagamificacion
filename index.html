@@ -518,6 +518,66 @@
   .onboarding-close{position:absolute;top:.7rem;right:.8rem;background:none;border:none;color:var(--gray);font-size:1rem;cursor:pointer;font-family:inherit;padding:.25rem .4rem;line-height:1}
   .onboarding-close:hover{color:var(--navy)}
 
+  /* ---------- Family Cards (Día 2 · familia de mecánicas) ---------- */
+  .family-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.8rem}
+  .family-card{background:var(--surface);border:2px solid var(--gray-light);border-radius:12px;padding:.85rem 1rem;cursor:pointer;transition:all .2s;text-align:left;font-family:inherit;width:100%}
+  .family-card:hover{transform:translateY(-1px);border-color:var(--blue-light)}
+  .family-card.open{background:rgba(8,111,161,.04)}
+  .family-card-head{display:flex;align-items:center;justify-content:space-between;font-weight:700;color:var(--navy);font-size:.95rem;gap:.5rem}
+  .family-card-head::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--accent,var(--blue-light));flex:none}
+  .family-card-arrow{transition:transform .2s;color:var(--gray);font-size:.75rem;margin-left:auto}
+  .family-card.open .family-card-arrow{transform:rotate(180deg);color:var(--navy)}
+  .family-card-items{margin:.7rem 0 0;padding:0;list-style:none;display:none}
+  .family-card.open .family-card-items{display:block;animation:fadeUp .3s ease}
+  .family-card-items li{font-size:.85rem;color:var(--navy);padding:.32rem 0 .32rem 1.1rem;line-height:1.5;position:relative}
+  .family-card-items li::before{content:'•';color:var(--accent,var(--blue-light));font-weight:700;position:absolute;left:0;top:.3rem;font-size:1rem;line-height:1}
+
+  /* ---------- Bartle quadrant (Día 2 · BESPOKE) ---------- */
+  .bartle-wrap{margin-top:.6rem}
+  .bartle-svg{width:100%;height:auto;display:block;max-width:560px;margin:0 auto}
+  .bartle-quad{cursor:pointer;transition:opacity .2s}
+  .bartle-quad rect{transition:fill-opacity .2s,stroke-width .2s}
+  .bartle-quad:hover rect{fill-opacity:.22}
+  .bartle-quad.active rect{fill-opacity:.30;stroke-width:3.5}
+  .bartle-quad:not(.active):not(:hover) text{opacity:.85}
+  .bartle-detail{margin-top:.9rem;padding:1.1rem 1.2rem;background:var(--surface-2);border:1px solid var(--gray-light);border-left:4px solid var(--blue-light);border-radius:0 12px 12px 0;font-size:.92rem;color:var(--navy);line-height:1.6;min-height:120px;transition:border-left-color .3s}
+  .bartle-detail-empty{color:var(--gray);font-style:italic}
+  .bartle-d-name{display:flex;align-items:center;gap:.5rem;font-weight:700;font-size:1.05rem;color:var(--navy);margin-bottom:.55rem}
+  .bartle-d-name-icon{font-size:1.5rem;line-height:1}
+  .bartle-d-row{margin-bottom:.45rem;display:flex;gap:.5rem}
+  .bartle-d-row:last-child{margin-bottom:0}
+  .bartle-d-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray);min-width:80px;padding-top:.18rem;flex:none}
+  .bartle-d-text{flex:1;color:var(--navy);line-height:1.5}
+  .bartle-d-text strong{font-weight:700;color:var(--navy)}
+
+  /* ---------- Retail principles (Día 2 · sec 3) ---------- */
+  .principles-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.8rem}
+  .principle-card-text{font-size:.88rem;color:var(--navy);line-height:1.55;margin:.6rem 0 0;display:none}
+  .family-card.open .principle-card-text{display:block;animation:fadeUp .3s ease}
+  .principle-card-text strong{font-weight:700;color:var(--navy)}
+
+  /* ---------- Tool picker (Día 2 · sec 4) ---------- */
+  .tool-picker{margin-top:.8rem}
+  .tool-check{display:flex;align-items:flex-start;gap:.7rem;background:var(--surface);border:1.5px solid var(--gray-light);border-radius:10px;padding:.7rem .9rem;margin-bottom:.5rem;cursor:pointer;transition:all .15s}
+  .tool-check:hover{border-color:var(--blue-light);background:rgba(8,111,161,.03)}
+  .tool-check input{margin-top:.18rem;accent-color:var(--blue);flex:none;width:16px;height:16px;cursor:pointer}
+  .tool-check span{flex:1;font-size:.92rem;color:var(--navy);line-height:1.5}
+  .tool-check.checked{border-color:var(--blue);background:rgba(8,111,161,.06)}
+  .tool-score{display:flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--gray);margin-top:.8rem;font-weight:500}
+  .tool-score strong{color:var(--navy);font-weight:700;font-size:.95rem;letter-spacing:-.2px}
+  .tool-result{margin-top:1rem;padding:1rem 1.2rem;border-radius:12px;font-size:.95rem;line-height:1.55;display:none;animation:fadeUp .3s ease}
+  .tool-result.shown{display:block}
+  .tool-result.html{background:var(--green-soft);border:1px solid var(--green);color:var(--navy)}
+  .tool-result.storyline{background:rgba(8,111,161,.08);border:1px solid var(--blue-light);color:var(--navy)}
+  .tool-result strong{font-weight:700;color:var(--navy)}
+  .tool-result-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;padding:.25em .65em;border-radius:5px;margin-right:.6rem;vertical-align:middle}
+  .tool-result.html .tool-result-tag{background:var(--green-ink)}
+  .tool-result.storyline .tool-result-tag{background:var(--blue)}
+
+  @media(max-width:560px){
+    .family-grid,.principles-grid{grid-template-columns:1fr}
+  }
+
   /* ---------- Tooltips de términos técnicos ---------- */
   .term{border-bottom:1.5px dashed var(--blue-light);cursor:help;position:relative;transition:color .2s}
   .term:hover{color:var(--blue)}
@@ -1158,12 +1218,213 @@ const COURSE = {
       title:"Mecánicas de juego para aprendizaje",
       summary:"Taxonomía de mecánicas, tipos de jugador (Bartle) y factibilidad técnica.",
       deliverable:"Tabla «mecánica → objetivo de aprendizaje → factibilidad técnica»",
-      outline:[
-        "Taxonomía de mecánicas: feedback inmediato, retos progresivos, narrativa, recompensas.",
-        "Tipos de jugador (Bartle): logrador, explorador, social, competidor.",
-        "Qué mecánicas aplican en contextos de retail y operaciones.",
-        "Storyline vs. HTML: mapa de posibilidades técnicas por mecánica."
-      ]
+      format:"v2",
+      sections:[
+        {
+          title:"Familias de mecánicas",
+          concept:{
+            eyebrow:"Sección 1 · Taxonomía operativa",
+            title:"Las mecánicas que tenés a mano",
+            punch:"<strong>Cuatro familias.</strong> Si una mecánica no entra en ninguna, probablemente no enseña.",
+            illo:"fourCond"
+          },
+          sofia:{
+            text:"Tengo el marco del día anterior, pero necesito el menú entero. ¿Qué mecánicas tengo disponibles para diseñar?",
+            name:"Sofía · con hambre de menú"
+          },
+          reading:`<p>Las mecánicas son las piezas con las que armamos un juego. Para no naufragar entre cientos, las agrupamos en <strong>cuatro familias funcionales</strong> — elegidas por <em>lo que provocan</em> en quien aprende, no por su forma:</p>
+<ul class="ticks">
+<li><strong>Feedback inmediato</strong> — cada decisión recibe respuesta ahora. Quizzes con corrección, simuladores, validaciones de paso.</li>
+<li><strong>Retos progresivos</strong> — dificultad calibrada que sube. Niveles, intentos limitados, desbloqueo por dominio.</li>
+<li><strong>Narrativa</strong> — una situación con personajes y consecuencias. Casos, escenarios, role-play.</li>
+<li><strong>Recompensas</strong> — marcadores de avance: puntos, medallas, rankings. <em>Cuidado: son las más cosméticas si no se anclan a aprendizaje real.</em></li>
+</ul>`,
+          interactive:{
+            type:"familyCards", tag:"Identificá", title:"Tocá cada familia para ver ejemplos concretos",
+            desc:"Tres mecánicas por familia, todas usables en cursos COTO.",
+            families:[
+              {tag:"Feedback inmediato", color:"#097bb3", items:["Quiz con corrección instantánea por pregunta","Score que cambia con cada decisión","Simulador que valida cada paso (ej. atención al cliente)"]},
+              {tag:"Retos progresivos", color:"#F02850", items:["Niveles desbloqueables por dominio","Tres intentos: si fallás, repasás","Tiempo límite que baja en cada ronda"]},
+              {tag:"Narrativa", color:"#8228C8", items:["Caso de cliente discutiendo una devolución","Personaje recurrente (Sofía, María) con consecuencias","Escenario de turno (apertura → cierre de caja)"]},
+              {tag:"Recompensas", color:"#F0BE00", items:["Medalla anclada a competencia real demostrada","Ranking de equipo (con cuidado)","Badge canjeable por símbolo (no por dinero ni por tiempo)"]}
+            ]
+          },
+          feedback:{
+            allFour:"Las cuatro familias claras y con ejemplos. Ahora puedo diseñar pensando qué quiero <strong>provocar</strong>, no qué quiero <em>poner</em>.",
+            default:"Bien — la familia empieza a tener sentido cuando la pensás por <strong>lo que provoca</strong>, no por su forma."
+          },
+          idea:{tag:"Heurística", text:"Si una mecánica encaja en <strong>dos familias a la vez</strong>, es señal de fortaleza: probablemente sea cognitiva."},
+          insight:"4 familias funcionales: feedback inmediato, retos progresivos, narrativa, recompensas. La cognición vive en las primeras 3."
+        },
+        {
+          title:"Tipos de jugador (Bartle)",
+          concept:{
+            eyebrow:"Sección 2 · Para quién diseñás",
+            title:"No todas las personas juegan igual",
+            punch:"<strong>Logrador, Competidor, Explorador, Social.</strong> Tu próximo curso no debería funcionar para uno solo.",
+            illo:"mda"
+          },
+          sofia:{
+            text:"La gente de las cajas no juega como la del depósito. Y la de gerencia, ni hablar. ¿Cómo lo pienso al diseñar?",
+            name:"Sofía · pensando audiencia"
+          },
+          reading:`<p>En 1996, <span class="term" data-tip="Richard Bartle, investigador británico de los primeros juegos en línea (MUDs). Publicó 'Hearts, Clubs, Diamonds, Spades' en 1996 — observó que distintas personas usaban el mismo juego de maneras radicalmente distintas y propuso un modelo de 4 tipos.">Richard Bartle</span> observó que distintas personas jugaban el mismo juego de maneras radicalmente distintas. Propuso un modelo con cuatro tipos, cruzando dos ejes:</p>
+<ul class="ticks">
+<li><strong>Eje vertical</strong>: la persona quiere <em>actuar</em> o <em>interactuar</em>.</li>
+<li><strong>Eje horizontal</strong>: lo hace sobre <em>el mundo</em> del juego o sobre <em>otras personas</em>.</li>
+</ul>
+<p>No son etiquetas rígidas — alguien puede oscilar. Pero diseñar contemplando los cuatro evita cursos que <strong>solo funcionan para un perfil</strong>.</p>`,
+          interactive:{
+            type:"bartle", tag:"Explorá los 4 perfiles", title:"Tocá cada cuadrante",
+            desc:"Cada perfil revela qué busca esa persona, ejemplos del equipo, y qué mecánicas le funcionan."
+          },
+          feedback:{
+            allFour:"Los cuatro perfiles cubiertos. <strong>Diseñar para 2 a la vez</strong> es lo realista — no para uno solo.",
+            default:"Cada perfil tiene sus mecánicas. Voy a tratar de cubrir al menos dos."
+          },
+          idea:{tag:"Regla práctica", text:"Cubrí al menos <strong>2 perfiles</strong> con la mecánica central. Para el resto, mecánicas complementarias."},
+          insight:"Bartle: Logrador, Competidor, Explorador, Social. Diseñar para 2+ perfiles, no para uno solo."
+        },
+        {
+          title:"Mecánicas en retail",
+          concept:{
+            eyebrow:"Sección 3 · Aterrizar al contexto",
+            title:"Lo que aplica a un puesto de caja (no a una oficina)",
+            punch:"<strong>Tiempo escaso. Repetición posible. Aplicación inmediata.</strong>",
+            illo:"compare"
+          },
+          sofia:{
+            text:"Trabajo con cajeras, repositores, encargados. Tienen 5 minutos antes del turno, no 30. ¿Qué mecánicas SÍ entran?",
+            name:"Sofía · aterrizando al piso"
+          },
+          reading:`<p>El contexto importa. Una mecánica que brilla en formación de altos mandos puede caer en piso de venta. Tres principios — y un anti-patrón — para aterrizar al contexto operacional:</p>`,
+          interactive:{
+            type:"retailPrinciples", tag:"Tocá cada principio", title:"3 reglas + 1 anti-patrón",
+            desc:"Cada principio con su consecuencia concreta en el piso.",
+            principles:[
+              {tag:"Tiempo real es escaso", color:"#097bb3", text:"Las mecánicas largas no entran. <strong>Pildoras de 5–10 minutos</strong> con cierre fuerte. La cajera tiene 5 minutos antes de abrir caja, no 30."},
+              {tag:"Repetición útil", color:"#00C88C", text:"Las personas vuelven al puesto, no a casa a 'seguir jugando'. La mecánica debe ser <strong>corta y reabrible</strong>. Mini-caso por día, no arco semanal."},
+              {tag:"Aplicación inmediata", color:"#F0BE00", text:"Lo que se aprende, se aplica <strong>esa semana</strong>. El escenario debe parecerse al piso: casos reales, no abstracciones."},
+              {tag:"⚠ Anti-patrón", color:"#F02850", text:"Trasladar mecánicas de juegos de consumo — logros largos, narrativas épicas — a contextos de 10 minutos. Sin tiempo para el arco, queda <strong>solo la cosmética</strong>."}
+            ]
+          },
+          feedback:{
+            default:"Las narrativas épicas son una trampa cuando hay 5 minutos. <strong>Pildoras + decisiones cortas + casos del piso.</strong>"
+          },
+          idea:{tag:"Regla del piso", text:"En retail, la mecánica tiene que <strong>entrar entre dos clientes</strong>. Si necesita 20 minutos seguidos, no entra."},
+          insight:"Operaciones: pildoras cortas + repetición útil + aplicación inmediata. No arcos largos."
+        },
+        {
+          title:"Storyline vs HTML",
+          concept:{
+            eyebrow:"Sección 4 · Con qué herramienta",
+            title:"Qué llega hasta dónde",
+            punch:"Si la mecánica se explica en una frase, <strong>Storyline alcanza</strong>. Si necesita 3+ reglas conectadas, pensá en <strong>HTML</strong>.",
+            illo:"olvido"
+          },
+          sofia:{
+            text:"Decidí mecánicas. Ahora: ¿con qué las hago? Storyline tengo, HTML con vos también. ¿Cuándo cada una?",
+            name:"Sofía · eligiendo herramienta"
+          },
+          reading:`<p>Esquema de bolsillo: dos cajas, qué cabe en cada una.</p>
+<div class="compare">
+  <div class="compare-card">
+    <h4>Storyline alcanza para…</h4>
+    <p>Quizzes con corrección, capas con estados, variables numéricas, triggers básicos, ramificaciones cortas, drag & drop limitado. Cubre la mayoría de <strong>feedback inmediato</strong>, <strong>retos progresivos</strong> y <strong>recompensas</strong>.</p>
+  </div>
+  <div class="compare-card compare-good">
+    <h4>HTML (con Claude) habilita…</h4>
+    <p>Lógica de juego rica, narrativas con estados, interacciones bespoke, animaciones específicas, integraciones (<span class="term" data-tip="Sharable Content Object Reference Model. Estándar de e-learning para empaquetar contenido y trackear progreso en plataformas tipo Moodle. SCORM 1.2 y 2004 son las versiones más usadas.">SCORM</span> / <span class="term" data-tip="Experience API (Tin Can). Sucesor moderno de SCORM. Permite trackear interacciones más finas — clicks, decisiones, tiempo — y enviarlas a un LRS (Learning Record Store).">xAPI</span> con datos finos). Cuando la mecánica <strong>es</strong> el corazón del aprendizaje, casi siempre conviene HTML.</p>
+  </div>
+</div>`,
+          interactive:{
+            type:"toolPicker", tag:"Probá con tu mecánica", title:"4 preguntas, te digo qué herramienta",
+            desc:"Pensá en una mecánica concreta que querés diseñar. Marcá las características que tiene.",
+            checks:[
+              {label:"Más de 3 reglas conectadas (ej. \"si X y además Y, entonces Z\")", html:2},
+              {label:"Narrativa con estados que evolucionan (el personaje recuerda lo que decidiste)", html:2},
+              {label:"Animaciones específicas (transiciones de pantalla, partículas, micro-interacciones)", html:1},
+              {label:"Drag & drop con 5+ zonas de destino", html:1},
+              {label:"Quiz simple con corrección + 1–2 ramificaciones", html:0}
+            ]
+          },
+          feedback:{
+            default:"Ahora tengo criterio. Mi mecánica de 'Sofía pregunta, María decide' tiene 3+ reglas conectadas y estados. <strong>HTML, con vos.</strong>"
+          },
+          idea:{tag:"Regla de bolsillo", text:"<strong>Una frase para describir → Storyline.</strong> <strong>Tres+ reglas conectadas → HTML.</strong>"},
+          insight:"Regla práctica: 1 frase → Storyline. 3+ reglas conectadas → HTML."
+        },
+        {
+          title:"Recuperación activa",
+          concept:{
+            eyebrow:"Sección 5 · Cierre",
+            title:"Recuperación activa — chequeo de cierre",
+            punch:"<strong>Cuatro preguntas, tres correctas.</strong> Misma mecánica que ayer, ahora con vos sabiendo qué herramientas tenés.",
+            illo:"quiz"
+          },
+          sofia:{
+            text:"Listo. Antes de cerrar, dejame jugar el quiz — la mecánica del cierre.",
+            name:"Sofía · listo el menú"
+          },
+          reading:`<p>Mismo formato que el Día 1: <strong>4 preguntas, 3 correctas para aprobar.</strong> Reintentos ilimitados.</p>`,
+          interactive:{type:"quiz", tag:"Quiz · 4 preguntas", title:"Aprobá con 3 de 4", desc:"Tomate 2 minutos."},
+          feedback:{
+            perfect:"<strong>4 de 4 al primer intento.</strong> El menú internalizado. Mañana practicamos disección MDA con juegos reales.",
+            passedFirst:"<strong>3 de 4 al primer intento.</strong> La taxonomía quedó. Mañana practicamos análisis MDA.",
+            passedRetry:"Llevó algunos intentos. <strong>El repaso forzado es la cosa</strong> — misma mecánica del día anterior, ahora aplicada con vocabulario más amplio.",
+            passed:"<strong>Día 2 cerrado.</strong> Tengo 4 familias + Bartle + criterio retail + decisión herramienta. Lista para diseñar."
+          },
+          idea:{tag:"Lo que te llevás", text:"Las <strong>4 familias</strong> de mecánicas, los <strong>4 tipos de Bartle</strong>, los <strong>principios para retail</strong>, y la <strong>regla Storyline vs HTML</strong>."},
+          insight:"Día 2: 4 familias + 4 tipos de Bartle + 3 reglas de retail + 1 regla de herramienta. Listo para diseñar."
+        }
+      ],
+      quiz:[
+        {
+          q:"¿Cuál de estas mecánicas pertenece a la familia de \"recompensas\"?",
+          opts:[
+            "Quiz con corrección instantánea por pregunta",
+            "Ranking público de quien terminó más rápido",
+            "Caso de cliente discutiendo una devolución",
+            "Niveles desbloqueables por dominio"
+          ],
+          correct:1,
+          explain:"Los rankings son la recompensa por excelencia. Las otras opciones son feedback inmediato, narrativa, y retos progresivos respectivamente."
+        },
+        {
+          q:"Según Bartle, ¿qué tipo de jugador disfruta principalmente descubrir cómo funciona el sistema?",
+          opts:[
+            "Logrador",
+            "Competidor",
+            "Explorador",
+            "Social"
+          ],
+          correct:2,
+          explain:"El Explorador quiere entender el sistema, conectar piezas. El Logrador busca completar, el Competidor medirse contra otros, el Social conectar con otras personas."
+        },
+        {
+          q:"¿Cuál es el anti-patrón típico al gamificar formación en piso de venta?",
+          opts:[
+            "Pensar en pildoras de 5–10 minutos",
+            "Trasladar mecánicas largas y arcos narrativos extensos sin adaptarlos al tiempo disponible",
+            "Diseñar escenarios parecidos al contexto del piso",
+            "Pedir aplicación inmediata de lo aprendido"
+          ],
+          correct:1,
+          explain:"En operaciones el tiempo es escaso. Mecánicas largas y arcos épicos no entran — solo queda la cosmética. Las otras tres opciones son buenas prácticas, no anti-patrones."
+        },
+        {
+          q:"Regla práctica para elegir entre Storyline y HTML:",
+          opts:[
+            "Si la mecánica se explica en una frase, conviene HTML",
+            "Si la mecánica necesita más de tres reglas conectadas, pensá en HTML",
+            "Storyline siempre es mejor para gamificación",
+            "HTML no permite SCORM"
+          ],
+          correct:1,
+          explain:"Mecánicas simples (una frase) caben en Storyline. Cuando hay 3+ reglas conectadas, la lógica suele desbordar Storyline y conviene HTML. HTML SÍ permite SCORM."
+        }
+      ],
+      deliverableNote:"Tomá 5–7 mecánicas que veas que podrías usar. Para cada una: ¿a qué familia pertenece? ¿qué objetivo de aprendizaje sostiene? ¿es factible en Storyline, en HTML o ambas? Llevá la tabla al Día 3 — la vamos a usar."
     },
     {
       n:3, week:1, duration:"60 min",
@@ -1743,6 +2004,27 @@ function renderInteractiveV2(int, dayN, secIdx){
   else if(int.type==='mda'){ body = `<div class="mda-grid"><button class="mda-card" data-mda="mecanica" type="button"><div class="mda-card-letter">M</div><div class="mda-card-name">Mecánica</div></button><button class="mda-card" data-mda="dinamica" type="button"><div class="mda-card-letter">D</div><div class="mda-card-name">Dinámica</div></button><button class="mda-card" data-mda="estetica" type="button"><div class="mda-card-letter">A</div><div class="mda-card-name">Estética</div></button></div><div class="mda-detail" id="mda-detail-${secIdx}">Hacé click en una de las tres letras para ver qué incluye.</div>`; }
   else if(int.type==='fourCheck'){ body = `<div class="cond-grid"><button class="cond-card" data-cond="0" type="button"><div class="cond-card-head"><span class="cond-card-num">1</span><span>Feedback inmediato y específico</span></div><p class="cond-card-ex">El juego responde a cada decisión, no recién al final. <strong>Ejemplo:</strong> en Duolingo, cada respuesta se evalúa en el momento — no esperás al cierre del módulo.</p></button><button class="cond-card" data-cond="1" type="button"><div class="cond-card-head"><span class="cond-card-num">2</span><span>Dificultad calibrada (zona de flow)</span></div><p class="cond-card-ex">Ni tan fácil que aburra, ni tan difícil que frustre. <strong>Ejemplo:</strong> los puzzles de Foldit ajustan su dificultad a tu nivel de juego previo.</p></button><button class="cond-card" data-cond="2" type="button"><div class="cond-card-head"><span class="cond-card-num">3</span><span>Consecuencias significativas</span></div><p class="cond-card-ex">Las decisiones importan y cambian lo que pasa. <strong>Ejemplo:</strong> en un escenario de atención al cliente, lo que elegís ramifica la conversación en vez de volverte al mismo lugar.</p></button><button class="cond-card" data-cond="3" type="button"><div class="cond-card-head"><span class="cond-card-num">4</span><span>Repetición voluntaria</span></div><p class="cond-card-ex">Querés volver a intentar, y ahí ocurre el repaso espaciado. <strong>Ejemplo:</strong> Habitica te invita a hacer las tareas hoy y mañana sin presionarte — el ciclo es atractivo.</p></button></div>`; }
   else if(int.type==='scenario'){ body = `<div class="scenario" data-scenario><div class="scenario-setup">${int.scenario.setup}</div><div class="scenario-stage" data-stage></div></div>`; }
+  else if(int.type==='familyCards'){
+    body = `<div class="family-grid">${int.families.map((f,i)=>`<button class="family-card" data-family="${i}" type="button" style="--accent:${f.color};border-left-color:${f.color};border-left-width:5px"><div class="family-card-head"><span>${f.tag}</span><span class="family-card-arrow">▼</span></div><ul class="family-card-items">${f.items.map(it=>`<li>${it}</li>`).join("")}</ul></button>`).join("")}</div>`;
+  }
+  else if(int.type==='bartle'){
+    body = `<div class="bartle-wrap"><svg class="bartle-svg" viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cuadrante de Bartle">
+      <text x="250" y="20" text-anchor="middle" font-size="11" font-weight="700" fill="#666" letter-spacing="2">ACTUAR</text>
+      <text x="250" y="370" text-anchor="middle" font-size="11" font-weight="700" fill="#666" letter-spacing="2">INTERACTUAR</text>
+      <text x="30" y="195" text-anchor="middle" font-size="11" font-weight="700" fill="#666" letter-spacing="2" transform="rotate(-90 30 195)">MUNDO</text>
+      <text x="480" y="195" text-anchor="middle" font-size="11" font-weight="700" fill="#666" letter-spacing="2" transform="rotate(90 480 195)">PERSONAS</text>
+      <g class="bartle-quad" data-bartle="achiever"><rect x="60" y="35" width="190" height="155" rx="14" fill="#097bb3" fill-opacity=".12" stroke="#097bb3" stroke-width="2.5"/><text x="155" y="105" text-anchor="middle" font-size="30">⭐</text><text x="155" y="138" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d46">Logrador</text><text x="155" y="160" text-anchor="middle" font-size="10" fill="#666">actuar · mundo</text></g>
+      <g class="bartle-quad" data-bartle="killer"><rect x="250" y="35" width="190" height="155" rx="14" fill="#F02850" fill-opacity=".12" stroke="#F02850" stroke-width="2.5"/><text x="345" y="105" text-anchor="middle" font-size="30">🏆</text><text x="345" y="138" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d46">Competidor</text><text x="345" y="160" text-anchor="middle" font-size="10" fill="#666">actuar · personas</text></g>
+      <g class="bartle-quad" data-bartle="explorer"><rect x="60" y="190" width="190" height="155" rx="14" fill="#8228C8" fill-opacity=".12" stroke="#8228C8" stroke-width="2.5"/><text x="155" y="260" text-anchor="middle" font-size="30">🔍</text><text x="155" y="293" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d46">Explorador</text><text x="155" y="315" text-anchor="middle" font-size="10" fill="#666">interactuar · mundo</text></g>
+      <g class="bartle-quad" data-bartle="socializer"><rect x="250" y="190" width="190" height="155" rx="14" fill="#00C88C" fill-opacity=".12" stroke="#00C88C" stroke-width="2.5"/><text x="345" y="260" text-anchor="middle" font-size="30">💬</text><text x="345" y="293" text-anchor="middle" font-size="15" font-weight="700" fill="#1f2d46">Social</text><text x="345" y="315" text-anchor="middle" font-size="10" fill="#666">interactuar · personas</text></g>
+    </svg><div class="bartle-detail" id="bartle-detail-${secIdx}"><p class="bartle-detail-empty">Hacé click en un cuadrante para ver el perfil, ejemplos del equipo COTO, y qué mecánicas le funcionan.</p></div></div>`;
+  }
+  else if(int.type==='retailPrinciples'){
+    body = `<div class="principles-grid">${int.principles.map((p,i)=>`<button class="family-card" data-principle="${i}" type="button" style="--accent:${p.color};border-left-color:${p.color};border-left-width:5px"><div class="family-card-head"><span>${p.tag}</span><span class="family-card-arrow">▼</span></div><p class="principle-card-text">${p.text}</p></button>`).join("")}</div>`;
+  }
+  else if(int.type==='toolPicker'){
+    body = `<div class="tool-picker">${int.checks.map((c,i)=>`<label class="tool-check" data-tool="${i}" data-weight="${c.html}"><input type="checkbox"><span>${c.label}</span></label>`).join("")}<p class="tool-score" id="tool-score-${secIdx}"></p><div class="tool-result" id="tool-result-${secIdx}"></div></div>`;
+  }
   else if(int.type==='quiz'){ body = `<div class="quiz" id="quiz-d1"></div><div class="quiz-actions"><button class="btn btn-primary" id="quiz-submit" type="button">Corregir respuestas</button><button class="btn btn-ghost" id="quiz-retry" type="button" style="display:none">Reintentar</button><p class="quiz-result" id="quiz-result"></p></div><div class="quiz-gate" id="quiz-gate"><strong>Aún no aprobaste el quiz.</strong> Respondé y corregí; con 3 aciertos o más se desbloquea el día siguiente.</div>`; }
   return `<div class="interactive" data-interactive="${int.type}" data-int-section="${secIdx}">${head}${body}</div>`;
 }
@@ -1813,6 +2095,10 @@ function initInteractivesV2(dayN){
     else if(type==='mda') initMdaV2(block,dayN,i,alreadyDone);
     else if(type==='fourCheck') initFourCheckV2(block,dayN,i,alreadyDone);
     else if(type==='scenario') initScenarioV2(block,dayN,i,sec.interactive.scenario,alreadyDone);
+    else if(type==='familyCards') initFamilyCardsV2(block,dayN,i,sec.interactive.families,alreadyDone);
+    else if(type==='bartle') initBartleV2(block,dayN,i,alreadyDone);
+    else if(type==='retailPrinciples') initRetailV2(block,dayN,i,alreadyDone);
+    else if(type==='toolPicker') initToolPickerV2(block,dayN,i,sec.interactive.checks,alreadyDone);
     else if(type==='quiz') initQuizV2(dayN,d.quiz,i);
   }
 }
@@ -2011,6 +2297,99 @@ function initFourCheckV2(block,dayN,secIdx,alreadyDone){
       c.classList.toggle('open');
       opened.add(c.dataset.cond);
       if(opened.size===4 && !completed){ completed=true; showSectionExtras(dayN,secIdx,'default'); }
+    });
+  });
+}
+
+function initFamilyCardsV2(block,dayN,secIdx,families,alreadyDone){
+  const cards=block.querySelectorAll('.family-card');
+  const visited=new Set();
+  let completed=alreadyDone;
+  cards.forEach(c=>{
+    c.addEventListener('click',()=>{
+      c.classList.toggle('open');
+      visited.add(c.dataset.family);
+      if(visited.size===families.length && !completed){ completed=true; showSectionExtras(dayN,secIdx,'allFour'); }
+      else if(visited.size>=2 && !completed){ completed=true; showSectionExtras(dayN,secIdx,'default'); }
+    });
+  });
+}
+
+function initBartleV2(block,dayN,secIdx,alreadyDone){
+  const detail=block.querySelector('.bartle-detail');
+  const quads=block.querySelectorAll('.bartle-quad');
+  const visited=new Set();
+  let completed=alreadyDone;
+  const data={
+    achiever:{icon:'⭐',name:'Logrador',color:'#097bb3',desc:'Busca <strong>completar, dominar, acumular</strong> evidencia de progreso.',examples:'En tu equipo: el que mira métricas y dice "ya hice 8 de 10". El que termina cursos por el certificado.',mechanics:'Niveles, retos progresivos, criterios claros de dominio, badges anclados a competencia real.'},
+    killer:{icon:'🏆',name:'Competidor',color:'#F02850',desc:'Busca <strong>medirse contra otros</strong>. Gana al verse mejor.',examples:'El que mira el ranking y dice "a ver cuánto sacaste vos". El que toma cualquier marcador como duelo.',mechanics:'Rankings (con cuidado), torneos, comparativas — siempre que reflejen dominio real.'},
+    explorer:{icon:'🔍',name:'Explorador',color:'#8228C8',desc:'Disfruta <strong>descubrir, conectar piezas, entender el sistema</strong>.',examples:'El que lee toda la documentación. El que pregunta "¿y si hago esto?" en lugar de seguir el camino marcado.',mechanics:'Ramificaciones, mapas conceptuales, casos abiertos, sandbox, easter eggs.'},
+    socializer:{icon:'💬',name:'Social',color:'#00C88C',desc:'Aprende mejor <strong>con otras personas</strong>.',examples:'El que arma grupo de estudio. El que aprende explicándole al de al lado.',mechanics:'Discusiones, trabajo en equipo, role-play, casos compartidos, peer-review.'}
+  };
+  quads.forEach(q=>{
+    q.addEventListener('click',()=>{
+      quads.forEach(x=>x.classList.remove('active'));
+      q.classList.add('active');
+      const k=q.dataset.bartle;
+      visited.add(k);
+      const d=data[k];
+      detail.style.borderLeftColor=d.color;
+      detail.innerHTML=`<div class="bartle-d-name"><span class="bartle-d-name-icon">${d.icon}</span><span>${d.name}</span></div><div class="bartle-d-row"><span class="bartle-d-label">Busca</span><span class="bartle-d-text">${d.desc}</span></div><div class="bartle-d-row"><span class="bartle-d-label">En el equipo</span><span class="bartle-d-text">${d.examples}</span></div><div class="bartle-d-row"><span class="bartle-d-label">Mecánicas</span><span class="bartle-d-text">${d.mechanics}</span></div>`;
+      if(visited.size===4 && !completed){ completed=true; showSectionExtras(dayN,secIdx,'allFour'); }
+      else if(visited.size>=2 && !completed){ completed=true; showSectionExtras(dayN,secIdx,'default'); }
+    });
+  });
+}
+
+function initRetailV2(block,dayN,secIdx,alreadyDone){
+  const cards=block.querySelectorAll('.family-card');
+  const visited=new Set();
+  let completed=alreadyDone;
+  cards.forEach(c=>{
+    c.addEventListener('click',()=>{
+      c.classList.toggle('open');
+      visited.add(c.dataset.principle);
+      if(visited.size>=3 && !completed){ completed=true; showSectionExtras(dayN,secIdx,'default'); }
+    });
+  });
+}
+
+function initToolPickerV2(block,dayN,secIdx,checks,alreadyDone){
+  const items=block.querySelectorAll('.tool-check');
+  const score=block.querySelector('.tool-score');
+  const result=block.querySelector('.tool-result');
+  let completed=alreadyDone;
+  let interactions=0;
+  function update(){
+    let htmlScore=0, totalChecked=0;
+    items.forEach((it,i)=>{
+      const checked=it.querySelector('input').checked;
+      it.classList.toggle('checked',checked);
+      if(checked){ totalChecked++; htmlScore+=parseInt(it.dataset.weight,10)||0; }
+    });
+    if(totalChecked===0){ score.textContent=''; result.classList.remove('shown'); return; }
+    score.innerHTML=`Características marcadas: <strong>${totalChecked}</strong> · Puntaje de complejidad: <strong>${htmlScore}</strong>`;
+    let cls, msg;
+    if(htmlScore>=3){
+      cls='html';
+      msg=`<span class="tool-result-tag">HTML</span><strong>Conviene HTML con Claude.</strong> La mecánica que pensaste tiene lógica conectada, narrativa con estados o animaciones específicas. Storyline va a quedar corto o se va a volver inmantenible.`;
+    } else if(htmlScore>=2){
+      cls='html';
+      msg=`<span class="tool-result-tag">HTML</span><strong>Storyline puede, pero HTML te da más respiro.</strong> Hay 2+ características de complejidad. Si tenés el tiempo y querés algo robusto, HTML.`;
+    } else {
+      cls='storyline';
+      msg=`<span class="tool-result-tag">Storyline</span><strong>Storyline alcanza.</strong> Tu mecánica entra en lo que Storyline maneja bien: quizzes, capas, variables simples, ramificaciones cortas. No hay razón para complicarlo con HTML.`;
+    }
+    result.className='tool-result shown '+cls;
+    result.innerHTML=msg;
+  }
+  items.forEach(it=>{
+    it.addEventListener('click',e=>{
+      const inp=it.querySelector('input');
+      if(e.target!==inp) inp.checked=!inp.checked;
+      interactions++;
+      update();
+      if(interactions>=2 && !completed){ completed=true; showSectionExtras(dayN,secIdx,'default'); }
     });
   });
 }
