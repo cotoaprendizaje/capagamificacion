@@ -504,6 +504,20 @@
   .section-next:hover:not(:disabled) .arr{transform:translateX(3px)}
   .section-next-hint{display:block;margin-top:.35rem;font-size:.78rem;color:var(--gray);font-weight:normal}
 
+  /* ---------- Onboarding ---------- */
+  .onboarding-card{display:flex;gap:1rem;align-items:flex-start;background:linear-gradient(135deg,var(--surface),var(--surface-2));border:1px solid var(--gray-light);border-radius:var(--radius);padding:1.3rem 1.5rem 1.3rem;margin-bottom:1.8rem;position:relative;box-shadow:var(--shadow-card);animation:fadeUp .45s ease both;overflow:hidden}
+  .onboarding-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-prog)}
+  .onboarding-avatar{flex:none;width:60px;height:60px;border-radius:50%;overflow:hidden;border:2px solid var(--surface);box-shadow:var(--shadow-card)}
+  .onboarding-avatar svg,.onboarding-avatar img{width:100%;height:100%;display:block;object-fit:cover}
+  .onboarding-body{flex:1}
+  .onboarding-greet{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue-light);margin-bottom:.35rem}
+  .onboarding-body h3{font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:.5rem;letter-spacing:-.3px}
+  .onboarding-body p{font-size:.92rem;color:var(--navy);line-height:1.6;margin:0 0 .9rem}
+  .onboarding-body p strong{color:var(--navy);font-weight:700}
+  .onboarding-actions .btn{font-size:.86rem;padding:.55rem 1rem}
+  .onboarding-close{position:absolute;top:.7rem;right:.8rem;background:none;border:none;color:var(--gray);font-size:1rem;cursor:pointer;font-family:inherit;padding:.25rem .4rem;line-height:1}
+  .onboarding-close:hover{color:var(--navy)}
+
   /* ---------- Scenario (mini-juego) ---------- */
   .scenario{margin-top:.6rem}
   .scenario-setup{font-size:.95rem;color:var(--navy);background:var(--surface-2);border-left:3px solid var(--gray);border-radius:0 10px 10px 0;padding:.85rem 1.1rem;margin-bottom:1.1rem;line-height:1.55}
@@ -841,8 +855,8 @@ const COURSE = {
             illo:"compare"
           },
           sofia:{
-            text:"Ya le pegué badges, puntos y un ranking al mismo curso. Igual nadie retuvo nada. ¿Por qué no funcionó?",
-            name:"Sofía · una semana después"
+            text:"Probé pegándole badges, puntos y un ranking al mismo curso. Igual no retuvieron nada. Algo más profundo está mal y no lo veo.",
+            name:"Sofía · probando"
           },
           reading:`<p>Porque las medallas y los puntos quedaron <strong>encima de un contenido que no cambió</strong>. No tocaron cómo se procesa la información: solo decoraron la pantalla. Eso es <em>chocolate-covered broccoli</em>: el brócoli sigue siendo brócoli.</p>
 <p>La distinción operativa: si sacás los puntos y la actividad sigue enseñando lo mismo, es <strong>cognitiva</strong>. Si sin los puntos no queda nada, es <strong>cosmética</strong>.</p>`,
@@ -960,16 +974,16 @@ const COURSE = {
             illo:"quiz"
           },
           sofia:{
-            text:"Voy a aplicar todo esto. Pero primero, dejame ver si me quedó.",
-            name:"Sofía · cerrando el día"
+            text:"Ya tengo el marco — por qué se olvida, qué hace que una mecánica enseñe, las 4 condiciones. Ahora dejame jugar el quiz, que es la mecánica que el día propone.",
+            name:"Sofía · cierre"
           },
           reading:`<p>Este es tu propio momento de recuperación activa. <strong>Cuatro preguntas, tres correctas para aprobar.</strong> Reintentos ilimitados — la idea es traer el contenido de memoria, no releerlo arriba.</p>`,
           interactive:{type:"quiz", tag:"Quiz de cierre · 4 preguntas", title:"Aprobá con 3 de 4 para desbloquear el día siguiente", desc:"Reintentos ilimitados. La idea es traer el contenido de memoria."},
           feedback:{
-            perfect:"<strong>Cuatro de cuatro al primer intento.</strong> Tenés el marco internalizado. Mañana arrancamos con mecánicas concretas.",
-            passedFirst:"<strong>Tres de cuatro al primer intento</strong> — la idea quedó. Mañana profundizamos.",
-            passedRetry:"Te llevó algunos intentos, pero quedó. Mejor así: <strong>el repaso forzado fue recuperación activa real</strong>.",
-            passed:"<strong>Aprobado.</strong> Ya tenés el marco completo. Mañana vamos a las mecánicas en concreto."
+            perfect:"<strong>Cuatro de cuatro al primer intento.</strong> El marco quedó internalizado. Listo el Día 1 — mañana arrancamos con las mecánicas en concreto.",
+            passedFirst:"<strong>Tres de cuatro al primer intento.</strong> La idea quedó clara. Listo para arrancar mañana con mecánicas concretas.",
+            passedRetry:"Me llevó algunos intentos, pero <strong>el repaso forzado fue recuperación activa real</strong> — exactamente lo que el día predica. Listo para mañana.",
+            passed:"<strong>Día cerrado.</strong> Tengo el marco completo. Mañana las mecánicas: quiero ver cómo se elige una para retail."
           },
           idea:{tag:"Lo que te llevás", text:"<strong>Por qué olvidamos</strong>, qué distingue la gamificación cognitiva de la cosmética, el marco <strong>MDA</strong>, y las <strong>4 condiciones</strong> que hacen que un juego enseñe."},
           insight:"Marco completo del día listo: olvido → MDA → 4 condiciones. Próximo paso: mecánicas concretas para retail y operaciones."
@@ -1175,7 +1189,18 @@ const tbName=document.getElementById("tbName");
 function updateTopbar(){
   tbCount.textContent=doneCount()+"/"+TOTAL;
   tbFill.style.width=Math.round(doneCount()/TOTAL*100)+"%";
-  tbName.textContent=state.name?("Hola, "+state.name):"";
+  if(!state.name){ tbName.textContent=""; return; }
+  let text="Hola, "+state.name;
+  const m=location.hash.match(/^#dia-(\d+)$/);
+  if(m){
+    const n=parseInt(m[1],10), d=COURSE.days[n-1];
+    if(d && d.format==='v2' && d.sections){
+      const visible=visibleSectionCount(n,d.sections.length);
+      const activeIdx=Math.min(visible-1,d.sections.length-1);
+      text=state.name+" · Sec "+(activeIdx+1)+" de "+d.sections.length;
+    }
+  }
+  tbName.textContent=text;
 }
 
 function countUp(el,target,dur=1100){
@@ -1404,6 +1429,27 @@ function visibleSectionCount(dN,total){
 /* ============================================================
    RENDER V2 — DÍA con disclosure progresivo
    ============================================================ */
+function isOnboarded(n){ try{ return localStorage.getItem(PREFIX+":onboarded:"+slug(state.name)+":"+n)==='1'; }catch(e){ return false; } }
+function markOnboarded(n){ try{ localStorage.setItem(PREFIX+":onboarded:"+slug(state.name)+":"+n,'1'); }catch(e){} }
+function renderOnboarding(n){
+  const av=sofiaAvatarMarkup();
+  const greet=state.name?`Hola, ${state.name}`:'Hola';
+  return `
+    <div class="onboarding-card" id="onboarding-card">
+      <div class="onboarding-avatar">${av}</div>
+      <div class="onboarding-body">
+        <p class="onboarding-greet">${greet} — soy Sofía</p>
+        <h3>Antes de arrancar, dos cosas</h3>
+        <p>Voy a aparecer a lo largo del día con dudas reales — probablemente las mismas que vas a tener vos. El recorrido es <strong>leés → interactuás → se desbloquea la siguiente sección</strong>. No podés saltar pasos: la mecánica es parte del aprendizaje.</p>
+        <p>Los insights que vas recolectando quedan en <strong>tu cuaderno</strong> (abajo a la derecha). Al cerrar el día, son el material para tu entregable.</p>
+        <div class="onboarding-actions">
+          <button class="btn btn-primary" data-onboard-dismiss>Arrancar el Día ${n} <span class="arr">→</span></button>
+        </div>
+      </div>
+      <button class="onboarding-close" data-onboard-dismiss aria-label="Cerrar">✕</button>
+    </div>`;
+}
+
 function renderDayV2(n){
   const d=COURSE.days[n-1], w=weekOf(n), done=isDone(n);
   const total=d.sections.length;
@@ -1411,6 +1457,7 @@ function renderDayV2(n){
   const hasQuiz=Array.isArray(d.quiz)&&d.quiz.length>0;
   const passed=hasQuiz?quizPassed(n):true;
   const allDone=visible===total && passed;
+  const onboardingHTML = isOnboarded(n) ? '' : renderOnboarding(n);
 
   const stepperHTML=d.sections.map((s,i)=>{
     let cls="step";
@@ -1453,6 +1500,7 @@ function renderDayV2(n){
             <span>⏱ ${d.duration}</span><span class="dot"></span><span>${w.title}</span>
           </div>
         </header>
+        ${onboardingHTML}
         <nav class="day-stepper" id="dayStepper" aria-label="Progreso del día">${stepperHTML}</nav>
         ${sectionsHTML}
         <aside class="deliverable">
@@ -1468,6 +1516,14 @@ function renderDayV2(n){
 
   const cb=app.querySelector("[data-complete]");
   if(cb) cb.addEventListener("click",()=>{ state.completed.add(n); saveProgress(); updateTopbar(); renderDay(n); showDayCelebration(n); });
+
+  app.querySelectorAll('[data-onboard-dismiss]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      markOnboarded(n);
+      const card=document.getElementById('onboarding-card');
+      if(card){ card.style.transition='opacity .25s,transform .25s'; card.style.opacity='0'; card.style.transform='translateY(-8px)'; setTimeout(()=>card.remove(),260); }
+    });
+  });
 
   app.querySelectorAll('.step.done').forEach(btn=>{
     btn.addEventListener('click',()=>{
