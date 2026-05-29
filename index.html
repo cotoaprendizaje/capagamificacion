@@ -580,6 +580,19 @@
     .family-grid,.principles-grid{grid-template-columns:1fr}
   }
 
+  /* ---------- Audio buttons (locución) ---------- */
+  .audio-btn{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:rgba(8,111,161,.10);color:var(--blue);border:1px solid rgba(8,111,161,.25);cursor:pointer;margin-left:.5rem;vertical-align:middle;transition:all .2s;font-family:inherit;padding:0;line-height:1;flex:none;font-size:.65rem}
+  .audio-btn::before{content:'🔊';line-height:1}
+  .audio-btn:hover{background:var(--blue);color:#fff;transform:scale(1.08);border-color:var(--blue)}
+  .audio-btn.playing{background:var(--green);color:#fff;border-color:var(--green);animation:audioPulse 1.4s ease-in-out infinite}
+  .audio-btn.playing::before{content:'⏸'}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 0 0 rgba(0,200,140,.45)}50%{box-shadow:0 0 0 7px rgba(0,200,140,0)}}
+  .audio-btn-inline{display:inline-flex;align-items:center;gap:.45rem;background:transparent;color:var(--blue);border:1px dashed var(--blue-light);padding:.32rem .75rem;border-radius:99px;font-size:.76rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;margin-bottom:.9rem;letter-spacing:.2px}
+  .audio-btn-inline::before{content:'🔊';font-size:.85rem}
+  .audio-btn-inline:hover{background:rgba(8,111,161,.06);border-color:var(--blue);border-style:solid}
+  .audio-btn-inline.playing{background:var(--green-soft);color:var(--green-ink);border-color:var(--green);border-style:solid;animation:audioPulse 1.4s ease-in-out infinite}
+  .audio-btn-inline.playing::before{content:'⏸'}
+
   /* ---------- Tooltips de términos técnicos ---------- */
   .term{border-bottom:1.5px dashed var(--blue-light);cursor:help;position:relative;transition:color .2s}
   .term:hover{color:var(--blue)}
@@ -1957,12 +1970,12 @@ function renderSectionV2(s,i,dayN,total){
       <div class="sofia-mini">${av}</div>
       <div style="flex:1">
         <p class="sofia-text">${s.sofia.text}</p>
-        <span class="sofia-attr">${s.sofia.name}</span>
+        <span class="sofia-attr">${s.sofia.name}<button class="audio-btn" data-audio data-audio-src="assets/audio/sofia-d${dayN}-s${i+1}-intro.mp3" aria-label="Escuchar a Sofía" type="button"></button></span>
       </div>
     </div>` : '';
 
   // Prose (the reading spine)
-  const readingHTML = s.reading ? `<div class="prose">${s.reading}</div>` : '';
+  const readingHTML = s.reading ? `<div class="prose"><button class="audio-btn-inline" data-audio aria-label="Escuchar este texto" type="button">Escuchar</button>${s.reading}</div>` : '';
 
   // Interactive
   const interactiveHTML = renderInteractiveV2(s.interactive, dayN, i);
@@ -2122,7 +2135,7 @@ function showSectionExtras(dayN,secIdx,performance){
     if(performance && sec.feedback[performance]) text=sec.feedback[performance];
     const fb=document.createElement('div');
     fb.className='sofia-reflect';
-    fb.innerHTML=`<div class="sofia-mini">${av}</div><p>${text}</p>`;
+    fb.innerHTML=`<div class="sofia-mini">${av}</div><p>${text}</p><button class="audio-btn" data-audio data-audio-src="assets/audio/sofia-d${dayN}-s${secIdx+1}-reflect.mp3" aria-label="Escuchar a Sofía" type="button"></button>`;
     const interactive=section.querySelector('.interactive');
     interactive.after(fb);
   }
@@ -2634,6 +2647,69 @@ function showDayCelebration(dayN){
       copyBtn.textContent='No pude copiar — seleccionalos abajo';
     }
   });
+}
+
+/* ============================================================
+   AUDIO MANAGER — MP3 si existe, fallback a Web Speech API
+   ============================================================ */
+const audioState = { current:null, currentBtn:null, type:null };
+function stopAudio(){
+  if(audioState.type==='file' && audioState.current){ audioState.current.pause(); audioState.current.currentTime=0; }
+  else if(audioState.type==='tts'){ try{speechSynthesis.cancel();}catch(e){} }
+  if(audioState.currentBtn) audioState.currentBtn.classList.remove('playing');
+  audioState.current=null; audioState.currentBtn=null; audioState.type=null;
+}
+function getCleanText(btn){
+  if(btn.dataset.audioText) return btn.dataset.audioText;
+  const card=btn.closest('.sofia-line, .sofia-reflect, .prose, .lead-key');
+  if(!card) return btn.parentElement?.textContent?.trim()||'';
+  const clone=card.cloneNode(true);
+  clone.querySelectorAll('.audio-btn, .audio-btn-inline').forEach(b=>b.remove());
+  return clone.textContent.replace(/\s+/g,' ').trim();
+}
+function playTTS(text, btn){
+  if(!text || !('speechSynthesis' in window)) return;
+  try{speechSynthesis.cancel();}catch(e){}
+  const utter=new SpeechSynthesisUtterance(text);
+  utter.lang='es-AR'; utter.rate=1.02; utter.pitch=1;
+  const voices=speechSynthesis.getVoices();
+  const v = voices.find(v=>v.lang==='es-AR')
+       || voices.find(v=>v.lang.startsWith('es-AR'))
+       || voices.find(v=>v.lang.startsWith('es-MX'))
+       || voices.find(v=>v.lang.startsWith('es-US'))
+       || voices.find(v=>v.lang.startsWith('es'));
+  if(v) utter.voice=v;
+  utter.addEventListener('end',stopAudio);
+  utter.addEventListener('error',stopAudio);
+  speechSynthesis.speak(utter);
+  audioState.current=utter; audioState.type='tts'; audioState.currentBtn=btn;
+  btn.classList.add('playing');
+}
+function playFromFile(src, text, btn){
+  const audio=new Audio(src);
+  audio.addEventListener('ended',stopAudio);
+  audio.addEventListener('error',()=>{ playTTS(text,btn); });
+  audio.play().then(()=>{
+    audioState.current=audio; audioState.type='file'; audioState.currentBtn=btn;
+    btn.classList.add('playing');
+  }).catch(()=>playTTS(text,btn));
+}
+document.addEventListener('click', e=>{
+  const btn=e.target.closest('[data-audio]');
+  if(!btn) return;
+  e.preventDefault(); e.stopPropagation();
+  if(audioState.currentBtn===btn){ stopAudio(); return; }
+  stopAudio();
+  const text=getCleanText(btn);
+  const src=btn.dataset.audioSrc;
+  if(src) playFromFile(src,text,btn);
+  else playTTS(text,btn);
+});
+window.addEventListener('hashchange', stopAudio);
+/* Pre-cargar voces (algunos browsers las cargan async) */
+if('speechSynthesis' in window){
+  speechSynthesis.getVoices();
+  speechSynthesis.addEventListener?.('voiceschanged', ()=>speechSynthesis.getVoices());
 }
 
 /* Tooltips: tap toggle (mobile) + close-on-outside-click */
